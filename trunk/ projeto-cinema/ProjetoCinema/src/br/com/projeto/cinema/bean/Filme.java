@@ -1,4 +1,4 @@
-package br.com.projeto.cinema.dao;
+package br.com.projeto.cinema.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
