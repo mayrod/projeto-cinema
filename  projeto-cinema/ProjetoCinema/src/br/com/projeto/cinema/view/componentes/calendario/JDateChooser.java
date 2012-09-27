@@ -197,7 +197,7 @@ public class JDateChooser extends JPanel implements ActionListener,
 
 		// Display a calendar button with an icon
 		URL iconURL = getClass().getResource(
-				"/br/com/easyShop/telas/calendario/JDateChooserIcon.gif");
+				"/br/com/projeto/cinema/view/componentes/calendario/JDateChooserIcon.gif");
 		ImageIcon icon = new ImageIcon(iconURL);
 
 		calendarButton = new JButton(icon) {

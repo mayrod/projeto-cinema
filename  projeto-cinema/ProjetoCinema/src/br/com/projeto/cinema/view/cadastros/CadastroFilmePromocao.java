@@ -59,13 +59,13 @@ public class CadastroFilmePromocao extends JFrame {
 		JButton button = new JButton("Limpar");
 		button.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/apagar.png")));
 		button.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		button.setBounds(10, 377, 151, 40);
+		button.setBounds(10, 388, 151, 30);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("Salvar");
 		button_1.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/salvar_36.png")));
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		button_1.setBounds(499, 377, 151, 40);
+		button_1.setBounds(499, 377, 151, 30);
 		contentPane.add(button_1);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
