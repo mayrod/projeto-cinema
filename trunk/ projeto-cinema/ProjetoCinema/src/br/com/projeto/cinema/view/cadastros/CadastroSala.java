@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastroSala extends JFrame {
 
@@ -45,18 +47,6 @@ public class CadastroSala extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(66, 111, 190, 25);
 		contentPane.add(comboBox);
-		
-		JButton button = new JButton("Limpar");
-		button.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/apagar.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		button.setBounds(10, 258, 151, 40);
-		contentPane.add(button);
-		
-		JButton button_1 = new JButton("Salvar");
-		button_1.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/salvar_36.png")));
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		button_1.setBounds(492, 258, 151, 40);
-		contentPane.add(button_1);
 		
 		JLabel label_2 = new JLabel("C\u00F3digo:");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -87,5 +77,21 @@ public class CadastroSala extends JFrame {
 		separator.setForeground(Color.GRAY);
 		separator.setBounds(272, 26, 2, 196);
 		contentPane.add(separator);
+		
+		JButton button_2 = new JButton("  Salvar");
+		button_2.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_2.setBounds(483, 257, 160, 41);
+		contentPane.add(button_2);
+		
+		JButton button_3 = new JButton("  Limpar");
+		button_3.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		button_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_3.setBounds(10, 257, 160, 41);
+		contentPane.add(button_3);
 	}
 }

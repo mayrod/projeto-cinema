@@ -30,6 +30,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class CadastroAtor extends JFrame {
 
@@ -42,34 +46,38 @@ public class CadastroAtor extends JFrame {
 	 */
 	public CadastroAtor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 512, 440);
+		setBounds(100, 100, 635, 211);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnSalvar.setBounds(335, 351, 151, 40);
-		btnSalvar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/salvar_36.png")));
-		contentPane.add(btnSalvar);
-		
-		JButton btnLimpar = new JButton("Limpar");
-		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnLimpar.setBounds(10, 351, 151, 40);
-		btnLimpar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/apagar.png")));
-		contentPane.add(btnLimpar);
-		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(145, 21, 258, 25);
+		textField.setBounds(66, 45, 214, 25);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNome.setBounds(89, 21, 46, 25);
+		lblNome.setBounds(10, 45, 46, 25);
 		contentPane.add(lblNome);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(299, 11, 310, 96);
+		contentPane.add(scrollPane);
+		
+		JButton button = new JButton("  Salvar");
+		button.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
+		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button.setBounds(449, 121, 160, 41);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("  Limpar");
+		button_1.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
+		button_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_1.setBounds(10, 121, 160, 41);
+		contentPane.add(button_1);
 		
 	}
 }
