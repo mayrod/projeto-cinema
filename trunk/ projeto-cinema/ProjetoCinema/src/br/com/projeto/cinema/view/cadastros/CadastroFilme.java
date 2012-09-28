@@ -72,7 +72,7 @@ public class CadastroFilme extends JFrame {
 		lblTtulo.setBounds(214, 11, 55, 25);
 		contentPane.add(lblTtulo);
 		
-		JLabel lblTipoAudio = new JLabel("Audio:");
+		JLabel lblTipoAudio = new JLabel("\u00C1udio:");
 		lblTipoAudio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTipoAudio.setBounds(10, 118, 46, 25);
 		contentPane.add(lblTipoAudio);
@@ -102,10 +102,10 @@ public class CadastroFilme extends JFrame {
 		lblSinopse.setBounds(10, 225, 55, 25);
 		contentPane.add(lblSinopse);
 		
-		JLabel lblTreiler = new JLabel("Treiler:");
-		lblTreiler.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTreiler.setBounds(10, 190, 55, 25);
-		contentPane.add(lblTreiler);
+		JLabel lblTrailer = new JLabel("Trailer");
+		lblTrailer.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTrailer.setBounds(10, 190, 55, 25);
+		contentPane.add(lblTrailer);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
@@ -206,13 +206,13 @@ public class CadastroFilme extends JFrame {
 			}
 		});
 		button_3.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_3.setBounds(624, 264, 160, 41);
 		contentPane.add(button_3);
 		
 		JButton btnLimpar = new JButton("  Limpar");
 		btnLimpar.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLimpar.setBounds(624, 368, 160, 41);
 		contentPane.add(btnLimpar);
 		
@@ -236,7 +236,7 @@ public class CadastroFilme extends JFrame {
 		
 		JButton button_4 = new JButton("  Remover");
 		button_4.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
-		button_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_4.setBounds(624, 316, 160, 41);
 		contentPane.add(button_4);
 	}

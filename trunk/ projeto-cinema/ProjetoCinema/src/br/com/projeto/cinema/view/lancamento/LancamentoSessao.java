@@ -57,19 +57,19 @@ public class LancamentoSessao extends JFrame {
 		
 		JButton button = new JButton("  Remover");
 		button.setIcon(new ImageIcon(LancamentoSessao.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button.setBounds(284, 228, 160, 41);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("  Limpar");
 		button_1.setIcon(new ImageIcon(LancamentoSessao.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_1.setBounds(10, 228, 160, 41);
 		contentPane.add(button_1);
 		
 		JButton button_2 = new JButton("  Salvar");
 		button_2.setIcon(new ImageIcon(LancamentoSessao.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_2.setBounds(566, 228, 160, 41);
 		contentPane.add(button_2);
 		
