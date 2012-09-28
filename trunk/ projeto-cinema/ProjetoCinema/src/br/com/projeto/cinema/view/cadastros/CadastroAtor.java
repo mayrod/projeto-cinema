@@ -79,5 +79,11 @@ public class CadastroAtor extends JFrame {
 		button_1.setBounds(10, 121, 160, 41);
 		contentPane.add(button_1);
 		
+		JButton button_2 = new JButton("  Remover");
+		button_2.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_2.setBounds(227, 121, 160, 41);
+		contentPane.add(button_2);
+		
 	}
 }
