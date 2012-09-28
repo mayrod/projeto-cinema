@@ -107,11 +107,13 @@ public class CadastroFilmePromocao extends JFrame {
 		contentPane.add(textPane);
 		
 		JButton button = new JButton("  Salvar");
+		button.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		button.setBounds(490, 359, 160, 41);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("  Limpar");
+		button_1.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		button_1.setBounds(10, 359, 160, 41);
 		contentPane.add(button_1);
@@ -125,5 +127,11 @@ public class CadastroFilmePromocao extends JFrame {
 		separator.setForeground(Color.GRAY);
 		separator.setBounds(280, 11, 2, 322);
 		contentPane.add(separator);
+		
+		JButton button_2 = new JButton("  Remover");
+		button_2.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_2.setBounds(244, 359, 160, 41);
+		contentPane.add(button_2);
 	}
 }

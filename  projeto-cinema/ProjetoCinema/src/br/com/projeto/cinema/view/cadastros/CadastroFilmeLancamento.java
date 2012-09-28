@@ -56,13 +56,21 @@ public class CadastroFilmeLancamento extends JFrame {
 		contentPane.add(scrollPane);
 		
 		JButton button = new JButton("  Limpar");
+		button.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		button.setBounds(10, 121, 160, 41);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("  Salvar");
+		button_1.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		button_1.setBounds(515, 121, 160, 41);
 		contentPane.add(button_1);
+		
+		JButton button_2 = new JButton("  Remover");
+		button_2.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_2.setBounds(258, 121, 160, 41);
+		contentPane.add(button_2);
 	}
 }

@@ -41,31 +41,31 @@ public class CadastroSala extends JFrame {
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTipo.setBounds(10, 111, 46, 25);
+		lblTipo.setBounds(10, 110, 46, 25);
 		contentPane.add(lblTipo);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(66, 111, 190, 25);
+		comboBox.setBounds(66, 110, 190, 25);
 		contentPane.add(comboBox);
 		
 		JLabel label_2 = new JLabel("C\u00F3digo:");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_2.setBounds(10, 65, 55, 25);
+		label_2.setBounds(10, 74, 55, 25);
 		contentPane.add(label_2);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(66, 67, 190, 25);
+		textField.setBounds(66, 76, 190, 25);
 		contentPane.add(textField);
 		
 		JLabel lblCapacidade = new JLabel("Capacidade:");
 		lblCapacidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCapacidade.setBounds(10, 147, 75, 25);
+		lblCapacidade.setBounds(10, 146, 75, 25);
 		contentPane.add(lblCapacidade);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(95, 149, 161, 25);
+		textField_1.setBounds(95, 148, 161, 25);
 		contentPane.add(textField_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -93,5 +93,11 @@ public class CadastroSala extends JFrame {
 		button_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		button_3.setBounds(10, 257, 160, 41);
 		contentPane.add(button_3);
+		
+		JButton button = new JButton("  Remover");
+		button.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button.setBounds(244, 258, 160, 41);
+		contentPane.add(button);
 	}
 }

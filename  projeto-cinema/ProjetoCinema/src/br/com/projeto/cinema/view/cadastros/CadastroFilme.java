@@ -207,13 +207,13 @@ public class CadastroFilme extends JFrame {
 		});
 		button_3.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		button_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		button_3.setBounds(624, 284, 160, 41);
+		button_3.setBounds(624, 264, 160, 41);
 		contentPane.add(button_3);
 		
 		JButton btnLimpar = new JButton("  Limpar");
 		btnLimpar.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnLimpar.setBounds(624, 340, 160, 41);
+		btnLimpar.setBounds(624, 368, 160, 41);
 		contentPane.add(btnLimpar);
 		
 		JLabel lblProdutora = new JLabel("Produtora:");
@@ -233,5 +233,11 @@ public class CadastroFilme extends JFrame {
 		JComboBox comboBox_7 = new JComboBox();
 		comboBox_7.setBounds(343, 81, 222, 25);
 		contentPane.add(comboBox_7);
+		
+		JButton button_4 = new JButton("  Remover");
+		button_4.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		button_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_4.setBounds(624, 316, 160, 41);
+		contentPane.add(button_4);
 	}
 }
