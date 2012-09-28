@@ -80,7 +80,7 @@ public class CadastroSala extends JFrame {
 		
 		JButton button_2 = new JButton("  Salvar");
 		button_2.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_2.setBounds(483, 257, 160, 41);
 		contentPane.add(button_2);
 		
@@ -90,13 +90,13 @@ public class CadastroSala extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		button_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_3.setBounds(10, 257, 160, 41);
 		contentPane.add(button_3);
 		
 		JButton button = new JButton("  Remover");
 		button.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button.setBounds(244, 258, 160, 41);
 		contentPane.add(button);
 	}

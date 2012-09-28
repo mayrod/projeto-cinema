@@ -49,13 +49,13 @@ public class CadastroHorarioPreco extends JFrame {
 		
 		JButton button = new JButton("  Limpar");
 		button.setIcon(new ImageIcon(CadastroHorarioPreco.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button.setBounds(10, 306, 160, 41);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("  Salvar");
 		button_1.setIcon(new ImageIcon(CadastroHorarioPreco.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_1.setBounds(438, 306, 160, 41);
 		contentPane.add(button_1);
 		
@@ -83,7 +83,7 @@ public class CadastroHorarioPreco extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNovo.setBounds(224, 306, 160, 41);
 		contentPane.add(btnNovo);
 	}

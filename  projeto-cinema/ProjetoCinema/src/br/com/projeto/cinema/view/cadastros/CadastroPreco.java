@@ -35,13 +35,13 @@ public class CadastroPreco extends JFrame {
 		
 		JButton button = new JButton("  Salvar");
 		button.setIcon(new ImageIcon(CadastroPreco.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button.setBounds(350, 173, 160, 41);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("  Limpar");
 		button_1.setIcon(new ImageIcon(CadastroPreco.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		button_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button_1.setBounds(10, 173, 160, 41);
 		contentPane.add(button_1);
 		
