@@ -19,7 +19,6 @@ import br.com.projeto.cinema.bean.Produtora;
 import br.com.projeto.cinema.bean.Sala;
 import br.com.projeto.cinema.bean.Usuario;
 
-
 public class GeraTabelas {
 
 	public static void main(String[] args) {

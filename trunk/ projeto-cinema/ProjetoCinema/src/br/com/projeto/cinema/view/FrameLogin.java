@@ -16,6 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import br.com.projeto.cinema.bean.Usuario;
+import br.com.projeto.cinema.dao.UsuarioDAO;
+
 
 public class FrameLogin extends JInternalFrame {
 	/**
@@ -140,23 +143,31 @@ public class FrameLogin extends JInternalFrame {
 		}
 	}
 
-	private void verificaLogin() {
-		 
-		/*try{
-			FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-			@SuppressWarnings("deprecation")
-			Funcionario funcionario = funcionarioDao.getFuncionario(txtSenha.getText(), txtUsuario.getText());
+	private void verificaLogin() 
+	{		 
+		try
+		{
+			Usuario usuario = new Usuario();
+			usuario.setLogin(txtUsuario.getText());
+			usuario.setSenha(txtSenha.getText());
 			
-			FrameSistema.setFuncionario(funcionario);
-			FrameSistema.permissao();
-			FrameLogin.this.setVisible(false);
-		}catch (Exception e) {
+			if(new UsuarioDAO().verificarLogin(usuario)!=null)
+			{
+				FrameSistema.permissao();
+				FrameLogin.this.setVisible(false);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Login ou senha inválidos!");
+				txtUsuario.setFocusable(true);
+			}
+			
+		}catch (Exception e) 
+		{
 			JOptionPane.showMessageDialog(null, "Login ou senha inválidos!");
 			txtUsuario.setFocusable(true);
-		}*/
-
+		}
 	}
-
 }
 
 	
