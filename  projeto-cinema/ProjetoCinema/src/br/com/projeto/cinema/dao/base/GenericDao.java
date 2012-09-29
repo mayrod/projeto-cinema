@@ -3,10 +3,29 @@ package br.com.projeto.cinema.dao.base;
 
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.DataException;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+
+import br.com.projeto.cinema.bean.Ator;
+import br.com.projeto.cinema.bean.AvaliacaoFilme;
+import br.com.projeto.cinema.bean.Elenco;
+import br.com.projeto.cinema.bean.Filme;
+import br.com.projeto.cinema.bean.FilmeCartaz;
+import br.com.projeto.cinema.bean.FilmeCategoria;
+import br.com.projeto.cinema.bean.FilmeHorarioExibicao;
+import br.com.projeto.cinema.bean.FilmeLancamento;
+import br.com.projeto.cinema.bean.FilmePromocao;
+import br.com.projeto.cinema.bean.HorarioExibicao;
+import br.com.projeto.cinema.bean.Pessoa;
+import br.com.projeto.cinema.bean.Preco;
+import br.com.projeto.cinema.bean.Produtora;
+import br.com.projeto.cinema.bean.Sala;
+import br.com.projeto.cinema.bean.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -34,20 +53,23 @@ public class GenericDao<T extends Serializable> {
 	        return entityManager;
 	    }
 
-	    public void save(T entity) {
+	    public T save(T entity) {
 	        EntityTransaction tx = getEntityManager().getTransaction();
 
 	        try {
 	            tx.begin();
 	            getEntityManager().persist(entity);
 	            tx.commit();
-	
+	            return entity;
+	            
 	        } catch (Throwable t) {
 	            t.printStackTrace();
 	            tx.rollback();
 	        } finally {
 	            close();
 	        }
+	        
+	        return null;
 	    }
 	
 
@@ -114,7 +136,33 @@ public class GenericDao<T extends Serializable> {
 	
 		    Integer count = (Integer) criteria.uniqueResult();
 		    return count;
-	  }
+	 	}
+	   
+		public T obtem(String query, Class<T> classe) throws Exception
+		{
+			Session session = (Session) getEntityManager().getDelegate();
+			
+			SQLQuery select = session.createSQLQuery(query).addEntity(classe);  
+			
+			if(select.list()!=null && select.list().size()>0 && select.list().get(0)!=null)
+			{
+				return (T) select.list().get(0);
+			}
+			return null;
+		}
+		
+		public List<T> obtemTodos(String query, Class<T> classe) throws Exception
+		{
+			Session session = (Session) getEntityManager().getDelegate();
+			
+			SQLQuery select = session.createSQLQuery(query).addEntity(classe);  
+			
+			if(select.list()!=null && select.list().size()>0)
+			{
+				return select.list();
+			}
+			return null;
+		}
 }
 
 

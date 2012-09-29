@@ -47,7 +47,4 @@ public class FilmeCartaz implements Serializable{
 	public void setDataTermino(Date dataTermino) {
 		this.dataTermino = dataTermino;
 	}
-	
-	
-
 }

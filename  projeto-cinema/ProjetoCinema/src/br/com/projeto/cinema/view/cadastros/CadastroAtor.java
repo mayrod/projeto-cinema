@@ -20,6 +20,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -31,16 +33,21 @@ import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
-public class CadastroAtor extends JFrame {
+import br.com.projeto.cinema.bean.Ator;
+import br.com.projeto.cinema.dao.AtorDAO;
 
+public class CadastroAtor extends JFrame 
+{
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txNome;
 	private JTable table;
+	private JButton btSalvar;
 
 	/**
 	 * Create the frame.
 	 */
-	public CadastroAtor() {
+	public CadastroAtor() 
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 635, 211);
 		contentPane = new JPanel();
@@ -48,11 +55,11 @@ public class CadastroAtor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(66, 45, 214, 25);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txNome = new JTextField();
+		txNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txNome.setBounds(66, 45, 214, 25);
+		contentPane.add(txNome);
+		txNome.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -63,11 +70,12 @@ public class CadastroAtor extends JFrame {
 		scrollPane.setBounds(299, 11, 310, 96);
 		contentPane.add(scrollPane);
 		
-		JButton button = new JButton("  Salvar");
-		button.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		button.setBounds(449, 121, 160, 41);
-		contentPane.add(button);
+		btSalvar = new JButton("  Salvar");
+		btSalvar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
+		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btSalvar.setBounds(449, 121, 160, 41);
+		contentPane.add(btSalvar);
+		btSalvar.addActionListener(new escutaBotao());
 		
 		JButton button_1 = new JButton("  Limpar");
 		button_1.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
@@ -80,6 +88,28 @@ public class CadastroAtor extends JFrame {
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		button_2.setBounds(227, 121, 160, 41);
 		contentPane.add(button_2);
+	}
 		
+	private class escutaBotao implements ActionListener 
+	{
+		public void actionPerformed(ActionEvent e) 
+		{		
+			if(e.getSource()==btSalvar) { salvar(); }			
+		}
+	}
+	
+	public void salvar()
+	{
+		if(txNome.getText().length()>0)
+		{
+			Ator ator = new Ator();		
+			ator.setNome(txNome.getText());
+			
+			new AtorDAO().salvar(ator);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Digite um nome por favor!","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
+		}
 	}
 }
