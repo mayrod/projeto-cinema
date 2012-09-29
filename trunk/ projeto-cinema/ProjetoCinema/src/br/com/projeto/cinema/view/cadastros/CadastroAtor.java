@@ -42,7 +42,12 @@ public class CadastroAtor extends JFrame
 	private JTextField txNome;
 	private JTable table;
 	private JButton btSalvar;
-
+	private final DefaultTableModel modelo = new DefaultTableModel();
+	private JTable tblContato;
+	private JButton btRemover;
+	private JButton brLimpar;
+	private Ator registro;	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -70,6 +75,12 @@ public class CadastroAtor extends JFrame
 		scrollPane.setBounds(299, 11, 310, 96);
 		contentPane.add(scrollPane);
 		
+		modelo.addColumn("Nome");
+
+		tblContato = new JTable(modelo);
+		scrollPane.setViewportView(tblContato);
+		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -77,25 +88,36 @@ public class CadastroAtor extends JFrame
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
-		JButton button_1 = new JButton("  Limpar");
-		button_1.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		button_1.setBounds(10, 121, 160, 41);
-		contentPane.add(button_1);
+		brLimpar = new JButton("  Limpar");
+		brLimpar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
+		brLimpar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		brLimpar.setBounds(10, 121, 160, 41);
+		contentPane.add(brLimpar);
+		brLimpar.addActionListener(new escutaBotao());
 		
-		JButton button_2 = new JButton("  Remover");
-		button_2.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		button_2.setBounds(227, 121, 160, 41);
-		contentPane.add(button_2);
+		btRemover = new JButton("  Remover");
+		btRemover.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btRemover.setBounds(227, 121, 160, 41);
+		contentPane.add(btRemover);
+		btRemover.addActionListener(new escutaBotao());
 	}
 		
 	private class escutaBotao implements ActionListener 
 	{
 		public void actionPerformed(ActionEvent e) 
 		{		
-			if(e.getSource()==btSalvar) { salvar(); }			
+			if(e.getSource()==btSalvar) 		{ salvar(); }	
+			else if(e.getSource()==btRemover) 	{ remover();}	
+			else if(e.getSource()==brLimpar)	{ limpar();	}
+			
 		}
+	}
+	
+	public void limpar()
+	{
+		registro = new Ator();
+		txNome.setText("");
 	}
 	
 	public void salvar()
@@ -105,11 +127,28 @@ public class CadastroAtor extends JFrame
 			Ator ator = new Ator();		
 			ator.setNome(txNome.getText());
 			
-			new AtorDAO().salvar(ator);
+			modelo.addRow(new Object[]{txNome.getText()});
+			txNome.setText("");
+			
+			registro = new AtorDAO().salvar(ator);
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(null,"Digite um nome por favor!","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
 		}
 	}
+	
+	public void remover()
+	{
+		if(tblContato.getSelectedRow()!=-1)
+		{
+			modelo.removeRow(tblContato.getSelectedRow());
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
+		}
+	}
+	
+	
 }
