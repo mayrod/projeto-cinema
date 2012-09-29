@@ -83,21 +83,21 @@ public class CadastroAtor extends JFrame
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btSalvar.setBounds(449, 121, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		brLimpar = new JButton("  Limpar");
 		brLimpar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		brLimpar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		brLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		brLimpar.setBounds(10, 121, 160, 41);
 		contentPane.add(brLimpar);
 		brLimpar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
-		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btRemover.setBounds(227, 121, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
