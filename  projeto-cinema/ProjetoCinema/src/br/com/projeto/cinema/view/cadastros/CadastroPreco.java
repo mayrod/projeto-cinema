@@ -1,20 +1,22 @@
 package br.com.projeto.cinema.view.cadastros;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
 import java.awt.Font;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class CadastroPreco extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 
@@ -22,6 +24,7 @@ public class CadastroPreco extends JFrame {
 	 * Create the frame.
 	 */
 	public CadastroPreco() {
+		setTitle("Cadastro Pre\u00E7o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 536, 263);
 		contentPane = new JPanel();
