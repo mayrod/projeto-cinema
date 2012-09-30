@@ -23,6 +23,9 @@ public class Sala implements Serializable{
 	
 	@Column(name = "codigo")
 	private String codigo;
+	
+	@Column(name = "tipoSala")
+	private String tipoSala;
 
 	public Long getPkSala() {
 		return pkSala;
@@ -46,6 +49,14 @@ public class Sala implements Serializable{
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getTipoSala() {
+		return tipoSala;
+	}
+
+	public void setTipoSala(String tipoSala) {
+		this.tipoSala = tipoSala;
 	}
 
 }

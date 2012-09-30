@@ -2,13 +2,16 @@ package br.com.projeto.cinema.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +41,9 @@ public class FilmePromocao implements Serializable{
 
 	@ManyToOne @JoinColumn(name="fkFilme")
 	private Filme filme;
+	
+	@OneToMany @JoinTable(name="horario_filme_promocao" , joinColumns = @JoinColumn(name = "pkFilmePromocao"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
+	private List<FilmeHorario> horarios;
 	
 	public Long getPkFilmePromocao() {
 		return pkFilmePromocao;
@@ -93,5 +99,13 @@ public class FilmePromocao implements Serializable{
 
 	public void setFilme(Filme filme) {
 		this.filme = filme;
+	}
+
+	public List<FilmeHorario> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<FilmeHorario> horarios) {
+		this.horarios = horarios;
 	}
 }

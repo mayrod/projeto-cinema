@@ -1,11 +1,14 @@
 package br.com.projeto.cinema.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +21,12 @@ public class Elenco implements Serializable{
 	@Column(name = "pkElenco")
 	private Long pkElenco;
 	
-	@Column(name = "tipo")
-	private String tipo;
-
+	@Column(name = "tipoPapel")
+	private String tipoPapel;
+    
+	@OneToMany @JoinTable(name="atores_elenco")
+	private List<Ator> atores; 
+	
 	public Long getPkElenco() {
 		return pkElenco;
 	}
@@ -29,12 +35,20 @@ public class Elenco implements Serializable{
 		this.pkElenco = pkElenco;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getTipoPapel() {
+		return tipoPapel;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipoPapel(String tipoPapel) {
+		this.tipoPapel = tipoPapel;
+	}
+
+	public List<Ator> getAtores() {
+		return atores;
+	}
+
+	public void setAtores(List<Ator> atores) {
+		this.atores = atores;
 	}
 	
 	

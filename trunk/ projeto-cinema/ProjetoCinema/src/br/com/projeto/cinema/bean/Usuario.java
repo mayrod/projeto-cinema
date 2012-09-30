@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +28,9 @@ public class Usuario implements Serializable{
 		
 		@Column(name = "administrador")
 		private Integer administrador;
+		
+		@OneToOne @JoinColumn(name="fkPessoa")
+		private Pessoa pessoa;
 
 		public Long getPkUsuario() {
 			return pkUsuario;
@@ -57,6 +62,14 @@ public class Usuario implements Serializable{
 
 		public void setAdministrador(Integer administrador) {
 			this.administrador = administrador;
+		}
+
+		public Pessoa getPessoa() {
+			return pessoa;
+		}
+
+		public void setPessoa(Pessoa pessoa) {
+			this.pessoa = pessoa;
 		}
 
 
