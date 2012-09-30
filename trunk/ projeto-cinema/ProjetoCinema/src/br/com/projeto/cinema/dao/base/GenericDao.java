@@ -17,10 +17,10 @@ import br.com.projeto.cinema.bean.Elenco;
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeCartaz;
 import br.com.projeto.cinema.bean.FilmeCategoria;
-import br.com.projeto.cinema.bean.FilmeHorarioExibicao;
+import br.com.projeto.cinema.bean.FilmeHorario;
 import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.bean.FilmePromocao;
-import br.com.projeto.cinema.bean.HorarioExibicao;
+import br.com.projeto.cinema.bean.Horario;
 import br.com.projeto.cinema.bean.Pessoa;
 import br.com.projeto.cinema.bean.Preco;
 import br.com.projeto.cinema.bean.Produtora;
@@ -37,7 +37,7 @@ import java.util.List;
 
 public class GenericDao<T extends Serializable> {
 
-	  @PersistenceContext(unitName = "pet")	
+	  @PersistenceContext(unitName = "cinema")	
 	    private final EntityManager entityManager;
 	
 	    private final Class<T> persistentClass;
