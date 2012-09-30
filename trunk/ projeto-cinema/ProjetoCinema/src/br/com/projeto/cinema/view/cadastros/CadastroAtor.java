@@ -22,6 +22,10 @@ import br.com.projeto.cinema.dao.AtorDAO;
 
 public class CadastroAtor extends JFrame 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txNome;
 	private DefaultTableModel modelo = new DefaultTableModel();
@@ -36,6 +40,7 @@ public class CadastroAtor extends JFrame
 	 */
 	public CadastroAtor() 
 	{
+		setTitle("Cadastro Ator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 635, 211);
 		contentPane = new JPanel();

@@ -1,33 +1,33 @@
 package br.com.projeto.cinema.view.cadastros;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 
-import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
-import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
 
 public class CadastroFilmeLancamento extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JDateChooser data = new JDateChooser();
 	private DefaultTableModel modelo = new DefaultTableModel();
@@ -43,6 +43,7 @@ public class CadastroFilmeLancamento extends JFrame {
 	 */
 	public CadastroFilmeLancamento() 
 	{
+		setTitle("Cadastro Filme Lan\u00E7amento");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 707, 210);
 		contentPane = new JPanel();

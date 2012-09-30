@@ -1,29 +1,28 @@
 package br.com.projeto.cinema.view.cadastros;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JComboBox;
-import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
 
 public class CadastroSala extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -32,6 +31,7 @@ public class CadastroSala extends JFrame {
 	 * Create the frame.
 	 */
 	public CadastroSala() {
+		setTitle("Cadastro Sala");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 669, 347);
 		contentPane = new JPanel();

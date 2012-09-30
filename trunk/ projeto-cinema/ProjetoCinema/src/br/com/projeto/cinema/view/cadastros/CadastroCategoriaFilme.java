@@ -15,15 +15,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.FilmeCategoria;
 
 public class CadastroCategoriaFilme extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txNome;
 	private JButton btLimpar;
@@ -38,6 +39,7 @@ public class CadastroCategoriaFilme extends JFrame {
 	 * Create the frame.
 	 */
 	public CadastroCategoriaFilme() {
+		setTitle("Cadastro Categoria");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 634, 210);
 		contentPane = new JPanel();
