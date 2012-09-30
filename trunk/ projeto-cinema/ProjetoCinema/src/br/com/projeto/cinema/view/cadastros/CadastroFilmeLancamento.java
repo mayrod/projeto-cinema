@@ -5,13 +5,23 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
+import br.com.projeto.cinema.bean.Filme;
+import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
@@ -19,8 +29,15 @@ import javax.swing.JScrollPane;
 public class CadastroFilmeLancamento extends JFrame {
 
 	private JPanel contentPane;
-	private final JDateChooser calendarDataDeNasc = new JDateChooser();
-
+	private JDateChooser data = new JDateChooser();
+	private DefaultTableModel modelo = new DefaultTableModel();
+	private JTable tblContato;
+	private JButton btSalvar;
+	private JButton btRemover;
+	private JButton btLimpar;
+	private FilmeLancamento registro;	
+	private JComboBox cbFilme;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -43,34 +60,96 @@ public class CadastroFilmeLancamento extends JFrame {
 		lblData.setBounds(10, 63, 114, 25);
 		contentPane.add(lblData);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(66, 27, 213, 25);
-		contentPane.add(comboBox);
+		cbFilme = new JComboBox();
+		cbFilme.setBounds(66, 27, 213, 25);
+		contentPane.add(cbFilme);
 		
-		calendarDataDeNasc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		calendarDataDeNasc.setBounds(134, 63, 145, 25);
-		contentPane.add(calendarDataDeNasc);
+		data.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		data.setBounds(134, 63, 145, 25);
+		contentPane.add(data);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(306, 11, 369, 96);
 		contentPane.add(scrollPane);
 		
-		JButton button = new JButton("  Limpar");
-		button.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button.setBounds(10, 121, 160, 41);
-		contentPane.add(button);
+		modelo.addColumn("Filme");
+		modelo.addColumn("Data Lançamento");
+
+		tblContato = new JTable(modelo);
+		scrollPane.setViewportView(tblContato);
+		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
-		JButton button_1 = new JButton("  Salvar");
-		button_1.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_1.setBounds(515, 121, 160, 41);
-		contentPane.add(button_1);
+		btLimpar = new JButton("  Limpar");
+		btLimpar.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
+		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btLimpar.setBounds(10, 121, 160, 41);
+		contentPane.add(btLimpar);
+		btLimpar.addActionListener(new escutaBotao());
 		
-		JButton button_2 = new JButton("  Remover");
-		button_2.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_2.setBounds(258, 121, 160, 41);
-		contentPane.add(button_2);
+		btSalvar = new JButton("  Salvar");
+		btSalvar.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
+		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btSalvar.setBounds(515, 121, 160, 41);
+		contentPane.add(btSalvar);
+		btSalvar.addActionListener(new escutaBotao());
+		
+		btRemover = new JButton("  Remover");
+		btRemover.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btRemover.setBounds(258, 121, 160, 41);
+		contentPane.add(btRemover);
+		btRemover.addActionListener(new escutaBotao());
+	}
+	
+	private class escutaBotao implements ActionListener 
+	{
+		public void actionPerformed(ActionEvent e) 
+		{		
+			if(e.getSource()==btSalvar) 		{ salvar(); }	
+			else if(e.getSource()==btRemover) 	{ remover();}	
+			else if(e.getSource()==btLimpar)	{ limpar();	}
+			
+		}
+	}
+	
+	public void limpar()
+	{
+		registro = new FilmeLancamento();
+		
+		cbFilme.setSelectedItem(null);
+		data.setDate(null);
+	}
+	
+	public void salvar()
+	{
+		if(cbFilme.getSelectedItem()!=null)
+		{
+			registro = new FilmeLancamento();		
+			registro.setFilme((Filme) cbFilme.getSelectedItem());
+			registro.setDataEstreia((Date) data.getDate());
+			
+			modelo.addRow(new Object[]{registro});
+			limpar();
+			
+//			registro = new AtorDAO().salvar(ator);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Selecione um filme por favor!","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
+		}
+	}
+	
+	public void remover()
+	{
+		if(tblContato.getSelectedRow()!=-1)
+		{
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((Filme) modelo.getValueAt(tblContato.getSelectedRow(),0)).getTitulo() 
+					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
+			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
+		}
 	}
 }

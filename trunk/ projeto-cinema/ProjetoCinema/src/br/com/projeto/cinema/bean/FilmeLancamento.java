@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +23,9 @@ public class FilmeLancamento implements Serializable{
 	
 	@Column(name = "dataEstreia")
 	private Date dataEstreia;
+	
+	@ManyToOne @JoinColumn(name="fkFilme")
+	private Filme filme;
 
 	public Long getPkFilmeLancamento() {
 		return pkFilmeLancamento;
@@ -37,7 +42,12 @@ public class FilmeLancamento implements Serializable{
 	public void setDataEstreia(Date dataEstreia) {
 		this.dataEstreia = dataEstreia;
 	}
-	
-	
 
+	public Filme getFilme() {
+		return filme;
+	}
+
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	}
 }

@@ -1,37 +1,21 @@
 package br.com.projeto.cinema.view.cadastros;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.SpringLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
-import javax.swing.BoxLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.BevelBorder;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import java.awt.Color;
-import javax.swing.SwingConstants;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.Ator;
 import br.com.projeto.cinema.dao.AtorDAO;
@@ -40,12 +24,11 @@ public class CadastroAtor extends JFrame
 {
 	private JPanel contentPane;
 	private JTextField txNome;
-	private JTable table;
-	private JButton btSalvar;
-	private final DefaultTableModel modelo = new DefaultTableModel();
+	private DefaultTableModel modelo = new DefaultTableModel();
 	private JTable tblContato;
+	private JButton btSalvar;
 	private JButton btRemover;
-	private JButton brLimpar;
+	private JButton btLimpar;
 	private Ator registro;	
 	
 	/**
@@ -88,12 +71,12 @@ public class CadastroAtor extends JFrame
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
-		brLimpar = new JButton("  Limpar");
-		brLimpar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		brLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		brLimpar.setBounds(10, 121, 160, 41);
-		contentPane.add(brLimpar);
-		brLimpar.addActionListener(new escutaBotao());
+		btLimpar = new JButton("  Limpar");
+		btLimpar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
+		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btLimpar.setBounds(10, 121, 160, 41);
+		contentPane.add(btLimpar);
+		btLimpar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
@@ -109,7 +92,7 @@ public class CadastroAtor extends JFrame
 		{		
 			if(e.getSource()==btSalvar) 		{ salvar(); }	
 			else if(e.getSource()==btRemover) 	{ remover();}	
-			else if(e.getSource()==brLimpar)	{ limpar();	}
+			else if(e.getSource()==btLimpar)	{ limpar();	}
 			
 		}
 	}
@@ -124,13 +107,13 @@ public class CadastroAtor extends JFrame
 	{
 		if(txNome.getText().length()>0)
 		{
-			Ator ator = new Ator();		
-			ator.setNome(txNome.getText());
+			registro = new Ator();		
+			registro.setNome(txNome.getText());
 			
-			modelo.addRow(new Object[]{txNome.getText()});
-			txNome.setText("");
+			modelo.addRow(new Object[]{registro});
+			limpar();
 			
-			registro = new AtorDAO().salvar(ator);
+			registro = new AtorDAO().salvar(registro);
 		}
 		else
 		{
@@ -142,13 +125,13 @@ public class CadastroAtor extends JFrame
 	{
 		if(tblContato.getSelectedRow()!=-1)
 		{
-			modelo.removeRow(tblContato.getSelectedRow());
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
+					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
+			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
 		}
 	}
-	
-	
 }

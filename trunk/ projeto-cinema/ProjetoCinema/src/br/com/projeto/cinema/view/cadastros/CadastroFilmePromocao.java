@@ -9,16 +9,25 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
+
+import br.com.projeto.cinema.bean.Filme;
+import br.com.projeto.cinema.bean.FilmePromocao;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -26,10 +35,19 @@ import javax.swing.SwingConstants;
 public class CadastroFilmePromocao extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTable table;
-
+	private JTextField txCodigo;
+	private JTextField txPorcentagemPromocao;
+	private DefaultTableModel modelo = new DefaultTableModel();
+	private JTable tblContato;
+	private JButton btSalvar;
+	private JButton btRemover;
+	private JButton btLimpar;
+	private FilmePromocao registro;	
+	private JEditorPane txDescricao;
+	private JDateChooser dataTermino;
+	private JDateChooser dataInicio; 
+	private JComboBox cbFilme;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -51,44 +69,44 @@ public class CadastroFilmePromocao extends JFrame {
 		label_1.setBounds(10, 47, 46, 25);
 		contentPane.add(label_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(66, 47, 190, 25);
-		contentPane.add(comboBox);
+		cbFilme = new JComboBox();
+		cbFilme.setBounds(66, 47, 190, 25);
+		contentPane.add(cbFilme);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dateChooser.setBounds(109, 83, 145, 25);
-		contentPane.add(dateChooser);
+		dataInicio = new JDateChooser();
+		dataInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dataInicio.setBounds(109, 83, 145, 25);
+		contentPane.add(dataInicio);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
 		lblCdigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblCdigo.setBounds(10, 11, 55, 25);
 		contentPane.add(lblCdigo);
 		
-		textField = new JTextField();
-		textField.setBounds(66, 13, 190, 25);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txCodigo = new JTextField();
+		txCodigo.setBounds(66, 13, 190, 25);
+		contentPane.add(txCodigo);
+		txCodigo.setColumns(10);
 		
 		JLabel lblDataTrmino = new JLabel("Data T\u00E9rmino:");
 		lblDataTrmino.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblDataTrmino.setBounds(10, 119, 114, 25);
 		contentPane.add(lblDataTrmino);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dateChooser_1.setBounds(109, 119, 145, 25);
-		contentPane.add(dateChooser_1);
+		dataTermino = new JDateChooser();
+		dataTermino.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dataTermino.setBounds(109, 119, 145, 25);
+		contentPane.add(dataTermino);
 		
 		JLabel lblPorcentagemDePromoo = new JLabel("Porcentagem de Promo\u00E7\u00E3o:");
 		lblPorcentagemDePromoo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPorcentagemDePromoo.setBounds(10, 155, 181, 25);
 		contentPane.add(lblPorcentagemDePromoo);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(195, 157, 37, 25);
-		contentPane.add(textField_1);
+		txPorcentagemPromocao = new JTextField();
+		txPorcentagemPromocao.setColumns(10);
+		txPorcentagemPromocao.setBounds(195, 157, 37, 25);
+		contentPane.add(txPorcentagemPromocao);
 		
 		JLabel label = new JLabel("%");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -100,24 +118,12 @@ public class CadastroFilmePromocao extends JFrame {
 		lblDescrio.setBounds(10, 191, 114, 25);
 		contentPane.add(lblDescrio);
 		
-		JEditorPane textPane = new JEditorPane();
-		textPane.setBackground(Color.WHITE);
-		textPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		textPane.setBounds(10, 215, 246, 118);
-		contentPane.add(textPane);
-		
-		JButton button = new JButton("  Salvar");
-		button.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
-		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button.setBounds(490, 359, 160, 41);
-		contentPane.add(button);
-		
-		JButton button_1 = new JButton("  Limpar");
-		button_1.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_1.setBounds(10, 359, 160, 41);
-		contentPane.add(button_1);
-		
+		txDescricao = new JEditorPane();
+		txDescricao.setBackground(Color.WHITE);
+		txDescricao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		txDescricao.setBounds(10, 215, 246, 118);
+		contentPane.add(txDescricao);
+			
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(306, 11, 344, 322);
 		contentPane.add(scrollPane);
@@ -128,10 +134,85 @@ public class CadastroFilmePromocao extends JFrame {
 		separator.setBounds(280, 11, 2, 322);
 		contentPane.add(separator);
 		
-		JButton button_2 = new JButton("  Remover");
-		button_2.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_2.setBounds(244, 359, 160, 41);
-		contentPane.add(button_2);
+		btSalvar = new JButton("  Salvar");
+		btSalvar.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
+		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btSalvar.setBounds(490, 359, 160, 41);
+		contentPane.add(btSalvar);
+		btSalvar.addActionListener(new escutaBotao());
+		
+		btLimpar = new JButton("  Limpar");
+		btLimpar.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
+		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btLimpar.setBounds(10, 359, 160, 41);
+		contentPane.add(btLimpar);
+		btLimpar.addActionListener(new escutaBotao());
+		
+		btRemover = new JButton("  Remover");
+		btRemover.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btRemover.setBounds(244, 359, 160, 41);
+		contentPane.add(btRemover);
+		btRemover.addActionListener(new escutaBotao());
+	}
+	
+	private class escutaBotao implements ActionListener 
+	{
+		public void actionPerformed(ActionEvent e) 
+		{		
+			if(e.getSource()==btSalvar) 		{ salvar(); }	
+			else if(e.getSource()==btRemover) 	{ remover();}	
+			else if(e.getSource()==btLimpar)	{ limpar();	}
+			
+		}
+	}
+	
+	public void limpar()
+	{
+		registro = new FilmePromocao();
+		
+		txCodigo.setText("");
+		txDescricao.setText("");
+		txPorcentagemPromocao.setText("");
+		cbFilme.setSelectedItem(null);
+		dataInicio.setDate(null);
+		dataTermino.setDate(null);
+	}
+	
+	public void salvar()
+	{
+		if(cbFilme.getSelectedItem()!=null)
+		{
+			registro = new FilmePromocao();		
+			registro.setCodigo(txCodigo.getText());
+			registro.setDescricao(txDescricao.getText());
+			registro.setPorcentagemPromocao(new Double(txCodigo.getText()));
+			registro.setDataInicio((Date) dataInicio.getDate());
+			registro.setDataTermino((Date) dataTermino.getDate());
+			registro.setFilme((Filme) cbFilme.getSelectedItem());
+			
+			modelo.addRow(new Object[]{registro});
+			limpar();
+			
+//			registro = new AtorDAO().salvar(ator);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Escolhe um filme por favor!","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
+		}
+	}
+	
+	public void remover()
+	{
+		if(tblContato.getSelectedRow()!=-1)
+		{
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((FilmePromocao) modelo.getValueAt(tblContato.getSelectedRow(),0)).getFilme().getTitulo() 
+					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
+			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
+		}
 	}
 }
