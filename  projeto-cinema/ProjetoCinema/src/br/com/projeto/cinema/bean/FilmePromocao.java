@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,7 +32,13 @@ public class FilmePromocao implements Serializable{
 	
 	@Column(name = "descricao")
 	private String descricao;
+	
+	@Column(name = "porcentagemPromocao")
+	private Double porcentagemPromocao;
 
+	@ManyToOne @JoinColumn(name="fkFilme")
+	private Filme filme;
+	
 	public Long getPkFilmePromocao() {
 		return pkFilmePromocao;
 	}
@@ -70,7 +78,20 @@ public class FilmePromocao implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
 
+	public Double getPorcentagemPromocao() {
+		return porcentagemPromocao;
+	}
+
+	public void setPorcentagemPromocao(Double porcentagemPromocao) {
+		this.porcentagemPromocao = porcentagemPromocao;
+	}
+
+	public Filme getFilme() {
+		return filme;
+	}
+
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	}
 }
