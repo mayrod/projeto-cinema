@@ -20,6 +20,9 @@ public class Preco implements Serializable{
 	
 	@Column(name = "preco")
 	private Double preco;
+	
+	@Column(name = "status")
+	private Integer status;
 
 	public Long getPkPreco() {
 		return pkPreco;
@@ -35,6 +38,14 @@ public class Preco implements Serializable{
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

@@ -1,11 +1,16 @@
 package br.com.projeto.cinema.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -50,6 +55,21 @@ public class Filme implements Serializable{
 	
 	@Column(name = "trailer")
 	private String trailer;
+	
+	@OneToOne @JoinColumn(name="fkCategoria")
+	private FilmeCategoria categoria;
+	
+	@OneToMany @JoinTable(name="elenco_filme" , joinColumns = @JoinColumn(name = "pkFilme"),inverseJoinColumns = @JoinColumn(name = "pkElenco"))
+	private List<Elenco> elenco;
+	
+	@OneToMany @JoinTable(name="filme_horario_exibicao" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
+	private List<FilmeHorario> horariosExibicoes;
+	
+	@OneToOne @JoinColumn(name="fkProdutora")
+	private Produtora produtora;
+	
+	@OneToMany @JoinTable(name="avaliacoes_filme" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkAvaliacao"))
+	private List<AvaliacaoFilme> avaliacoes;
 
 	public Long getPkFilme() {
 		return pkFilme;
@@ -145,6 +165,46 @@ public class Filme implements Serializable{
 
 	public void setTrailer(String trailer) {
 		this.trailer = trailer;
+	}
+
+	public FilmeCategoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(FilmeCategoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<Elenco> getElenco() {
+		return elenco;
+	}
+
+	public void setElenco(List<Elenco> elenco) {
+		this.elenco = elenco;
+	}
+
+	public List<FilmeHorario> getHorariosExibicoes() {
+		return horariosExibicoes;
+	}
+
+	public void setHorariosExibicoes(List<FilmeHorario> horariosExibicoes) {
+		this.horariosExibicoes = horariosExibicoes;
+	}
+
+	public Produtora getProdutora() {
+		return produtora;
+	}
+
+	public void setProdutora(Produtora produtora) {
+		this.produtora = produtora;
+	}
+
+	public List<AvaliacaoFilme> getAvaliacoes() {
+		return avaliacoes;
+	}
+
+	public void setAvaliacoes(List<AvaliacaoFilme> avaliacoes) {
+		this.avaliacoes = avaliacoes;
 	}
 	
 
