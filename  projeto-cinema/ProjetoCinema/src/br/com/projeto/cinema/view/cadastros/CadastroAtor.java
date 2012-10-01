@@ -111,8 +111,7 @@ public class CadastroAtor extends JFrame
 	public void salvar()
 	{
 		if(txNome.getText().length()>0)
-		{
-			registro = new Ator();		
+		{		
 			registro.setNome(txNome.getText());
 			
 			modelo.addRow(new Object[]{registro});
