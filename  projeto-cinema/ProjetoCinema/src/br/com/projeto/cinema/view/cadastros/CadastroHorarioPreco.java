@@ -3,6 +3,7 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,28 +11,16 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import br.com.projeto.cinema.bean.FilmeHorarioExibicao;
-import br.com.projeto.cinema.bean.HorarioExibicao;
-import br.com.projeto.cinema.bean.Preco;
-import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Date;
+import br.com.projeto.cinema.bean.FilmeHorario;
+import br.com.projeto.cinema.bean.Horario;
+import br.com.projeto.cinema.dao.HorarioExibicaoDAO;
 
 public class CadastroHorarioPreco extends JFrame {
 
@@ -45,7 +34,7 @@ public class CadastroHorarioPreco extends JFrame {
 	private JButton btSalvar;
 	private JButton btRemover;
 	private JButton btLimpar;
-	private FilmeHorarioExibicao registro;
+	private FilmeHorario registro;
 	private JComboBox cbDiaSemana;
 	private JFormattedTextField txHorario;
 	private JFormattedTextField txPreco;
@@ -126,7 +115,7 @@ public class CadastroHorarioPreco extends JFrame {
 	
 	public void limpar()
 	{
-		registro = new FilmeHorarioExibicao();
+		registro = new FilmeHorario();
 		
 		txHorario.setText("");
 		txPreco.setText("");
@@ -137,8 +126,8 @@ public class CadastroHorarioPreco extends JFrame {
 	{
 		if(cbDiaSemana.getSelectedItem()!=null)
 		{		
-			HorarioExibicao he = new HorarioExibicao();
-			he.setHorario((java.sql.Date) new Date());
+			Horario he = new Horario();
+			he.setDiaSemana((java.sql.Date) new Date());
 			
 //			Preco preco = new Preco();
 //			registroPreco.setPreco(new Double(txPreco.getText()));

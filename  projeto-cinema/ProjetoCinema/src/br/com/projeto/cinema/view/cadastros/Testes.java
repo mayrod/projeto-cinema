@@ -16,7 +16,7 @@ public class Testes extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroFilmePromocao frame = new CadastroFilmePromocao();
+					CadastroAtor frame = new CadastroAtor();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

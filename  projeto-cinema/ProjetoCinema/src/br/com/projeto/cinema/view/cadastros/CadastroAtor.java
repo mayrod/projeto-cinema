@@ -3,6 +3,7 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -89,6 +90,8 @@ public class CadastroAtor extends JFrame
 		btRemover.setBounds(227, 121, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
+		
+		preencherTabela();
 	}
 		
 	private class escutaBotao implements ActionListener 
@@ -108,16 +111,33 @@ public class CadastroAtor extends JFrame
 		txNome.setText("");
 	}
 	
+	public void preencherTabela()
+	{
+		List<Ator> atores = new AtorDAO().obterTodos();
+		
+		if(atores!=null)
+		{
+			for(Ator ator : atores)
+			{
+				modelo.addRow(new Object[]{ator});
+			}
+		}
+		
+		limpar();
+	}
+	
 	public void salvar()
 	{
 		if(txNome.getText().length()>0)
 		{		
 			registro.setNome(txNome.getText());
-			
-			modelo.addRow(new Object[]{registro});
-			limpar();
-			
 			registro = new AtorDAO().salvar(registro);
+			
+			if(registro!=null)
+			{
+				modelo.addRow(new Object[]{registro});
+				limpar();
+			}
 		}
 		else
 		{
@@ -131,7 +151,12 @@ public class CadastroAtor extends JFrame
 		{
 			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+			if(valor==0) 
+			{ 
+				new AtorDAO().remover((Ator) modelo.getValueAt(tblContato.getSelectedRow(), 0));
+				modelo.removeRow(tblContato.getSelectedRow()); 
+				limpar();
+			}
 		}
 		else
 		{

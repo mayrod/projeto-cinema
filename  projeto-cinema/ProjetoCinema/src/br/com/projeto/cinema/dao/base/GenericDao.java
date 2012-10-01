@@ -37,7 +37,7 @@ import java.util.List;
 
 public class GenericDao<T extends Serializable> {
 
-	  @PersistenceContext(unitName = "cinema")	
+	  @PersistenceContext(unitName = "pet")	
 	    private final EntityManager entityManager;
 	
 	    private final Class<T> persistentClass;
@@ -140,26 +140,36 @@ public class GenericDao<T extends Serializable> {
 	   
 		public T obtem(String query, Class<T> classe) throws Exception
 		{
-			Session session = (Session) getEntityManager().getDelegate();
-			
-			SQLQuery select = session.createSQLQuery(query).addEntity(classe);  
-			
-			if(select.list()!=null && select.list().size()>0 && select.list().get(0)!=null)
-			{
-				return (T) select.list().get(0);
+			try 
+			{	
+				Session session = (Session) getEntityManager().getDelegate();
+				
+				SQLQuery select = session.createSQLQuery(query).addEntity(classe);  
+				
+				if(select.list()!=null && select.list().size()>0 && select.list().get(0)!=null)
+				{
+					return (T) select.list().get(0);
+				}
+			}
+			catch (Exception e) {
 			}
 			return null;
 		}
 		
 		public List<T> obtemTodos(String query, Class<T> classe) throws Exception
 		{
-			Session session = (Session) getEntityManager().getDelegate();
-			
-			SQLQuery select = session.createSQLQuery(query).addEntity(classe);  
-			
-			if(select.list()!=null && select.list().size()>0)
+			try 
 			{
-				return select.list();
+				Session session = (Session) getEntityManager().getDelegate();
+				
+				SQLQuery select = session.createSQLQuery(query).addEntity(classe);  
+				
+				if(select.list()!=null && select.list().size()>0)
+				{
+					return select.list();
+				}
+			}catch (Exception e) {
+				// TODO: handle exception
 			}
 			return null;
 		}
