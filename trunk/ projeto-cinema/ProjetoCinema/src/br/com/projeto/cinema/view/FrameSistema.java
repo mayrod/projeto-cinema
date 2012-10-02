@@ -23,6 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import br.com.projeto.cinema.bean.Usuario;
+import br.com.projeto.cinema.view.cadastros.CadastroAtor;
 import br.com.projeto.cinema.view.cadastros.CadastroFilme;
 
 import javax.swing.JSeparator;
@@ -37,11 +38,10 @@ public class FrameSistema extends JFrame {
 	@SuppressWarnings("unused")
 	private JPanel painelAux;
 	
-	private static JMenu mnNewMenu = new JMenu("Cadastro");
+	private static JMenu mnCadastro = new JMenu("Cadastro");
 	private static JMenu mnNewMenu_1 = new JMenu("Consultas");
 	private static JMenu mnCaixa = new JMenu("Caixa");
 	private static JMenu mnApontamento = new JMenu("Apontamento");
-
 	
 	private static FrameSistema frame;
     JDesktopPane plPrincipal;
@@ -54,6 +54,7 @@ public class FrameSistema extends JFrame {
     private JMenuItem mntmFilmeLanamento;
     private JMenuItem mntmFilmePromoo;
     private JMenuItem mntmFilmeCartaz;
+    private JMenuItem mntmAtor;
     
     public static Usuario getUsuario() {
 		return usuario;
@@ -118,50 +119,51 @@ public class FrameSistema extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		mnNewMenu = new JMenu("Cadastro");
-		menuBar.add(mnNewMenu);
+		mnCadastro = new JMenu("Cadastro");
+		menuBar.add(mnCadastro);
 		
 		mntmFilme = new JMenuItem("Filme");
-		mnNewMenu.add(mntmFilme);
+		mnCadastro.add(mntmFilme);
 		
 		mntmFilmeLanamento = new JMenuItem("Filme Lan\u00E7amento");
-		mnNewMenu.add(mntmFilmeLanamento);
+		mnCadastro.add(mntmFilmeLanamento);
 		
 		mntmFilmePromoo = new JMenuItem("Filme Promo\u00E7\u00E3o");
-		mnNewMenu.add(mntmFilmePromoo);
+		mnCadastro.add(mntmFilmePromoo);
 		
 		mntmFilmeCartaz = new JMenuItem("Filme Cartaz");
-		mnNewMenu.add(mntmFilmeCartaz);
+		mnCadastro.add(mntmFilmeCartaz);
 		
 		JSeparator separator = new JSeparator();
-		mnNewMenu.add(separator);
+		mnCadastro.add(separator);
 		
 		JMenuItem mntmPreo = new JMenuItem("Pre\u00E7o");
-		mnNewMenu.add(mntmPreo);
+		mnCadastro.add(mntmPreo);
 		
 		JMenuItem mntmSala = new JMenuItem("Sala");
-		mnNewMenu.add(mntmSala);
+		mnCadastro.add(mntmSala);
 		
 		JMenuItem mntmHorrio = new JMenuItem("Hor\u00E1rio");
-		mnNewMenu.add(mntmHorrio);
+		mnCadastro.add(mntmHorrio);
 		
 		JSeparator separator_1 = new JSeparator();
-		mnNewMenu.add(separator_1);
+		mnCadastro.add(separator_1);
 		
-		JMenuItem mntmAtor = new JMenuItem("Ator");
-		mnNewMenu.add(mntmAtor);
+		mntmAtor = new JMenuItem("Ator");
+		mntmAtor.addActionListener(new AbrirCadastroAtor());
+		mnCadastro.add(mntmAtor);
 		
 		JMenuItem mntmElenco = new JMenuItem("Elenco");
-		mnNewMenu.add(mntmElenco);
+		mnCadastro.add(mntmElenco);
 		
 		JSeparator separator_2 = new JSeparator();
-		mnNewMenu.add(separator_2);
+		mnCadastro.add(separator_2);
 		
 		JMenuItem mntmUsurio = new JMenuItem("Usu\u00E1rio");
-		mnNewMenu.add(mntmUsurio);
+		mnCadastro.add(mntmUsurio);
 		
 		JMenuItem mntmPessoa = new JMenuItem("Pessoa");
-		mnNewMenu.add(mntmPessoa);
+		mnCadastro.add(mntmPessoa);
 
 		mnNewMenu_1 = new JMenu("Sess\u00E3o");
 		menuBar.add(mnNewMenu_1);
@@ -260,7 +262,7 @@ public class FrameSistema extends JFrame {
 	
 	public static void permissao(){
 
-		if(usuario.getAdministrador() == 1){
+		if(usuario !=null && usuario.getAdministrador() == 1){
 
 		}
 		else{
@@ -269,16 +271,20 @@ public class FrameSistema extends JFrame {
 	}
 	
 	private void bloquearMenu(){
-		mnNewMenu.setEnabled(false);
-		mnNewMenu_1.setEnabled(false);
-		mnCaixa.setEnabled(false);
+		mnCadastro.setEnabled(true);
+		mnNewMenu_1.setEnabled(true);
+		mnCaixa.setEnabled(true);
 	}
 	
-	private class AbrirCadastroFilme implements ActionListener{
+	private class AbrirCadastroAtor implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			CadastroFilme cadastroFilme = new CadastroFilme();
-			cadastroFilme.setVisible(true);			
+			JInternalFrame tela = null;
+			
+			if(e.getSource()==mntmAtor) { tela = new CadastroAtor(); }
+			
+			FrameSistema.getInstancia().AbrirTela(tela);
+			tela.setVisible(true);	
 		}
 		
 	}

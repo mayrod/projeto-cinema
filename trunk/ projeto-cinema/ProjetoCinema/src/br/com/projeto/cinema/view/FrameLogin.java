@@ -48,7 +48,8 @@ public class FrameLogin extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrameLogin() {
+	public FrameLogin() 
+	{
 		setTitle("Login");
 		setBounds(100, 100, 410, 266);
 
@@ -121,7 +122,9 @@ public class FrameLogin extends JInternalFrame {
 		panel.setLayout(gl_panel);
 		getContentPane().setLayout(groupLayout);
 		getRootPane().setDefaultButton(btnEntrar);
-
+		
+		txtUsuario.setText("admin");
+		txtSenha.setText("admin");
 	}
 
 	private class VerificarLogin implements ActionListener {
@@ -153,7 +156,7 @@ public class FrameLogin extends JInternalFrame {
 			
 			if(new UsuarioDAO().verificarLogin(usuario)!=null)
 			{
-				FrameSistema.permissao();
+//				FrameSistema.permissao();
 				FrameLogin.this.setVisible(false);
 			}
 			else

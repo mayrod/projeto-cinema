@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import br.com.projeto.cinema.bean.Ator;
 import br.com.projeto.cinema.dao.AtorDAO;
 
-public class CadastroAtor extends JFrame 
+public class CadastroAtor extends JInternalFrame 
 {
 	/**
 	 * 
