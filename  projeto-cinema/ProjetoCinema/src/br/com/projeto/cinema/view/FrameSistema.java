@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.com.projeto.cinema.bean.Usuario;
 import br.com.projeto.cinema.view.cadastros.CadastroAtor;
+import br.com.projeto.cinema.view.cadastros.CadastroCategoriaFilme;
 import br.com.projeto.cinema.view.cadastros.CadastroFilme;
 
 import javax.swing.JSeparator;
@@ -55,7 +56,7 @@ public class FrameSistema extends JFrame {
     private JMenuItem mntmFilmePromoo;
     private JMenuItem mntmFilmeCartaz;
     private JMenuItem mntmAtor;
-    
+    private JMenuItem mntmCategoriaFilme;
     public static Usuario getUsuario() {
 		return usuario;
 	}
@@ -133,6 +134,10 @@ public class FrameSistema extends JFrame {
 		
 		mntmFilmeCartaz = new JMenuItem("Filme Cartaz");
 		mnCadastro.add(mntmFilmeCartaz);
+		
+		mntmCategoriaFilme = new JMenuItem("Categoria Filme");
+		mntmCategoriaFilme.addActionListener(new AbrirCadastroAtor());
+		mnCadastro.add(mntmCategoriaFilme);
 		
 		JSeparator separator = new JSeparator();
 		mnCadastro.add(separator);
@@ -282,6 +287,7 @@ public class FrameSistema extends JFrame {
 			JInternalFrame tela = null;
 			
 			if(e.getSource()==mntmAtor) { tela = new CadastroAtor(); }
+			else if(e.getSource()==mntmCategoriaFilme) { tela = new CadastroCategoriaFilme(); }
 			
 			FrameSistema.getInstancia().AbrirTela(tela);
 			tela.setVisible(true);	
