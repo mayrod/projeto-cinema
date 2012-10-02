@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.projeto.cinema.bean.Ator;
 import br.com.projeto.cinema.dao.base.GenericDao;
+import br.com.projeto.cinema.utils.Query;
 
 public class AtorDAO extends GenericDao<Ator> 
 {
@@ -15,7 +16,7 @@ public class AtorDAO extends GenericDao<Ator>
 	public Ator remover(Ator ator)
 	{
 		try {
-			return obtem("DELETE FROM Ator WHERE pkAtor = " + ator.getPkAtor(),Ator.class);
+			return obtem(new Query("DELETE FROM Ator WHERE pkAtor = ?", ator.getPkAtor()),Ator.class);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -27,7 +28,7 @@ public class AtorDAO extends GenericDao<Ator>
 	{
 		try 
 		{
-			return obtemTodos("SELECT * FROM Ator", Ator.class);
+			return obtemTodos(new Query("SELECT * FROM Ator"), Ator.class);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
