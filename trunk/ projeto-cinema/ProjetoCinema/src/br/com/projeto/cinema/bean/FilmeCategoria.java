@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FILME_CATEGORIA")
+@Table(name = "FILMECATEGORIA")
 public class FilmeCategoria implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -37,4 +37,8 @@ public class FilmeCategoria implements Serializable{
 		this.nome = nome;
 	}
 
+	@Override
+	public String toString() {
+		return nome;
+	}
 }

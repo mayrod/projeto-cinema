@@ -3,10 +3,12 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,8 +20,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.FilmeCategoria;
+import br.com.projeto.cinema.dao.FilmeCategoriaDAO;
 
-public class CadastroCategoriaFilme extends JFrame {
+public class CadastroCategoriaFilme extends JInternalFrame
+{
 
 	/**
 	 * 
@@ -30,7 +34,6 @@ public class CadastroCategoriaFilme extends JFrame {
 	private JButton btLimpar;
 	private JButton btSalvar;
 	private JButton btRemover; 
-	private JTable table;
 	private final DefaultTableModel modelo = new DefaultTableModel();
 	private JTable tblContato;
 	private FilmeCategoria registro;
@@ -87,6 +90,8 @@ public class CadastroCategoriaFilme extends JFrame {
 		btRemover.setBounds(227, 121, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
+		
+		preencherTabela();
 	}
 	
 	private class escutaBotao implements ActionListener 
@@ -105,6 +110,21 @@ public class CadastroCategoriaFilme extends JFrame {
 		txNome.setText("");
 	}
 	
+	public void preencherTabela()
+	{
+		List<FilmeCategoria> list = new  FilmeCategoriaDAO().obterTodos();
+		
+		if(list!=null)
+		{
+			for(FilmeCategoria obj : list)
+			{
+				modelo.addRow(new Object[]{obj});
+			}
+		}
+		
+		limpar();
+	}
+	
 	public void salvar()
 	{
 		if(txNome.getText().length()>0)
@@ -112,10 +132,13 @@ public class CadastroCategoriaFilme extends JFrame {
 			FilmeCategoria filmeCategoria = new FilmeCategoria();		
 			filmeCategoria.setNome(txNome.getText());
 			
-			modelo.addRow(new Object[]{txNome.getText()});
-			txNome.setText("");
+			registro = new FilmeCategoriaDAO().save(filmeCategoria);
 			
-//			registro = new AtorDAO().salvar(filmeCategoria);
+			if(registro!=null)
+			{
+				modelo.addRow(new Object[]{txNome.getText()});
+				limpar();
+			}
 		}
 		else
 		{
@@ -129,7 +152,12 @@ public class CadastroCategoriaFilme extends JFrame {
 		{
 			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+			if(valor==0) 
+			{ 
+				new FilmeCategoriaDAO().delete((FilmeCategoria) modelo.getValueAt(tblContato.getSelectedRow(), 0));
+				modelo.removeRow(tblContato.getSelectedRow()); 
+				limpar();
+			}
 		}
 		else
 		{

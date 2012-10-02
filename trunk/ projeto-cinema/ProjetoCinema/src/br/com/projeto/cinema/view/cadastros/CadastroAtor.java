@@ -114,13 +114,13 @@ public class CadastroAtor extends JInternalFrame
 	
 	public void preencherTabela()
 	{
-		List<Ator> atores = new AtorDAO().obterTodos();
+		List<Ator> list = new AtorDAO().obterTodos();
 		
-		if(atores!=null)
+		if(list!=null)
 		{
-			for(Ator ator : atores)
+			for(Ator obj : list)
 			{
-				modelo.addRow(new Object[]{ator});
+				modelo.addRow(new Object[]{obj});
 			}
 		}
 		
