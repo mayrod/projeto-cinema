@@ -26,27 +26,25 @@ import br.com.projeto.cinema.bean.Usuario;
 import br.com.projeto.cinema.view.cadastros.CadastroAtor;
 import br.com.projeto.cinema.view.cadastros.CadastroCategoriaFilme;
 import br.com.projeto.cinema.view.cadastros.CadastroFilme;
+import br.com.projeto.cinema.view.cadastros.CadastroFilmeLancamento;
+import br.com.projeto.cinema.view.cadastros.CadastroFilmePromocao;
+import br.com.projeto.cinema.view.cadastros.CadastroHorarioPreco;
+import br.com.projeto.cinema.view.cadastros.CadastroPreco;
+import br.com.projeto.cinema.view.cadastros.CadastroSala;
 
 import javax.swing.JSeparator;
 
-public class FrameSistema extends JFrame {
-
-	/**
-	 * 
-	 */
+public class FrameSistema extends JFrame 
+{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	@SuppressWarnings("unused")
-	private JPanel painelAux;
-	
+	private JPanel painelAux;	
 	private static JMenu mnCadastro = new JMenu("Cadastro");
 	private static JMenu mnNewMenu_1 = new JMenu("Consultas");
 	private static JMenu mnCaixa = new JMenu("Caixa");
-	private static JMenu mnApontamento = new JMenu("Apontamento");
-	
-	private static FrameSistema frame;
-    JDesktopPane plPrincipal;
-    
+	private static JMenu mnApontamento = new JMenu("Apontamento");	
+	private static FrameSistema frame;	
+	private JDesktopPane plPrincipal;    
     private static Usuario usuario; 
     private JMenu mnSair;
     private JMenuItem mntmLogoof;
@@ -57,15 +55,16 @@ public class FrameSistema extends JFrame {
     private JMenuItem mntmFilmeCartaz;
     private JMenuItem mntmAtor;
     private JMenuItem mntmCategoriaFilme;
-    public static Usuario getUsuario() {
-		return usuario;
-	}
-
-	public static void setUsuario(Usuario usuario) {
-		FrameSistema.usuario = usuario;
-	}
-
-	public static void main(String[] args) {
+    private JMenuItem mntmPreo;
+    private JMenuItem mntmSala; 
+    private JMenuItem mntmHorario;
+    private JMenuItem mntmUsurio;
+    private JMenuItem mntmPessoa; 
+    private JMenuItem mntmHorarioExibio;
+    private JMenuItem mntmFilmes;
+    
+	public static void main(String[] args) 
+	{
 
 		for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
 				.getInstalledLookAndFeels()) {
@@ -90,7 +89,8 @@ public class FrameSistema extends JFrame {
 		}
 
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+			public void run() 
+			{
 				try {
 					getInstancia();
 					frame.setVisible(true);
@@ -106,16 +106,13 @@ public class FrameSistema extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public FrameSistema() {
+	public FrameSistema() 
+	{
 		setTitle("Controle de Cinema");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1374, 723);
 		this.setLocationRelativeTo(null);
-		// this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -124,66 +121,71 @@ public class FrameSistema extends JFrame {
 		menuBar.add(mnCadastro);
 		
 		mntmFilme = new JMenuItem("Filme");
+		mntmFilme.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilme);
 		
 		mntmFilmeLanamento = new JMenuItem("Filme Lan\u00E7amento");
+		mntmFilmeLanamento.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilmeLanamento);
 		
 		mntmFilmePromoo = new JMenuItem("Filme Promo\u00E7\u00E3o");
+		mntmFilmePromoo.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilmePromoo);
 		
 		mntmFilmeCartaz = new JMenuItem("Filme Cartaz");
+		mntmFilmeCartaz.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilmeCartaz);
 		
 		mntmCategoriaFilme = new JMenuItem("Categoria Filme");
-		mntmCategoriaFilme.addActionListener(new AbrirCadastroAtor());
+		mntmCategoriaFilme.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmCategoriaFilme);
 		
 		JSeparator separator = new JSeparator();
 		mnCadastro.add(separator);
 		
-		JMenuItem mntmPreo = new JMenuItem("Pre\u00E7o");
+		mntmPreo = new JMenuItem("Pre\u00E7o");
+		mntmPreo.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmPreo);
 		
-		JMenuItem mntmSala = new JMenuItem("Sala");
+		mntmSala = new JMenuItem("Sala");
+		mntmSala.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmSala);
 		
-		JMenuItem mntmHorrio = new JMenuItem("Hor\u00E1rio");
-		mnCadastro.add(mntmHorrio);
+		mntmHorario = new JMenuItem("Hor\u00E1rio");
+		mntmHorario.addActionListener(new AbrirTelas());
+		mnCadastro.add(mntmHorario);
 		
 		JSeparator separator_1 = new JSeparator();
 		mnCadastro.add(separator_1);
 		
 		mntmAtor = new JMenuItem("Ator");
-		mntmAtor.addActionListener(new AbrirCadastroAtor());
+		mntmAtor.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmAtor);
-		
-		JMenuItem mntmElenco = new JMenuItem("Elenco");
-		mnCadastro.add(mntmElenco);
-		
+				
 		JSeparator separator_2 = new JSeparator();
 		mnCadastro.add(separator_2);
 		
-		JMenuItem mntmUsurio = new JMenuItem("Usu\u00E1rio");
+		mntmUsurio = new JMenuItem("Usu\u00E1rio");
+		mntmUsurio.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmUsurio);
 		
-		JMenuItem mntmPessoa = new JMenuItem("Pessoa");
+		mntmPessoa = new JMenuItem("Pessoa");
+		mntmPessoa.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmPessoa);
 
 		mnNewMenu_1 = new JMenu("Sess\u00E3o");
 		menuBar.add(mnNewMenu_1);
 		
-		JMenuItem mntmHorrioExibio = new JMenuItem("Hor\u00E1rio Exibi\u00E7\u00E3o");
-		mnNewMenu_1.add(mntmHorrioExibio);
+		mntmHorarioExibio = new JMenuItem("Hor\u00E1rio Exibi\u00E7\u00E3o");
+		mntmHorarioExibio.addActionListener(new AbrirTelas());
+		mnNewMenu_1.add(mntmHorarioExibio);
 
 		mnCaixa = new JMenu("Consultas");
 		menuBar.add(mnCaixa);
 		
-		JMenuItem mntmFilmes = new JMenuItem("Filmes");
+		mntmFilmes = new JMenuItem("Filmes");
+		mntmFilmes.addActionListener(new AbrirTelas());
 		mnCaixa.add(mntmFilmes);
-		
-		JMenuItem mntmAvaliaes = new JMenuItem("Avalia\u00E7\u00F5es");
-		mnCaixa.add(mntmAvaliaes);
 		
 		mnSair = new JMenu("Sair");
 		menuBar.add(mnSair);
@@ -281,17 +283,35 @@ public class FrameSistema extends JFrame {
 		mnCaixa.setEnabled(true);
 	}
 	
-	private class AbrirCadastroAtor implements ActionListener{
+	private class AbrirTelas implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JInternalFrame tela = null;
 			
-			if(e.getSource()==mntmAtor) { tela = new CadastroAtor(); }
-			else if(e.getSource()==mntmCategoriaFilme) { tela = new CadastroCategoriaFilme(); }
+			if(e.getSource()==mntmAtor) 				{ tela = new CadastroAtor(); }
+			else if(e.getSource()==mntmCategoriaFilme) 	{ tela = new CadastroCategoriaFilme(); }
+			else if(e.getSource()==mntmFecharSistema) 	{ tela = new CadastroCategoriaFilme(); }			
+			else if(e.getSource()==mntmFilme) 			{ tela = new CadastroFilme(); }			
+			else if(e.getSource()==mntmFilmeLanamento) 	{ tela = new CadastroFilmeLancamento(); }			
+			else if(e.getSource()==mntmFilmePromoo) 	{ tela = new CadastroFilmePromocao(); }			
+			else if(e.getSource()==mntmPreo) 			{ tela = new CadastroPreco(); }			
+			else if(e.getSource()==mntmSala) 			{ tela = new CadastroSala(); }			
+			else if(e.getSource()==mntmHorario) 		{ tela = new CadastroHorarioPreco(); }		
+//			else if(e.getSource()==mntmUsurio) 			{ tela = new CadastroCategoriaFilme(); }
+//			else if(e.getSource()==mntmPessoa) 			{ tela = new CadastroCategoriaFilme(); }
+//			else if(e.getSource()==mntmHorarioExibio) 	{ tela = new CadastroCategoriaFilme(); }
+//			else if(e.getSource()==mntmFilmes) 			{ tela = new CadastroCategoriaFilme(); }
 			
 			FrameSistema.getInstancia().AbrirTela(tela);
 			tela.setVisible(true);	
 		}
-		
+	}
+	
+	public static Usuario getUsuario() {
+		return usuario;
+	}
+
+	public static void setUsuario(Usuario usuario) {
+		FrameSistema.usuario = usuario;
 	}
 }
