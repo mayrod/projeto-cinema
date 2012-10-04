@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 
-public class CadastroFilmeLancamento extends JFrame {
+public class CadastroFilmeLancamento extends JInternalFrame {
 
 	/**
 	 * 

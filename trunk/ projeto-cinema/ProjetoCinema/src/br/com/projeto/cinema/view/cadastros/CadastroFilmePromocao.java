@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +28,7 @@ import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmePromocao;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 
-public class CadastroFilmePromocao extends JFrame {
+public class CadastroFilmePromocao extends JInternalFrame {
 
 	/**
 	 * 

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ import br.com.projeto.cinema.bean.FilmeHorario;
 import br.com.projeto.cinema.bean.Horario;
 import br.com.projeto.cinema.dao.HorarioExibicaoDAO;
 
-public class CadastroHorarioPreco extends JFrame {
+public class CadastroHorarioPreco extends JInternalFrame {
 
 	/**
 	 * 

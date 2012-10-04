@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.Filme;
 
-public class CadastroFilme extends JFrame {
+public class CadastroFilme extends JInternalFrame {
 
 	/**
 	 * 
