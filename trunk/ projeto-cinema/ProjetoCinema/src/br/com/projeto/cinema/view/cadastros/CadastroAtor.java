@@ -62,7 +62,7 @@ public class CadastroAtor extends JInternalFrame
 		contentPane.add(lblNome);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(299, 11, 310, 96);
+		scrollPane.setBounds(299, 11, 310, 108);
 		contentPane.add(scrollPane);
 		
 		modelo.addColumn("Nome");
@@ -74,21 +74,21 @@ public class CadastroAtor extends JInternalFrame
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(449, 121, 160, 41);
+		btSalvar.setBounds(449, 130, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(10, 121, 160, 41);
+		btLimpar.setBounds(10, 130, 160, 41);
 		contentPane.add(btLimpar);
 		btLimpar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(227, 121, 160, 41);
+		btRemover.setBounds(227, 130, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		

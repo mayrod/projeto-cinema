@@ -19,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
@@ -29,10 +30,7 @@ import br.com.projeto.cinema.view.cadastros.CadastroFilme;
 import br.com.projeto.cinema.view.cadastros.CadastroFilmeLancamento;
 import br.com.projeto.cinema.view.cadastros.CadastroFilmePromocao;
 import br.com.projeto.cinema.view.cadastros.CadastroHorarioPreco;
-import br.com.projeto.cinema.view.cadastros.CadastroPreco;
 import br.com.projeto.cinema.view.cadastros.CadastroSala;
-
-import javax.swing.JSeparator;
 
 public class FrameSistema extends JFrame 
 {
@@ -55,7 +53,6 @@ public class FrameSistema extends JFrame
     private JMenuItem mntmFilmeCartaz;
     private JMenuItem mntmAtor;
     private JMenuItem mntmCategoriaFilme;
-    private JMenuItem mntmPreo;
     private JMenuItem mntmSala; 
     private JMenuItem mntmHorario;
     private JMenuItem mntmUsurio;
@@ -142,10 +139,6 @@ public class FrameSistema extends JFrame
 		
 		JSeparator separator = new JSeparator();
 		mnCadastro.add(separator);
-		
-		mntmPreo = new JMenuItem("Pre\u00E7o");
-		mntmPreo.addActionListener(new AbrirTelas());
-		mnCadastro.add(mntmPreo);
 		
 		mntmSala = new JMenuItem("Sala");
 		mntmSala.addActionListener(new AbrirTelas());
@@ -290,11 +283,9 @@ public class FrameSistema extends JFrame
 			
 			if(e.getSource()==mntmAtor) 				{ tela = new CadastroAtor(); }
 			else if(e.getSource()==mntmCategoriaFilme) 	{ tela = new CadastroCategoriaFilme(); }
-			else if(e.getSource()==mntmFecharSistema) 	{ tela = new CadastroCategoriaFilme(); }			
 			else if(e.getSource()==mntmFilme) 			{ tela = new CadastroFilme(); }			
 			else if(e.getSource()==mntmFilmeLanamento) 	{ tela = new CadastroFilmeLancamento(); }			
 			else if(e.getSource()==mntmFilmePromoo) 	{ tela = new CadastroFilmePromocao(); }			
-			else if(e.getSource()==mntmPreo) 			{ tela = new CadastroPreco(); }			
 			else if(e.getSource()==mntmSala) 			{ tela = new CadastroSala(); }			
 			else if(e.getSource()==mntmHorario) 		{ tela = new CadastroHorarioPreco(); }		
 //			else if(e.getSource()==mntmUsurio) 			{ tela = new CadastroCategoriaFilme(); }

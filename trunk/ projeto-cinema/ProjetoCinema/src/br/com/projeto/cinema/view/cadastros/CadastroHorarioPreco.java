@@ -3,7 +3,10 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,12 +19,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.MaskFormatter;
 
 import br.com.projeto.cinema.bean.FilmeHorario;
 import br.com.projeto.cinema.bean.Horario;
 import br.com.projeto.cinema.dao.HorarioExibicaoDAO;
+import br.com.projeto.cinema.view.componentes.calendario.DateUtil;
+
+import javax.swing.SwingConstants;
 
 public class CadastroHorarioPreco extends JInternalFrame {
 
@@ -35,7 +44,7 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	private JButton btSalvar;
 	private JButton btRemover;
 	private JButton btLimpar;
-	private FilmeHorario registro;
+	private Horario registro;
 	private JComboBox cbDiaSemana;
 	private JFormattedTextField txHorario;
 	private JFormattedTextField txPreco;
@@ -65,6 +74,14 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(318, 11, 280, 278);
 		contentPane.add(scrollPane);
+				
+		modelo.addColumn("Dia");
+		modelo.addColumn("Horário");
+		modelo.addColumn("Preço");
+
+		tblContato = new JTable(modelo);
+		scrollPane.setViewportView(tblContato);
+		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JLabel lblDiaDaSemana = new JLabel("Dia da Semana:");
 		lblDiaDaSemana.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -75,13 +92,22 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		cbDiaSemana.setBounds(109, 98, 190, 25);
 		contentPane.add(cbDiaSemana);
 		
-		txHorario = new JFormattedTextField();
-		txHorario.setToolTipText("hh:mm");
-		txHorario.setBounds(109, 134, 125, 25);
+		MaskFormatter formatoHorario = new MaskFormatter();
+		formatoHorario.setValidCharacters("0123456789");
+		try { formatoHorario.setMask("##:##"); } catch (ParseException e) { }
+		
+		MaskFormatter formatoDinheiro = new MaskFormatter();
+		try { formatoDinheiro.setMask("##.##"); } catch (ParseException e) { }
+		formatoDinheiro.setValidCharacters("0123456789");
+		 
+		txHorario = new JFormattedTextField(formatoHorario);
+		txHorario.setHorizontalAlignment(SwingConstants.CENTER);
+		txHorario.setBounds(109, 134, 71, 25);
 		contentPane.add(txHorario);
 		
-		txPreco = new JFormattedTextField();
-		txPreco.setBounds(109, 172, 125, 25);
+		txPreco = new JFormattedTextField(formatoDinheiro);
+		txPreco.setBounds(109, 172, 71, 25);
+		txPreco.setHorizontalAlignment(JFormattedTextField.RIGHT);
 		contentPane.add(txPreco);
 		
 		btLimpar = new JButton("  Limpar");
@@ -89,20 +115,27 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btLimpar.setBounds(10, 306, 160, 41);
 		contentPane.add(btLimpar);
+		btLimpar.addActionListener(new escutaBotao());
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroHorarioPreco.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btSalvar.setBounds(438, 306, 160, 41);
 		contentPane.add(btSalvar);
+		btSalvar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroHorarioPreco.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btRemover.setBounds(224, 306, 160, 41);
 		contentPane.add(btRemover);
+		btRemover.addActionListener(new escutaBotao());
+		
+		preencherTabela();
+		carregarCombo();
 	}
 	
+	@SuppressWarnings("unused")
 	private class escutaBotao implements ActionListener 
 	{
 		public void actionPerformed(ActionEvent e) 
@@ -114,9 +147,36 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void carregarCombo()
+	{
+		cbDiaSemana.addItem("Domingo");
+		cbDiaSemana.addItem("Segunda-Feira");
+		cbDiaSemana.addItem("Terça-Feira");
+		cbDiaSemana.addItem("Quarta-Feira");
+		cbDiaSemana.addItem("Quinta-Feira");
+		cbDiaSemana.addItem("Sexta-Feira");
+		cbDiaSemana.addItem("Sábado");
+	}
+	
+	public void preencherTabela()
+	{
+		List<Horario> list = new HorarioExibicaoDAO().obterTodos();
+		
+		if(list!=null)
+		{
+			for(Horario obj : list)
+			{
+				modelo.addRow(new Object[]{obj, obj.getHorario().toString().substring(11, 16),"R$ " + obj.getPreco()});
+			}
+		}
+		
+		limpar();
+	}
+	
 	public void limpar()
 	{
-		registro = new FilmeHorario();
+		registro = new Horario();
 		
 		txHorario.setText("");
 		txPreco.setText("");
@@ -127,16 +187,32 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	{
 		if(cbDiaSemana.getSelectedItem()!=null)
 		{		
-			Horario he = new Horario();
-			he.setDiaSemana((java.sql.Date) new Date());
+			try 
+			{
+				registro.setDiaSemana(cbDiaSemana.getSelectedIndex() + 1);
+				
+				registro.setHorario(new Date());
+				registro.getHorario().setHours(new Integer(txHorario.getText(0, 2)));
+				registro.getHorario().setMinutes(new Integer(txHorario.getText().substring(3, 5)));
+				
+				registro.setPreco(new Double(txPreco.getText()));
 			
-//			Preco preco = new Preco();
-//			registroPreco.setPreco(new Double(txPreco.getText()));
+				registro = new HorarioExibicaoDAO().save(registro);
 			
-			modelo.addRow(new Object[]{registro});
-			limpar();
-			
-//			registro = new AtorDAO().salvar(registro);
+				if(registro!=null)
+				{
+					modelo.addRow(new Object[]{registro, registro.getHorario().toString().substring(11, 16),"R$ " + registro.getPreco()});
+					limpar();
+				}
+			}
+			catch (NumberFormatException e) 
+			{
+				e.printStackTrace();
+			}
+			catch (BadLocationException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 		else
 		{
@@ -150,7 +226,12 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		{
 			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+			if(valor==0) 
+			{ 
+				new HorarioExibicaoDAO().remover((Horario) modelo.getValueAt(tblContato.getSelectedRow(), 0));
+				modelo.removeRow(tblContato.getSelectedRow()); 
+				limpar();
+			}
 		}
 		else
 		{
