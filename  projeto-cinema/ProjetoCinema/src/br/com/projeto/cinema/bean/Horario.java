@@ -1,7 +1,7 @@
 package br.com.projeto.cinema.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,10 +20,13 @@ public class Horario implements Serializable{
 	private Long pkHorario;
 	
 	@Column(name = "horario")
-	private String horario;
+	private Date horario;
 	
 	@Column(name = "diaSemana")
-	private Date diaSemana;
+	private int diaSemana;
+	
+	@Column(name = "preco")
+	private Double preco;
 
 	public Long getPkHorario() {
 		return pkHorario;
@@ -33,20 +36,45 @@ public class Horario implements Serializable{
 		this.pkHorario = pkHorario;
 	}
 
-	public String getHorario() {
+	public Date getHorario() {
 		return horario;
 	}
 
-	public void setHorario(String horario) {
+	public void setHorario(Date horario) {
 		this.horario = horario;
 	}
 
-	public Date getDiaSemana() {
+	public int getDiaSemana() {
 		return diaSemana;
 	}
 
-	public void setDiaSemana(Date diaSemana) {
+	public void setDiaSemana(int diaSemana) {
 		this.diaSemana = diaSemana;
 	}
 
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	@Override
+	public String toString() 
+	{
+		switch (diaSemana) 
+		{
+			case 1: return "Domingo"; 
+			case 2: return "Segunda-Feira";
+			case 3: return "Terça-Feira";
+			case 4: return "Quarta-Feira";
+			case 5: return "Quinta-Feira";
+			case 6: return "Sexta-Feira";
+			case 7: return "Sábado";
+			default:
+				break;
+		}
+		return "";
+	}
 }

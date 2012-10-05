@@ -29,9 +29,6 @@ public class FilmeHorario implements Serializable{
 	@OneToOne @JoinColumn(name="fkSala")
 	private Sala sala;
 	
-	@OneToOne @JoinColumn(name="fkPreco")
-	private Preco preco;	
-	
 	public Long getPkFilmeHorario() {
 		return pkFilmeHorario;
 	}
@@ -54,14 +51,6 @@ public class FilmeHorario implements Serializable{
 
 	public void setSala(Sala sala) {
 		this.sala = sala;
-	}
-
-	public Preco getPreco() {
-		return preco;
-	}
-
-	public void setPreco(Preco preco) {
-		this.preco = preco;
 	}
 
 	public String getTipoExibicao() {
