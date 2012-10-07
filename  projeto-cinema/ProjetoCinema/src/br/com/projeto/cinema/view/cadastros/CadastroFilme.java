@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,13 +24,18 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.projeto.cinema.bean.Ator;
+import br.com.projeto.cinema.bean.Elenco;
 import br.com.projeto.cinema.bean.Filme;
+import br.com.projeto.cinema.bean.FilmeCategoria;
+import br.com.projeto.cinema.dao.AtorDAO;
+import br.com.projeto.cinema.dao.ElencoDAO;
+import br.com.projeto.cinema.dao.FilmeCategoriaDAO;
+import br.com.projeto.cinema.dao.FilmeDAO;
+import br.com.projeto.cinema.utils.Constantes;
 
-public class CadastroFilme extends JInternalFrame {
-
-	/**
-	 * 
-	 */
+public class CadastroFilme extends JInternalFrame 
+{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txCodigo;
@@ -37,15 +43,15 @@ public class CadastroFilme extends JInternalFrame {
 	private JTextField txTreiler;
 	private JTextField txDuracao;
 	private JTextField txDiretor;
-	private JComboBox cbProdutora;
-	private JComboBox cbCategoria;
+	private JComboBox<String> cbProdutora;
+	private JComboBox<FilmeCategoria> cbCategoria;
 	private JButton btRemoverTabela; 
 	private JButton btAdicionar;
-	private JComboBox cbTipoAtor;
-	private JComboBox cbAtor;
-	private JComboBox cbLegenda;
-	private JComboBox cbAudio;
-	private JComboBox cbNacionalidade;
+	private JComboBox<String> cbTipoAtor;
+	private JComboBox<Ator> cbAtor;
+	private JComboBox<String> cbLegenda;
+	private JComboBox<String> cbAudio;
+	private JComboBox<String> cbNacionalidade;
 	private final DefaultTableModel modelo = new DefaultTableModel();
 	private JTable tblContato;
 	private JButton btSalvar;
@@ -53,14 +59,11 @@ public class CadastroFilme extends JInternalFrame {
 	private JButton btLimpar;
 	private Filme registro;	
 	private JTextField txAno;
-	private JComboBox cbClassificacaoIndicativa;
+	private JComboBox<String> cbClassificacaoIndicativa;
 	private String pathImagem;
 	private JEditorPane txSinopse;
+	private List<Elenco> registroElenco;
 	
-	/**
-	 * Create the frame.
-	 * @return 
-	 */
 	public CadastroFilme() 
 	{
 		setClosable(true);
@@ -92,7 +95,7 @@ public class CadastroFilme extends JInternalFrame {
 		txCodigo.setBounds(82, 11, 80, 25);
 		contentPane.add(txCodigo);
 		
-		cbClassificacaoIndicativa = new JComboBox();
+		cbClassificacaoIndicativa = new JComboBox<String>();
 		cbClassificacaoIndicativa.setBounds(406, 118, 159, 25);
 		contentPane.add(cbClassificacaoIndicativa);
 		
@@ -156,15 +159,15 @@ public class CadastroFilme extends JInternalFrame {
 		lblMin.setBounds(140, 47, 22, 25);
 		contentPane.add(lblMin);
 		
-		cbNacionalidade = new JComboBox();
+		cbNacionalidade = new JComboBox<String>();
 		cbNacionalidade.setBounds(361, 154, 204, 25);
 		contentPane.add(cbNacionalidade);
 		
-		cbAudio = new JComboBox();
+		cbAudio = new JComboBox<String>();
 		cbAudio.setBounds(82, 120, 168, 25);
 		contentPane.add(cbAudio);
 		
-		cbLegenda = new JComboBox();
+		cbLegenda = new JComboBox<String>();
 		cbLegenda.setBounds(82, 156, 168, 25);
 		contentPane.add(cbLegenda);
 		
@@ -187,6 +190,13 @@ public class CadastroFilme extends JInternalFrame {
 		scrollPane.setBounds(235, 11, 310, 96);
 		panel.add(scrollPane);
 		
+		modelo.addColumn("Ator");
+		modelo.addColumn("Tipo");
+
+		tblContato = new JTable(modelo);
+		scrollPane.setViewportView(tblContato);
+		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
 		JLabel lblAtor = new JLabel("Ator:");
 		lblAtor.setBounds(10, 11, 57, 25);
 		panel.add(lblAtor);
@@ -197,11 +207,11 @@ public class CadastroFilme extends JInternalFrame {
 		lblTipo.setBounds(10, 47, 57, 25);
 		panel.add(lblTipo);
 		
-		cbAtor = new JComboBox();
+		cbAtor = new JComboBox<Ator>();
 		cbAtor.setBounds(50, 11, 175, 25);
 		panel.add(cbAtor);
 		
-		cbTipoAtor = new JComboBox();
+		cbTipoAtor = new JComboBox<String>();
 		cbTipoAtor.setBounds(50, 47, 175, 25);
 		panel.add(cbTipoAtor);
 		
@@ -209,12 +219,14 @@ public class CadastroFilme extends JInternalFrame {
 		btAdicionar.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Create.png")));
 		btAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btAdicionar.setBounds(88, 83, 35, 33);
+		btAdicionar.addActionListener(new escutaBotao());
 		panel.add(btAdicionar);
 		
 		btRemoverTabela = new JButton("");
 		btRemoverTabela.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Remove.png")));
 		btRemoverTabela.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btRemoverTabela.setBounds(133, 83, 35, 33);
+		btRemoverTabela.addActionListener(new escutaBotao());
 		panel.add(btRemoverTabela);
 		
 		txSinopse = new JEditorPane();
@@ -234,7 +246,7 @@ public class CadastroFilme extends JInternalFrame {
 		lblProdutora.setBounds(10, 81, 67, 25);
 		contentPane.add(lblProdutora);
 		
-		cbProdutora = new JComboBox();
+		cbProdutora = new JComboBox<String>();
 		cbProdutora.setBounds(82, 83, 168, 25);
 		contentPane.add(cbProdutora);
 		
@@ -243,7 +255,7 @@ public class CadastroFilme extends JInternalFrame {
 		lblCategoria.setBounds(263, 81, 70, 25);
 		contentPane.add(lblCategoria);
 		
-		cbCategoria = new JComboBox();
+		cbCategoria = new JComboBox<FilmeCategoria>();
 		cbCategoria.setBounds(343, 81, 222, 25);
 		contentPane.add(cbCategoria);
 		
@@ -265,6 +277,7 @@ public class CadastroFilme extends JInternalFrame {
 		btRemover.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btRemover.setBounds(624, 316, 160, 41);
+		btRemover.addActionListener(new escutaBotao());
 		contentPane.add(btRemover);
 		
 		JLabel lblAno = new JLabel("Ano:");
@@ -276,13 +289,11 @@ public class CadastroFilme extends JInternalFrame {
 		txAno.setColumns(10);
 		txAno.setBounds(212, 47, 57, 25);
 		contentPane.add(txAno);
-		btRemover.addActionListener(new escutaBotao());
-		
+				
 		preencherCombos();
 		limpar();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void preencherCombos()
 	{
 		cbClassificacaoIndicativa.addItem("Livre"); 
@@ -299,22 +310,109 @@ public class CadastroFilme extends JInternalFrame {
 		cbAudio.addItem("Português/Dublado"); 
 		cbAudio.addItem("Inglês"); 
 		cbAudio.addItem("Espanhol"); 
+		
+		cbLegenda.addItem("S/L");
+		cbLegenda.addItem("Português");
+		cbLegenda.addItem("Inglês");
+		cbLegenda.addItem("Espanhol");
+		
+		cbProdutora.addItem("Globo Filmes");
+		cbProdutora.addItem("O2 Filmes");
+		cbProdutora.addItem("Zeta Filmes");
+		cbProdutora.addItem("20º Century Fox");
+		cbProdutora.addItem("Columbia Pictures");
+		cbProdutora.addItem("Dreamworks");
+		cbProdutora.addItem("Estúdio Paramount");
+		cbProdutora.addItem("Estúdio Wall Disney");
+		cbProdutora.addItem("Miramax Films");
+		cbProdutora.addItem("Pixar");
+		cbProdutora.addItem("Universal Pictures");
+		cbProdutora.addItem("Warner Bros");
+		
+		cbTipoAtor.addItem("Protagonista");
+		cbTipoAtor.addItem("Co-protagonista");
+		cbTipoAtor.addItem("Antagonista");
+		cbTipoAtor.addItem("Oponente");
+		cbTipoAtor.addItem("Coadjuvante ");
+		cbTipoAtor.addItem("Figurante");
+		
+		List<Ator> listAtor = new AtorDAO().obterTodos();
+		
+		if(listAtor!=null)
+		{
+			for(Ator ator : listAtor)
+			{
+				cbAtor.addItem(ator);
+			}
+		}
+		
+		List<FilmeCategoria> listCategoria = new FilmeCategoriaDAO().obterTodos();
+		
+		if(listCategoria!=null)
+		{
+			for(FilmeCategoria cat : listCategoria)
+			{
+				cbCategoria.addItem(cat);
+			}
+		}
 	}
 	
 	private class escutaBotao implements ActionListener 
 	{
 		public void actionPerformed(ActionEvent e) 
 		{		
-			if(e.getSource()==btSalvar) 		{ salvar(); }	
-			else if(e.getSource()==btRemover) 	{ remover();}	
-			else if(e.getSource()==btLimpar)	{ limpar();	}
+			if(e.getSource()==btSalvar) 			{ salvar(); 	}	
+			else if(e.getSource()==btRemover) 		{ remover();	}	
+			else if(e.getSource()==btLimpar)		{ limpar();		}
+			else if(e.getSource()==btAdicionar)		{ adicionar();	}
+			else if(e.getSource()==btRemoverTabela)	{ removerAtor();}
+		}
+	}
+	
+	public void adicionar()
+	{
+		if(cbAtor.getSelectedItem()!=null && cbTipoAtor.getSelectedItem()!=null)
+		{
+			Elenco elenco = new Elenco();
 			
+			elenco.setAtor((Ator) cbAtor.getSelectedItem());
+			elenco.setTipoPapel(Constantes.getTipoPalelProtagonista((String) cbTipoAtor.getSelectedItem()));
+			
+			registroElenco.add(elenco);
+			
+			modelo.addRow(new Object[]{cbAtor.getSelectedItem(), cbTipoAtor.getSelectedItem()});
+			
+			cbAtor.setSelectedItem(null);
+			cbTipoAtor.setSelectedItem(null);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Selecione o Ator e seu Tipo para adicioná-lo no Elenco.!","Erro ao adionar.",JOptionPane.INFORMATION_MESSAGE);  
+		}
+	}
+	
+	public void removerAtor()
+	{
+		if(tblContato.getSelectedRow()!=-1)
+		{
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
+					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
+			if(valor==0) 
+			{ 
+				registroElenco.remove(tblContato.getSelectedRow());
+				modelo.removeRow(tblContato.getSelectedRow()); 
+			}
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
 		}
 	}
 	
 	public void limpar()
 	{
 		registro = new Filme();
+		registroElenco = new ArrayList<Elenco>();
 		
 		txCodigo.setText("");
 		txNome.setText("");
@@ -348,11 +446,15 @@ public class CadastroFilme extends JInternalFrame {
 			registro.setNacionalidade((String) cbNacionalidade.getSelectedItem());
 			registro.setClassificacaoIndicativa((String) cbClassificacaoIndicativa.getSelectedItem());
 			registro.setTipoAudio((String) cbAudio.getSelectedItem());
-					
-			modelo.addRow(new Object[]{txNome.getText()});
-			limpar();
 			
-//			registro = new AtorDAO().salvar(ator);
+			registro = new FilmeDAO().save(registro);
+					
+			for(Elenco el : registroElenco)
+			{
+				el.setFilme(registro);
+				el = new ElencoDAO().save(el);
+			}
+			
 		}
 		else
 		{
@@ -362,15 +464,19 @@ public class CadastroFilme extends JInternalFrame {
 	
 	public void remover()
 	{
-		if(tblContato.getSelectedRow()!=-1)
+		if(registro!=null && registro.getPkFilme()!=null)
 		{
-			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + registro.getTitulo() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+			if(valor==0) 
+			{ 
+				new FilmeDAO().delete(registro);
+				limpar();
+			}
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
+			JOptionPane.showMessageDialog(null,"Não há nenhum registro de Filme salvo!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
 		}
 	}
 }

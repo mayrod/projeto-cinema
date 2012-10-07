@@ -1,14 +1,13 @@
 package br.com.projeto.cinema.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,11 +21,14 @@ public class Elenco implements Serializable{
 	private Long pkElenco;
 	
 	@Column(name = "tipoPapel")
-	private String tipoPapel;
+	private int tipoPapel;
     
-	@OneToMany @JoinTable(name="atores_elenco")
-	private List<Ator> atores; 
+	@OneToOne @JoinColumn(name="fkAtor")
+	private Ator ator;
 	
+	@OneToOne @JoinColumn(name="fkFilme")
+	private Filme filme;
+
 	public Long getPkElenco() {
 		return pkElenco;
 	}
@@ -35,22 +37,27 @@ public class Elenco implements Serializable{
 		this.pkElenco = pkElenco;
 	}
 
-	public String getTipoPapel() {
+	public int getTipoPapel() {
 		return tipoPapel;
 	}
 
-	public void setTipoPapel(String tipoPapel) {
+	public void setTipoPapel(int tipoPapel) {
 		this.tipoPapel = tipoPapel;
 	}
 
-	public List<Ator> getAtores() {
-		return atores;
+	public Ator getAtor() {
+		return ator;
 	}
 
-	public void setAtores(List<Ator> atores) {
-		this.atores = atores;
+	public void setAtor(Ator ator) {
+		this.ator = ator;
 	}
-	
-	
 
+	public Filme getFilme() {
+		return filme;
+	}
+
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	} 
 }

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.projeto.cinema.utils.Constantes;
+
 @Entity
 @Table(name = "SALA")
 public class Sala implements Serializable{
@@ -25,7 +27,7 @@ public class Sala implements Serializable{
 	private String codigo;
 	
 	@Column(name = "tipoSala")
-	private String tipoSala;
+	private Integer tipoSala;
 
 	public Long getPkSala() {
 		return pkSala;
@@ -51,12 +53,19 @@ public class Sala implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public String getTipoSala() {
+	public Integer getTipoSala() {
 		return tipoSala;
 	}
 
-	public void setTipoSala(String tipoSala) {
+	public void setTipoSala(Integer tipoSala) {
 		this.tipoSala = tipoSala;
 	}
 
+	@Override
+	public String toString() 
+	{
+		if(tipoSala==Constantes.TIPO_SALA_2D) 		{ return "2D"; 		}
+		else if(tipoSala==Constantes.TIPO_SALA_3D) 	{ return "3D"; 		}
+		else 										{ return "2D e 3D"; }
+	}
 }
