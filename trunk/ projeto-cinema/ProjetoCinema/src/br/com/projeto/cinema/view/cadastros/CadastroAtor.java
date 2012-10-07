@@ -42,6 +42,7 @@ public class CadastroAtor extends JInternalFrame
 	 */
 	public CadastroAtor() 
 	{
+		setClosable(true);
 		setTitle("Cadastro Ator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 635, 211);

@@ -22,7 +22,7 @@ import br.com.projeto.cinema.utils.Query;
 
 public class GenericDao<T extends Serializable> {
 
-	  @PersistenceContext(unitName = "pet")	
+	  @PersistenceContext(unitName = "cinema")	
 	    private final EntityManager entityManager;
 	
 	    private final Class<T> persistentClass;
@@ -68,23 +68,6 @@ public class GenericDao<T extends Serializable> {
 	        } catch (Throwable t) {
 	            t.printStackTrace();
 	            tx.rollback();
-	        } finally {
-	            close();
-	        }
-	    }
-
-	    public void delete(T entity) {
-	        EntityTransaction tx = getEntityManager().getTransaction();
-
-	        try {
-	            tx.begin();
-	            getEntityManager().remove(entity);
-	            tx.commit();
-	
-	        } catch (Throwable t) {
-	            t.printStackTrace();
-	            tx.rollback();
-	
 	        } finally {
 	            close();
 	        }

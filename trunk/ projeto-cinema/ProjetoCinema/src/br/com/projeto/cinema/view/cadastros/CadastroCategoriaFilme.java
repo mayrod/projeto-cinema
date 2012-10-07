@@ -3,7 +3,6 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -38,7 +37,6 @@ public class CadastroCategoriaFilme extends JInternalFrame
 	private final DefaultTableModel modelo = new DefaultTableModel();
 	private JTable tblContato;
 	private FilmeCategoria registro;
-	private List<FilmeCategoria> categorias = new ArrayList<FilmeCategoria>();
 	
 	/**
 	 * Create the frame.
@@ -136,27 +134,17 @@ public class CadastroCategoriaFilme extends JInternalFrame
 			FilmeCategoria filmeCategoria = new FilmeCategoria();		
 			filmeCategoria.setNome(txNome.getText());
 			
-			
-			int qtdLinhas = 0;
-			qtdLinhas = tblContato.getSelectedRow();
-			
-			if(qtdLinhas <= -1){
-				qtdLinhas = 0;
-			}
-
-			categorias.add(qtdLinhas, filmeCategoria);
-			
-			
-			
-			
-			
-			
-			registro = new FilmeCategoriaDAO().save(filmeCategoria);
-			
-			if(registro!=null)
-			{
-				modelo.addRow(new Object[]{txNome.getText()});
-				limpar();
+			try{
+				registro = new FilmeCategoriaDAO().save(filmeCategoria);
+				
+				if(registro!=null)
+				{
+					registro = new FilmeCategoriaDAO().findByName(filmeCategoria.getNome());
+					modelo.addRow(new Object[]{registro.getPkFilmeCategoria(), registro.getNome()});
+					limpar();
+				}
+			}catch (Exception e) {
+				e.getStackTrace();
 			}
 		}
 		else
