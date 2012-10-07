@@ -23,9 +23,6 @@ import br.com.projeto.cinema.dao.AtorDAO;
 
 public class CadastroAtor extends JInternalFrame 
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txNome;
@@ -36,9 +33,6 @@ public class CadastroAtor extends JInternalFrame
 	private JButton btLimpar;
 	private Ator registro;	
 	
-	/**
-	 * Create the frame.
-	 */
 	public CadastroAtor() 
 	{
 		setClosable(true);

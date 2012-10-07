@@ -40,7 +40,7 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	private JButton btRemover;
 	private JButton btLimpar;
 	private Horario registro;
-	private JComboBox cbDiaSemana;
+	private JComboBox<String> cbDiaSemana;
 	private JFormattedTextField txHorario;
 	private JFormattedTextField txPreco;
 	
@@ -84,7 +84,7 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		lblDiaDaSemana.setBounds(10, 98, 101, 25);
 		contentPane.add(lblDiaDaSemana);
 		
-		cbDiaSemana = new JComboBox();
+		cbDiaSemana = new JComboBox<String>();
 		cbDiaSemana.setBounds(109, 98, 190, 25);
 		contentPane.add(cbDiaSemana);
 		
@@ -131,7 +131,6 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		carregarCombo();
 	}
 	
-	@SuppressWarnings("unused")
 	private class escutaBotao implements ActionListener 
 	{
 		public void actionPerformed(ActionEvent e) 
@@ -143,7 +142,6 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void carregarCombo()
 	{
 		cbDiaSemana.addItem("Domingo");
@@ -179,6 +177,7 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		cbDiaSemana.setSelectedItem(null);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void salvar()
 	{
 		if(cbDiaSemana.getSelectedItem()!=null)

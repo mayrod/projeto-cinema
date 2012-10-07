@@ -59,7 +59,7 @@ public class Filme implements Serializable{
 	@OneToOne @JoinColumn(name="fkCategoria")
 	private FilmeCategoria categoria;
 	
-	@OneToMany @JoinTable(name="elenco_filme" , joinColumns = @JoinColumn(name = "pkFilme"),inverseJoinColumns = @JoinColumn(name = "pkElenco"))
+	@OneToMany @JoinTable(name="elenco" , joinColumns = @JoinColumn(name = "pkFilme"),inverseJoinColumns = @JoinColumn(name = "pkElenco"))
 	private List<Elenco> elenco;
 	
 	@OneToMany @JoinTable(name="filme_horario_exibicao" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))

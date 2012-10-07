@@ -36,11 +36,9 @@ public class FrameSistema extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JPanel painelAux;	
 	private static JMenu mnCadastro = new JMenu("Cadastro");
 	private static JMenu mnNewMenu_1 = new JMenu("Consultas");
 	private static JMenu mnCaixa = new JMenu("Caixa");
-	private static JMenu mnApontamento = new JMenu("Apontamento");	
 	private static FrameSistema frame;	
 	private JDesktopPane plPrincipal;    
     private static Usuario usuario; 
