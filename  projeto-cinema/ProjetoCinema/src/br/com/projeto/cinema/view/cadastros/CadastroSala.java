@@ -32,8 +32,8 @@ public class CadastroSala extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroSala() {
+		setClosable(true);
 		setTitle("Cadastro Sala");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 669, 347);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
