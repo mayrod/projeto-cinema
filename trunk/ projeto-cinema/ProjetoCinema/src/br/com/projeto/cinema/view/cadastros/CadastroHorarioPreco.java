@@ -3,7 +3,6 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -12,25 +11,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.MaskFormatter;
 
-import br.com.projeto.cinema.bean.FilmeHorario;
 import br.com.projeto.cinema.bean.Horario;
-import br.com.projeto.cinema.dao.HorarioExibicaoDAO;
-import br.com.projeto.cinema.view.componentes.calendario.DateUtil;
-
-import javax.swing.SwingConstants;
+import br.com.projeto.cinema.dao.HorarioDAO;
 
 public class CadastroHorarioPreco extends JInternalFrame {
 
@@ -40,7 +35,7 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private JTable tblContato;
+	private JTable tblHorario;
 	private JButton btSalvar;
 	private JButton btRemover;
 	private JButton btLimpar;
@@ -55,7 +50,7 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	public CadastroHorarioPreco() {
 		setClosable(true);
 		setTitle("Cadastro Hor\u00E1rio Pre\u00E7o");
-		setBounds(100, 100, 624, 396);
+		setBounds(100, 100, 746, 396);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,16 +67,17 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		contentPane.add(lblHorrio);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(318, 11, 280, 278);
+		scrollPane.setBounds(318, 11, 367, 278);
 		contentPane.add(scrollPane);
 				
+		modelo.addColumn("Código");
 		modelo.addColumn("Dia");
 		modelo.addColumn("Horário");
 		modelo.addColumn("Preço");
 
-		tblContato = new JTable(modelo);
-		scrollPane.setViewportView(tblContato);
-		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tblHorario = new JTable(modelo);
+		scrollPane.setViewportView(tblHorario);
+		tblHorario.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JLabel lblDiaDaSemana = new JLabel("Dia da Semana:");
 		lblDiaDaSemana.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -161,13 +157,13 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	
 	public void preencherTabela()
 	{
-		List<Horario> list = new HorarioExibicaoDAO().obterTodos();
+		List<Horario> list = new HorarioDAO().obterTodos();
 		
 		if(list!=null)
 		{
 			for(Horario obj : list)
 			{
-				modelo.addRow(new Object[]{obj, obj.getHorario().toString().substring(11, 16),"R$ " + obj.getPreco()});
+				modelo.addRow(new Object[]{obj.getPkHorario(),obj, obj.getHorario().toString().substring(11, 16),"R$ " + obj.getPreco()});
 			}
 		}
 		
@@ -189,6 +185,10 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		{		
 			try 
 			{
+				HorarioDAO horarioDao = new HorarioDAO();
+				long countId = horarioDao.count() + 1;
+				
+				registro.setPkHorario(countId);
 				registro.setDiaSemana(cbDiaSemana.getSelectedIndex() + 1);
 				
 				registro.setHorario(new Date());
@@ -197,11 +197,11 @@ public class CadastroHorarioPreco extends JInternalFrame {
 				
 				registro.setPreco(new Double(txPreco.getText()));
 			
-				registro = new HorarioExibicaoDAO().save(registro);
+				registro = new HorarioDAO().save(registro);
 			
 				if(registro!=null)
 				{
-					modelo.addRow(new Object[]{registro, registro.getHorario().toString().substring(11, 16),"R$ " + registro.getPreco()});
+					modelo.addRow(new Object[]{ registro.getPkHorario(),registro, registro.getHorario().toString().substring(11, 16),"R$ " + registro.getPreco()});
 					limpar();
 				}
 			}
@@ -222,14 +222,17 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	
 	public void remover()
 	{
-		if(tblContato.getSelectedRow()!=-1)
+		if(tblHorario.getSelectedRow()!=-1)
 		{
-			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblHorario.getSelectedRow(),0).toString() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor==0) 
 			{ 
-				new HorarioExibicaoDAO().remover((Horario) modelo.getValueAt(tblContato.getSelectedRow(), 0));
-				modelo.removeRow(tblContato.getSelectedRow()); 
+				long pkHorario = Long.parseLong(modelo.getValueAt(tblHorario.getSelectedRow(),0).toString());
+				Horario horarioSelecionado = new HorarioDAO().findById(pkHorario);
+				
+				new HorarioDAO().delete(horarioSelecionado);
+				modelo.removeRow(tblHorario.getSelectedRow()); 
 				limpar();
 			}
 		}

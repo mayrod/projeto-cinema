@@ -97,12 +97,12 @@ public class GenericDao<T extends Serializable> {
 	        }
 	    }
 	    
-	   public int count() throws DataException { 
+	   public long count() throws DataException { 
 		    Session session = (Session) this.getEntityManager().getDelegate();
 		    Criteria criteria = session.createCriteria(persistentClass);
 		    criteria.setProjection(Projections.rowCount());
 	
-		    Integer count = (Integer) criteria.uniqueResult();
+		    Long count = (Long) criteria.uniqueResult();
 		    return count;
 	 	}
 	   
@@ -141,6 +141,7 @@ public class GenericDao<T extends Serializable> {
 			}
 			return null;
 		}
+	
 }
 
 

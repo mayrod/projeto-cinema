@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -156,7 +155,7 @@ public class CadastroAtor extends JInternalFrame
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor==0) 
 			{ 
-				int pkAtor = Integer.parseInt(modelo.getValueAt(tblAtor.getSelectedRow(),0).toString());
+				long pkAtor = Long.parseLong(modelo.getValueAt(tblAtor.getSelectedRow(),0).toString());
 				Ator atorSelecionado = new AtorDAO().findById(pkAtor);
 				new AtorDAO().delete(atorSelecionado);
 				modelo.removeRow(tblAtor.getSelectedRow()); 
