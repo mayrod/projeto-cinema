@@ -31,7 +31,7 @@ public class CadastroAtor extends JInternalFrame
 	private JPanel contentPane;
 	private JTextField txNome;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private JTable tblContato;
+	private JTable tblAtor;
 	private JButton btSalvar;
 	private JButton btRemover;
 	private JButton btLimpar;
@@ -44,7 +44,6 @@ public class CadastroAtor extends JInternalFrame
 	{
 		setClosable(true);
 		setTitle("Cadastro Ator");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 635, 211);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,11 +65,12 @@ public class CadastroAtor extends JInternalFrame
 		scrollPane.setBounds(299, 11, 310, 108);
 		contentPane.add(scrollPane);
 		
+		modelo.addColumn("Código");
 		modelo.addColumn("Nome");
 
-		tblContato = new JTable(modelo);
-		scrollPane.setViewportView(tblContato);
-		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tblAtor = new JTable(modelo);
+		scrollPane.setViewportView(tblAtor);
+		tblAtor.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
@@ -121,7 +121,7 @@ public class CadastroAtor extends JInternalFrame
 		{
 			for(Ator obj : list)
 			{
-				modelo.addRow(new Object[]{obj});
+				modelo.addRow(new Object[]{obj.getPkAtor(), obj.getNome()});
 			}
 		}
 		
@@ -137,7 +137,8 @@ public class CadastroAtor extends JInternalFrame
 			
 			if(registro!=null)
 			{
-				modelo.addRow(new Object[]{registro});
+				registro = new AtorDAO().findByName(registro.getNome());
+				modelo.addRow(new Object[]{registro.getPkAtor(),registro.getNome()});
 				limpar();
 			}
 		}
@@ -149,14 +150,16 @@ public class CadastroAtor extends JInternalFrame
 	
 	public void remover()
 	{
-		if(tblContato.getSelectedRow()!=-1)
+		if(tblAtor.getSelectedRow()!=-1)
 		{
-			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),0).toString() 
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblAtor.getSelectedRow(),0).toString() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor==0) 
 			{ 
-				new AtorDAO().remover((Ator) modelo.getValueAt(tblContato.getSelectedRow(), 0));
-				modelo.removeRow(tblContato.getSelectedRow()); 
+				int pkAtor = Integer.parseInt(modelo.getValueAt(tblAtor.getSelectedRow(),0).toString());
+				Ator atorSelecionado = new AtorDAO().findById(pkAtor);
+				new AtorDAO().delete(atorSelecionado);
+				modelo.removeRow(tblAtor.getSelectedRow()); 
 				limpar();
 			}
 		}

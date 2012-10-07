@@ -53,8 +53,8 @@ public class CadastroHorarioPreco extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroHorarioPreco() {
+		setClosable(true);
 		setTitle("Cadastro Hor\u00E1rio Pre\u00E7o");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 624, 396);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

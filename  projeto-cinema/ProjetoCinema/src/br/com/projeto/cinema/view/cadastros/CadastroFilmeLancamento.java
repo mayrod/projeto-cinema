@@ -8,7 +8,6 @@ import java.sql.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeLancamento;
+import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 
 public class CadastroFilmeLancamento extends JInternalFrame {
@@ -74,6 +74,7 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		scrollPane.setBounds(306, 11, 369, 96);
 		contentPane.add(scrollPane);
 		
+		modelo.addColumn("Código");
 		modelo.addColumn("Filme");
 		modelo.addColumn("Data Lançamento");
 
@@ -130,7 +131,8 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
 			registro.setDataEstreia((Date) data.getDate());
 			
-			modelo.addRow(new Object[]{registro});
+			registro = new FilmeLancamentoDAO().findByName(registro.getFilme().getTitulo());
+			modelo.addRow(new Object[]{registro.getPkFilmeLancamento(), registro.getFilme().getTitulo(),registro.getDataEstreia()});
 			limpar();
 			
 //			registro = new AtorDAO().salvar(ator);
