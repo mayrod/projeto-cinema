@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -161,7 +160,7 @@ public class CadastroCategoriaFilme extends JInternalFrame
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor == 0) 
 			{ 
-				int pkFilmeCategoria = Integer.parseInt(modelo.getValueAt(tblCategoria.getSelectedRow(),0).toString());
+				long pkFilmeCategoria = Long.parseLong(modelo.getValueAt(tblCategoria.getSelectedRow(),0).toString());
 				FilmeCategoria filmeCategoriaSelecionado = new FilmeCategoriaDAO().findById(pkFilmeCategoria);
 				new FilmeCategoriaDAO().delete(filmeCategoriaSelecionado);
 				modelo.removeRow(tblCategoria.getSelectedRow()); 

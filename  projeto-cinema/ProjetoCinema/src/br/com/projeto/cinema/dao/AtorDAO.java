@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import br.com.projeto.cinema.bean.Ator;
-import br.com.projeto.cinema.bean.FilmeCategoria;
 import br.com.projeto.cinema.dao.base.FactoryUtil;
 import br.com.projeto.cinema.dao.base.GenericDao;
 import br.com.projeto.cinema.utils.Query;
