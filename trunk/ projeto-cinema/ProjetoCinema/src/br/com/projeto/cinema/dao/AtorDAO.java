@@ -2,7 +2,11 @@ package br.com.projeto.cinema.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import br.com.projeto.cinema.bean.Ator;
+import br.com.projeto.cinema.bean.FilmeCategoria;
+import br.com.projeto.cinema.dao.base.FactoryUtil;
 import br.com.projeto.cinema.dao.base.GenericDao;
 import br.com.projeto.cinema.utils.Query;
 
@@ -18,7 +22,6 @@ public class AtorDAO extends GenericDao<Ator>
 		try {
 			return obtem(new Query("DELETE FROM Ator WHERE pkAtor = ?", ator.getPkAtor()),Ator.class);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -34,5 +37,13 @@ public class AtorDAO extends GenericDao<Ator>
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void delete(Ator ator){
+        EntityManager em  =  FactoryUtil.getEntityManager();  
+        em.getTransaction().begin();   
+        em.remove(em.getReference(Ator.class, ator.getPkAtor()));  
+        em.getTransaction().commit();  
+        em.close();  
 	}
 }

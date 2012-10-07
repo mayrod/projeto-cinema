@@ -35,7 +35,7 @@ public class CadastroCategoriaFilme extends JInternalFrame
 	private JButton btSalvar;
 	private JButton btRemover; 
 	private final DefaultTableModel modelo = new DefaultTableModel();
-	private JTable tblContato;
+	private JTable tblCategoria;
 	private FilmeCategoria registro;
 	
 	/**
@@ -44,7 +44,6 @@ public class CadastroCategoriaFilme extends JInternalFrame
 	public CadastroCategoriaFilme() {
 		setClosable(true);
 		setTitle("Cadastro Categoria");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 634, 210);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,9 +67,9 @@ public class CadastroCategoriaFilme extends JInternalFrame
 		modelo.addColumn("Código");
 		modelo.addColumn("Nome");
 		
-		tblContato = new JTable(modelo);
-		scrollPane.setViewportView(tblContato);
-		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tblCategoria = new JTable(modelo);
+		scrollPane.setViewportView(tblCategoria);
+		tblCategoria.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 				
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroCategoriaFilme.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
@@ -156,16 +155,16 @@ public class CadastroCategoriaFilme extends JInternalFrame
 	public void remover()
 	{
 		
-		if(tblContato.getSelectedRow()!=-1)
+		if(tblCategoria.getSelectedRow()!=-1)
 		{
-			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblContato.getSelectedRow(),1).toString() 
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + modelo.getValueAt(tblCategoria.getSelectedRow(),1).toString() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor == 0) 
 			{ 
-				int pkFilmeCategoria = Integer.parseInt(modelo.getValueAt(tblContato.getSelectedRow(),0).toString());
+				int pkFilmeCategoria = Integer.parseInt(modelo.getValueAt(tblCategoria.getSelectedRow(),0).toString());
 				FilmeCategoria filmeCategoriaSelecionado = new FilmeCategoriaDAO().findById(pkFilmeCategoria);
 				new FilmeCategoriaDAO().delete(filmeCategoriaSelecionado);
-				modelo.removeRow(tblContato.getSelectedRow()); 
+				modelo.removeRow(tblCategoria.getSelectedRow()); 
 				limpar();
 			}
 		}
