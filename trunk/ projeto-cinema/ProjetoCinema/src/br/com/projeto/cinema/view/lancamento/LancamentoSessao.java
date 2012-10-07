@@ -24,7 +24,7 @@ public class LancamentoSessao extends JFrame {
 	 */
 	public LancamentoSessao() {
 		setTitle("Cadastro Filme Lan\u00E7amento");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 752, 318);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

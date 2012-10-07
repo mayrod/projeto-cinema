@@ -44,8 +44,8 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 	 */
 	public CadastroFilmeLancamento() 
 	{
+		setClosable(true);
 		setTitle("Cadastro Filme Lan\u00E7amento");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 707, 210);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
