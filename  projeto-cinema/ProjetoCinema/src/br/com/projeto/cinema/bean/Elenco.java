@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,10 +23,10 @@ public class Elenco implements Serializable{
 	@Column(name = "tipoPapel")
 	private int tipoPapel;
     
-	@OneToOne @JoinColumn(name="fkAtor")
+	@ManyToOne @JoinColumn(name="fkAtor")
 	private Ator ator;
 	
-	@OneToOne @JoinColumn(name="fkFilme")
+	@ManyToOne @JoinColumn(name="fkFilme")
 	private Filme filme;
 
 	public Long getPkElenco() {
