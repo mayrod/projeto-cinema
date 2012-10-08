@@ -19,7 +19,7 @@ public class Filme implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id 
 	@Column(name = "pkFilme")
 	private Long pkFilme;
 	
@@ -64,9 +64,6 @@ public class Filme implements Serializable{
 	
 	@OneToOne @JoinColumn(name="fkCategoria")
 	private FilmeCategoria categoria;
-	
-	@OneToMany @JoinTable(name="elenco" , joinColumns = @JoinColumn(name = "pkFilme"),inverseJoinColumns = @JoinColumn(name = "pkElenco"))
-	private List<Elenco> elenco;
 	
 	@OneToMany @JoinTable(name="filmeHorario" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
 	private List<FilmeHorario> horariosExibicoes;
@@ -178,13 +175,6 @@ public class Filme implements Serializable{
 		this.categoria = categoria;
 	}
 
-	public List<Elenco> getElenco() {
-		return elenco;
-	}
-
-	public void setElenco(List<Elenco> elenco) {
-		this.elenco = elenco;
-	}
 
 	public List<FilmeHorario> getHorariosExibicoes() {
 		return horariosExibicoes;
@@ -217,4 +207,6 @@ public class Filme implements Serializable{
 	public void setProdutora(String produtora) {
 		this.produtora = produtora;
 	}
+
+	
 }
