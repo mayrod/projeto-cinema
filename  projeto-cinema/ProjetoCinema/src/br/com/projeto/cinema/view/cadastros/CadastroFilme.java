@@ -29,6 +29,7 @@ import br.com.projeto.cinema.bean.Elenco;
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeCategoria;
 import br.com.projeto.cinema.dao.AtorDAO;
+import br.com.projeto.cinema.dao.ElencoDAO;
 import br.com.projeto.cinema.dao.FilmeCategoriaDAO;
 import br.com.projeto.cinema.dao.FilmeDAO;
 import br.com.projeto.cinema.utils.Constantes;
@@ -448,25 +449,29 @@ public class CadastroFilme extends JInternalFrame
 			registro.setLegenda((String) cbLegenda.getSelectedItem());
 			registro.setProdutora((String) cbProdutora.getSelectedItem());
 			registro.setCategoria((FilmeCategoria) cbCategoria.getSelectedItem());
+			registro.setPkFilme(new Long(txCodigo.getText()));
 
-			for(Elenco el : registroElenco)
-			{
-				el.setFilme(registro);
-			}
-			
-			registro.setElenco(registroElenco);
-			
 			registro = new FilmeDAO().save(registro);
 			
-			if(new FilmeDAO().salvarTodos(registroElenco) && registro!=null)
-			{
-				JOptionPane.showMessageDialog(null,"Registro salvo com sucesso!","Sucesso.",JOptionPane.INFORMATION_MESSAGE);  
-			}
+			salvarElenco();
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(null,"Digite um nome por favor!","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
 		}
+	}
+	
+	private void salvarElenco(){
+		long countIdFilme = new Long(txCodigo.getText());
+		Filme filemSelecionado = new FilmeDAO().findById(countIdFilme);
+
+		for(Elenco el : registroElenco)
+		{
+			el.setFilme(filemSelecionado);
+			new ElencoDAO().save(el);
+		}
+		
+		JOptionPane.showMessageDialog(null,"Registro salvo com sucesso!","Sucesso.",JOptionPane.INFORMATION_MESSAGE);  
 	}
 	
 	public void remover()
