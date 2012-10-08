@@ -29,7 +29,6 @@ import br.com.projeto.cinema.bean.Elenco;
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeCategoria;
 import br.com.projeto.cinema.dao.AtorDAO;
-import br.com.projeto.cinema.dao.ElencoDAO;
 import br.com.projeto.cinema.dao.FilmeCategoriaDAO;
 import br.com.projeto.cinema.dao.FilmeDAO;
 import br.com.projeto.cinema.utils.Constantes;
@@ -446,15 +445,23 @@ public class CadastroFilme extends JInternalFrame
 			registro.setNacionalidade((String) cbNacionalidade.getSelectedItem());
 			registro.setClassificacaoIndicativa((String) cbClassificacaoIndicativa.getSelectedItem());
 			registro.setTipoAudio((String) cbAudio.getSelectedItem());
-			
-			registro = new FilmeDAO().save(registro);
-					
+			registro.setLegenda((String) cbLegenda.getSelectedItem());
+			registro.setProdutora((String) cbProdutora.getSelectedItem());
+			registro.setCategoria((FilmeCategoria) cbCategoria.getSelectedItem());
+
 			for(Elenco el : registroElenco)
 			{
 				el.setFilme(registro);
-				el = new ElencoDAO().save(el);
 			}
 			
+			registro.setElenco(registroElenco);
+			
+			registro = new FilmeDAO().save(registro);
+			
+			if(new FilmeDAO().salvarTodos(registroElenco) && registro!=null)
+			{
+				JOptionPane.showMessageDialog(null,"Registro salvo com sucesso!","Sucesso.",JOptionPane.INFORMATION_MESSAGE);  
+			}
 		}
 		else
 		{

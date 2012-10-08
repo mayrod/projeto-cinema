@@ -42,7 +42,7 @@ public class FilmePromocao implements Serializable{
 	@ManyToOne @JoinColumn(name="fkFilme")
 	private Filme filme;
 	
-	@OneToMany @JoinTable(name="horario_filme_promocao" , joinColumns = @JoinColumn(name = "pkFilmePromocao"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
+	@OneToMany @JoinTable(name="filmeHorario" , joinColumns = @JoinColumn(name = "pkFilmePromocao"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
 	private List<FilmeHorario> horarios;
 	
 	public Long getPkFilmePromocao() {

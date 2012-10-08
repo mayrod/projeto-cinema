@@ -56,19 +56,22 @@ public class Filme implements Serializable{
 	@Column(name = "trailer")
 	private String trailer;
 	
+	@Column(name = "legenda")
+	private String legenda;
+	
+	@Column(name = "produtora")
+	private String produtora;
+	
 	@OneToOne @JoinColumn(name="fkCategoria")
 	private FilmeCategoria categoria;
 	
 	@OneToMany @JoinTable(name="elenco" , joinColumns = @JoinColumn(name = "pkFilme"),inverseJoinColumns = @JoinColumn(name = "pkElenco"))
 	private List<Elenco> elenco;
 	
-	@OneToMany @JoinTable(name="filme_horario_exibicao" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
+	@OneToMany @JoinTable(name="filmeHorario" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
 	private List<FilmeHorario> horariosExibicoes;
 	
-	@OneToOne @JoinColumn(name="fkProdutora")
-	private Produtora produtora;
-	
-	@OneToMany @JoinTable(name="avaliacoes_filme" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkAvaliacao"))
+	@OneToMany @JoinTable(name="avaliacaofilme" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkAvaliacaoFilme"))
 	private List<AvaliacaoFilme> avaliacoes;
 
 	public Long getPkFilme() {
@@ -191,14 +194,6 @@ public class Filme implements Serializable{
 		this.horariosExibicoes = horariosExibicoes;
 	}
 
-	public Produtora getProdutora() {
-		return produtora;
-	}
-
-	public void setProdutora(Produtora produtora) {
-		this.produtora = produtora;
-	}
-
 	public List<AvaliacaoFilme> getAvaliacoes() {
 		return avaliacoes;
 	}
@@ -206,7 +201,20 @@ public class Filme implements Serializable{
 	public void setAvaliacoes(List<AvaliacaoFilme> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 	}
-	
 
+	public String getLegenda() {
+		return legenda;
+	}
 
+	public void setLegenda(String legenda) {
+		this.legenda = legenda;
+	}
+
+	public String getProdutora() {
+		return produtora;
+	}
+
+	public void setProdutora(String produtora) {
+		this.produtora = produtora;
+	}
 }
