@@ -3,7 +3,8 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeLancamento;
+import br.com.projeto.cinema.dao.FilmeDAO;
 import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 
@@ -37,7 +39,9 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 	private JButton btRemover;
 	private JButton btLimpar;
 	private FilmeLancamento registro;	
-	private JComboBox cbFilme;
+	private JComboBox<Filme> cbFilme;
+	private List<Filme> filmes = new ArrayList<Filme>();
+	private List<FilmeLancamento> filmesLancamento = new ArrayList<FilmeLancamento>();
 	
 	/**
 	 * Create the frame.
@@ -46,7 +50,7 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 	{
 		setClosable(true);
 		setTitle("Cadastro Filme Lan\u00E7amento");
-		setBounds(100, 100, 707, 210);
+		setBounds(100, 100, 707, 276);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,7 +66,7 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		lblData.setBounds(10, 63, 114, 25);
 		contentPane.add(lblData);
 		
-		cbFilme = new JComboBox();
+		cbFilme = new JComboBox<Filme>();
 		cbFilme.setBounds(66, 27, 213, 25);
 		contentPane.add(cbFilme);
 		
@@ -71,7 +75,7 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		contentPane.add(data);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(306, 11, 369, 96);
+		scrollPane.setBounds(306, 11, 369, 159);
 		contentPane.add(scrollPane);
 		
 		modelo.addColumn("Código");
@@ -85,23 +89,26 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(10, 121, 160, 41);
+		btLimpar.setBounds(10, 181, 160, 41);
 		contentPane.add(btLimpar);
 		btLimpar.addActionListener(new escutaBotao());
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(515, 121, 160, 41);
+		btSalvar.setBounds(515, 181, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(258, 121, 160, 41);
+		btRemover.setBounds(258, 181, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
+		
+		preencherFilme();
+		preencherTabela();
 	}
 	
 	private class escutaBotao implements ActionListener 
@@ -111,14 +118,41 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 			if(e.getSource()==btSalvar) 		{ salvar(); }	
 			else if(e.getSource()==btRemover) 	{ remover();}	
 			else if(e.getSource()==btLimpar)	{ limpar();	}
+		}
+	}
+	
+	private void preencherTabela(){
+		try {
+			filmesLancamento = new FilmeLancamentoDAO().getAll();
 			
+			if(filmesLancamento!=null)
+			{
+				for(FilmeLancamento obj : filmesLancamento)
+				{
+					modelo.addRow(new Object[]{obj.getPkFilmeLancamento(),obj.getFilme(),obj.getDataEstreia()});
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void preencherFilme(){
+		try {
+			filmes = new FilmeDAO().getAll();
+			
+			for(Filme filme : filmes){
+				cbFilme.addItem(filme);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
 	public void limpar()
 	{
 		registro = new FilmeLancamento();
-		
 		cbFilme.setSelectedItem(null);
 		data.setDate(null);
 	}
@@ -127,15 +161,23 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 	{
 		if(cbFilme.getSelectedItem()!=null)
 		{
+			long countId = new FilmeLancamentoDAO().count() + 1;
+			
 			registro = new FilmeLancamento();		
+			registro.setPkFilmeLancamento(countId);
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
-			registro.setDataEstreia((Date) data.getDate());
+			java.sql.Date dataSql = new java.sql.Date(data.getDate().getTime());  
+
+			registro.setDataEstreia(dataSql);
 			
-			registro = new FilmeLancamentoDAO().findByName(registro.getFilme().getTitulo());
-			modelo.addRow(new Object[]{registro.getPkFilmeLancamento(), registro.getFilme().getTitulo(),registro.getDataEstreia()});
-			limpar();
-			
-//			registro = new AtorDAO().salvar(ator);
+			try{
+				new FilmeLancamentoDAO().save(registro);
+				registro = new FilmeLancamentoDAO().findById(countId);
+				modelo.addRow(new Object[]{registro.getPkFilmeLancamento(), registro.getFilme().getTitulo(),registro.getDataEstreia()});
+				limpar();
+			}catch (Exception e) {
+				JOptionPane.showMessageDialog(null," Erro ao salvar os dados de Filme Lançamento.","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
+			}
 		}
 		else
 		{
