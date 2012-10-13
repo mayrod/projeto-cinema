@@ -207,5 +207,10 @@ public class Filme implements Serializable{
 		this.produtora = produtora;
 	}
 
+	@Override
+	public String toString() {
+		return titulo;
+	}
+
 	
 }
