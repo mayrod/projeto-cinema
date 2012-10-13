@@ -146,6 +146,7 @@ public class FrameLogin extends JInternalFrame {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void verificaLogin() 
 	{		 
 		try
