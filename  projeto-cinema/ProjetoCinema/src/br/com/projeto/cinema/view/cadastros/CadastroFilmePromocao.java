@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmePromocao;
+import br.com.projeto.cinema.dao.FilmeDAO;
 import br.com.projeto.cinema.dao.FilmePromocaoDAO;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 
@@ -34,7 +35,7 @@ public class CadastroFilmePromocao extends JInternalFrame
 	private JTextField txCodigo;
 	private JTextField txPorcentagemPromocao;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private JTable tblContato;
+	private JTable tblFilmePromocao;
 	private JButton btSalvar;
 	private JButton btRemover;
 	private JButton btLimpar;
@@ -43,12 +44,13 @@ public class CadastroFilmePromocao extends JInternalFrame
 	private JDateChooser dataTermino;
 	private JDateChooser dataInicio; 
 	private JComboBox<Filme> cbFilme;
+	private List<Filme> filmes = new ArrayList<Filme>();
 	
 	public CadastroFilmePromocao() 
 	{
 		setClosable(true);
 		setTitle("Cadastro Filme Promo\u00E7\u00E3o");
-		setBounds(100, 100, 717, 449);
+		setBounds(100, 100, 830, 449);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,6 +81,8 @@ public class CadastroFilmePromocao extends JInternalFrame
 		contentPane.add(lblCdigo);
 		
 		txCodigo = new JTextField();
+		txCodigo.setEnabled(false);
+		txCodigo.setEditable(false);
 		txCodigo.setBounds(66, 13, 190, 25);
 		contentPane.add(txCodigo);
 		txCodigo.setColumns(10);
@@ -120,7 +124,7 @@ public class CadastroFilmePromocao extends JInternalFrame
 		contentPane.add(txDescricao);
 			
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(272, 11, 419, 322);
+		scrollPane.setBounds(272, 11, 532, 322);
 		contentPane.add(scrollPane);
 		
 		modelo.addColumn("Código");
@@ -129,9 +133,9 @@ public class CadastroFilmePromocao extends JInternalFrame
 		modelo.addColumn("Dt. Término");
 		modelo.addColumn("% Promoção");
 
-		tblContato = new JTable(modelo);
-		scrollPane.setViewportView(tblContato);
-		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tblFilmePromocao = new JTable(modelo);
+		scrollPane.setViewportView(tblFilmePromocao);
+		tblFilmePromocao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
@@ -153,6 +157,10 @@ public class CadastroFilmePromocao extends JInternalFrame
 		btRemover.setBounds(272, 368, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
+		
+		preencherCodigo();
+		preencherTabela();
+		preencherFilme();
 	}
 	
 	private class escutaBotao implements ActionListener 
@@ -175,6 +183,7 @@ public class CadastroFilmePromocao extends JInternalFrame
 		cbFilme.setSelectedItem(null);
 		dataInicio.setDate(null);
 		dataTermino.setDate(null);
+		preencherCodigo();
 	}
 	
 	public void preencherTabela()
@@ -197,28 +206,31 @@ public class CadastroFilmePromocao extends JInternalFrame
 	{
 		if(cbFilme.getSelectedItem()!=null)
 		{
+			java.sql.Date dtInicio = new java.sql.Date(dataInicio.getDate().getTime());  
+			java.sql.Date dtTermino = new java.sql.Date(dataTermino.getDate().getTime());  
+			
 			registro = new FilmePromocao();		
 			
+			registro.setPkFilmePromocao(Long.parseLong(txCodigo.getText()));
 			registro.setCodigo(txCodigo.getText());
 			registro.setDescricao(txDescricao.getText());
-			registro.setPorcentagemPromocao(new Double(txCodigo.getText()));
-			registro.setDataInicio((Date) dataInicio.getDate());
-			registro.setDataTermino((Date) dataTermino.getDate());
+			registro.setPorcentagemPromocao(new Double(txPorcentagemPromocao.getText()));
+			registro.setDataInicio(dtInicio);
+			registro.setDataTermino(dtTermino);
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
 			
-			registro = new FilmePromocaoDAO().save(registro);
-			
-			if(registro!=null)
-			{
-				modelo.addColumn("Código");
-				modelo.addColumn("Filme");
-				modelo.addColumn("Dt. Inicio");
-				modelo.addColumn("Dt. Término");
-				modelo.addColumn("% Promoção");
+			try{
+				registro = new FilmePromocaoDAO().save(registro);
+				registro = new FilmePromocaoDAO().findById(Long.parseLong(txCodigo.getText()));
 				
-				modelo.addRow(new Object[]{registro, registro.getFilme().getTitulo(), registro.getDataInicio().toString(), 
-						registro.getDataTermino().toString(), registro.getPorcentagemPromocao().toString()});
-				limpar();
+				if(registro!=null)
+				{
+					modelo.addRow(new Object[]{registro.getPkFilmePromocao(), registro.getFilme().getTitulo(), registro.getDataInicio(), 
+							registro.getDataTermino(), registro.getPorcentagemPromocao()});
+					limpar();
+				}			
+			}catch (Exception e) {
+				JOptionPane.showMessageDialog(null," Erro ao salvar os dados de Filme Promoção.","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
 			}
 		}
 		else
@@ -229,15 +241,32 @@ public class CadastroFilmePromocao extends JInternalFrame
 	
 	public void remover()
 	{
-		if(tblContato.getSelectedRow()!=-1)
+		if(tblFilmePromocao.getSelectedRow()!=-1)
 		{
-			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((FilmePromocao) modelo.getValueAt(tblContato.getSelectedRow(),0)).getFilme().getTitulo() 
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((FilmePromocao) modelo.getValueAt(tblFilmePromocao.getSelectedRow(),0)).getFilme().getTitulo() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+			if(valor==0) { modelo.removeRow(tblFilmePromocao.getSelectedRow()); }
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
+		}
+	}
+	
+	private void preencherCodigo(){
+		long countId = new FilmePromocaoDAO().count() + 1;
+		txCodigo.setText(Long.toString(countId));
+	}
+	
+	private void preencherFilme(){
+		try {
+			filmes = new FilmeDAO().getAll();
+			
+			for(Filme filme : filmes){
+				cbFilme.addItem(filme);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

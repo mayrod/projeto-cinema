@@ -34,7 +34,7 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 	private JPanel contentPane;
 	private JDateChooser data = new JDateChooser();
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private JTable tblContato;
+	private JTable tblFilmeLancamento;
 	private JButton btSalvar;
 	private JButton btRemover;
 	private JButton btLimpar;
@@ -82,9 +82,9 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		modelo.addColumn("Filme");
 		modelo.addColumn("Data Lançamento");
 
-		tblContato = new JTable(modelo);
-		scrollPane.setViewportView(tblContato);
-		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tblFilmeLancamento = new JTable(modelo);
+		scrollPane.setViewportView(tblFilmeLancamento);
+		tblFilmeLancamento.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
@@ -166,9 +166,9 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 			registro = new FilmeLancamento();		
 			registro.setPkFilmeLancamento(countId);
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
-			java.sql.Date dataSql = new java.sql.Date(data.getDate().getTime());  
+			java.sql.Date dataEstreia = new java.sql.Date(data.getDate().getTime());  
 
-			registro.setDataEstreia(dataSql);
+			registro.setDataEstreia(dataEstreia);
 			
 			try{
 				new FilmeLancamentoDAO().save(registro);
@@ -187,11 +187,11 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 	
 	public void remover()
 	{
-		if(tblContato.getSelectedRow()!=-1)
+		if(tblFilmeLancamento.getSelectedRow()!=-1)
 		{
-			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((Filme) modelo.getValueAt(tblContato.getSelectedRow(),0)).getTitulo() 
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((Filme) modelo.getValueAt(tblFilmeLancamento.getSelectedRow(),0)).getTitulo() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblContato.getSelectedRow()); }
+			if(valor==0) { modelo.removeRow(tblFilmeLancamento.getSelectedRow()); }
 		}
 		else
 		{
