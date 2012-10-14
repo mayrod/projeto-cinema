@@ -117,6 +117,7 @@ public class FrameSistema extends JFrame
 		menuBar.add(mnCadastro);
 		
 		mntmFilme = new JMenuItem("Filme");
+		mntmFilme.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/cinema3_add.png")));
 		mntmFilme.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilme);
 		
@@ -140,6 +141,7 @@ public class FrameSistema extends JFrame
 		mnCadastro.add(separator);
 		
 		mntmSala = new JMenuItem("Sala");
+		mntmSala.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/movie.png")));
 		mntmSala.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmSala);
 		
@@ -151,6 +153,7 @@ public class FrameSistema extends JFrame
 		mnCadastro.add(separator_1);
 		
 		mntmAtor = new JMenuItem("Ator");
+		mntmAtor.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/cinema4_add.png")));
 		mntmAtor.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmAtor);
 				
