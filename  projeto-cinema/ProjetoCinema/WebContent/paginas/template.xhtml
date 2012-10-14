@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+	<title>JSF 2.0 - Exemplo de template</title>
+</h:head>
+<h:body>
+	<ui:insert name="menu">
+	<div style="color: yellow;">
+	
+
+		<p:dock position="top">
+			<p:menuitem  id="consulta" value="Home" icon="/imagens/cinema3_fav.png" url="/paginas/consultaFilme.xhtml" />
+			<p:menuitem value="Music" icon="/imagens/cinema4_fav.png" url="#" />
+			<p:menuitem value="Video" icon="/imagens/cinema5_fav.png" url="#" />
+			<p:menuitem value="Email" icon="/imagens/cinema1_fav.png" url="#" />
+			<p:menuitem value="Portfolio" icon="/imagens/Cinema-icon.png" url="#" />
+			<p:menuitem value="Link" icon="/imagens/cinema-icon-ingresso.png" url="#" />
+		</p:dock>  
+			</div>
+	</ui:insert>
+	
+	<ui:insert name="conteudo">
+      Aula de JSF 2.0 - criando templates de página
+    </ui:insert>
+    
+	<ui:insert name="rodape">
+      Prof. Rafael Guimarães Sakurai
+    </ui:insert>
+</h:body>
+
+</html>
+
+
