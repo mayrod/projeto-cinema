@@ -1,6 +1,5 @@
 package br.com.projeto.cinema.view.cadastros;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +9,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,34 +21,32 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.projeto.cinema.bean.Filme;
-import br.com.projeto.cinema.bean.FilmePromocao;
+import br.com.projeto.cinema.bean.FilmeCartaz;
+import br.com.projeto.cinema.dao.FilmeCartazDAO;
 import br.com.projeto.cinema.dao.FilmeDAO;
-import br.com.projeto.cinema.dao.FilmePromocaoDAO;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 
-public class CadastroFilmePromocao extends JInternalFrame 
+public class CadastroFilmeCartaz extends JInternalFrame 
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txCodigo;
-	private JTextField txPorcentagemPromocao;
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private JTable tblFilmePromocao;
 	private JButton btSalvar;
 	private JButton btRemover;
 	private JButton btLimpar;
-	private FilmePromocao registro;	
-	private JEditorPane txDescricao;
+	private FilmeCartaz registro;	
 	private JDateChooser dataTermino;
 	private JDateChooser dataInicio; 
 	private JComboBox<Filme> cbFilme;
 	private List<Filme> filmes = new ArrayList<Filme>();
 	
-	public CadastroFilmePromocao() 
+	public CadastroFilmeCartaz() 
 	{
 		setClosable(true);
-		setTitle("Cadastro Filme Promo\u00E7\u00E3o");
-		setBounds(100, 100, 830, 449);
+		setTitle("Cadastro Filme Cartaz");
+		setBounds(100, 100, 769, 381);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -96,65 +92,38 @@ public class CadastroFilmePromocao extends JInternalFrame
 		dataTermino.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dataTermino.setBounds(109, 119, 145, 25);
 		contentPane.add(dataTermino);
-		
-		JLabel lblPorcentagemDePromoo = new JLabel("Porcentagem de Promo\u00E7\u00E3o:");
-		lblPorcentagemDePromoo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPorcentagemDePromoo.setBounds(10, 155, 181, 25);
-		contentPane.add(lblPorcentagemDePromoo);
-		
-		txPorcentagemPromocao = new JTextField();
-		txPorcentagemPromocao.setColumns(10);
-		txPorcentagemPromocao.setBounds(195, 157, 37, 25);
-		contentPane.add(txPorcentagemPromocao);
-		
-		JLabel label = new JLabel("%");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(237, 155, 19, 25);
-		contentPane.add(label);
-		
-		JLabel lblDescrio = new JLabel("Descri\u00E7\u00E3o:");
-		lblDescrio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDescrio.setBounds(10, 191, 114, 25);
-		contentPane.add(lblDescrio);
-		
-		txDescricao = new JEditorPane();
-		txDescricao.setBackground(Color.WHITE);
-		txDescricao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txDescricao.setBounds(10, 215, 246, 118);
-		contentPane.add(txDescricao);
 			
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(272, 11, 532, 322);
+		scrollPane.setBounds(272, 11, 452, 209);
 		contentPane.add(scrollPane);
 		
 		modelo.addColumn("Código");
 		modelo.addColumn("Filme");
 		modelo.addColumn("Dt. Inicio");
 		modelo.addColumn("Dt. Término");
-		modelo.addColumn("% Promoção");
 
 		tblFilmePromocao = new JTable(modelo);
 		scrollPane.setViewportView(tblFilmePromocao);
 		tblFilmePromocao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		btSalvar = new JButton("  Salvar");
-		btSalvar.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
+		btSalvar.setIcon(new ImageIcon(CadastroFilmeCartaz.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(531, 368, 160, 41);
+		btSalvar.setBounds(564, 264, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		btLimpar = new JButton("  Limpar");
-		btLimpar.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
+		btLimpar.setIcon(new ImageIcon(CadastroFilmeCartaz.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(10, 368, 160, 41);
+		btLimpar.setBounds(43, 264, 160, 41);
 		contentPane.add(btLimpar);
 		btLimpar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
-		btRemover.setIcon(new ImageIcon(CadastroFilmePromocao.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		btRemover.setIcon(new ImageIcon(CadastroFilmeCartaz.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(272, 368, 160, 41);
+		btRemover.setBounds(305, 264, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
@@ -175,11 +144,9 @@ public class CadastroFilmePromocao extends JInternalFrame
 	
 	public void limpar()
 	{
-		registro = new FilmePromocao();
+		registro = new FilmeCartaz();
 		
 		txCodigo.setText("");
-		txDescricao.setText("");
-		txPorcentagemPromocao.setText("");
 		cbFilme.setSelectedItem(null);
 		dataInicio.setDate(null);
 		dataTermino.setDate(null);
@@ -188,14 +155,14 @@ public class CadastroFilmePromocao extends JInternalFrame
 	
 	public void preencherTabela()
 	{
-		List<FilmePromocao> list = new FilmePromocaoDAO().obterTodos();
+		List<FilmeCartaz> list = new FilmeCartazDAO().obterTodos();
 		
 		if(list!=null)
 		{
-			for(FilmePromocao obj : list)
+			for(FilmeCartaz obj : list)
 			{
-				modelo.addRow(new Object[]{obj.getPkFilmePromocao(), obj.getFilme().getTitulo(), obj.getDataInicio().toString(), 
-						obj.getDataTermino().toString(), obj.getPorcentagemPromocao().toString()});
+				modelo.addRow(new Object[]{obj.getPkFilmeCartaz(), obj.getFilme().getTitulo(), obj.getDataInicio().toString(), 
+						obj.getDataTermino().toString()});
 			}
 		}
 		
@@ -209,24 +176,21 @@ public class CadastroFilmePromocao extends JInternalFrame
 			java.sql.Date dtInicio = new java.sql.Date(dataInicio.getDate().getTime());  
 			java.sql.Date dtTermino = new java.sql.Date(dataTermino.getDate().getTime());  
 			
-			registro = new FilmePromocao();		
+			registro = new FilmeCartaz();		
 			
-			registro.setPkFilmePromocao(Long.parseLong(txCodigo.getText()));
-			registro.setCodigo(txCodigo.getText());
-			registro.setDescricao(txDescricao.getText());
-			registro.setPorcentagemPromocao(new Double(txPorcentagemPromocao.getText()));
+			registro.setPkFilmeCartaz(Long.parseLong(txCodigo.getText()));
 			registro.setDataInicio(dtInicio);
 			registro.setDataTermino(dtTermino);
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
 			
 			try{
-				registro = new FilmePromocaoDAO().save(registro);
-				registro = new FilmePromocaoDAO().findById(Long.parseLong(txCodigo.getText()));
+				registro = new FilmeCartazDAO().save(registro);
+				registro = new FilmeCartazDAO().findById(Long.parseLong(txCodigo.getText()));
 				
 				if(registro!=null)
 				{
-					modelo.addRow(new Object[]{registro.getPkFilmePromocao(), registro.getFilme().getTitulo(), registro.getDataInicio(), 
-							registro.getDataTermino(), registro.getPorcentagemPromocao()});
+					modelo.addRow(new Object[]{registro.getPkFilmeCartaz(), registro.getFilme().getTitulo(), registro.getDataInicio(), 
+							registro.getDataTermino()});
 					limpar();
 				}			
 			}catch (Exception e) {
@@ -243,7 +207,7 @@ public class CadastroFilmePromocao extends JInternalFrame
 	{
 		if(tblFilmePromocao.getSelectedRow()!=-1)
 		{
-			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((FilmePromocao) modelo.getValueAt(tblFilmePromocao.getSelectedRow(),0)).getFilme().getTitulo() 
+			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((FilmeCartaz) modelo.getValueAt(tblFilmePromocao.getSelectedRow(),0)).getFilme().getTitulo() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor==0) { modelo.removeRow(tblFilmePromocao.getSelectedRow()); }
 		}
@@ -254,7 +218,7 @@ public class CadastroFilmePromocao extends JInternalFrame
 	}
 	
 	private void preencherCodigo(){
-		long countId = new FilmePromocaoDAO().count() + 1;
+		long countId = new FilmeCartazDAO().count() + 1;
 		txCodigo.setText(Long.toString(countId));
 	}
 	
