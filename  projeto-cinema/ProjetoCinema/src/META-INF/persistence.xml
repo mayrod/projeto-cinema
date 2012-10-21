@@ -13,7 +13,7 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.driver" value="org.postgresql.Driver" />
 			<property name="hibernate.connection.user" value="postgres" />
-			<property name="hibernate.connection.password" value="postgres" />
+			<property name="hibernate.connection.password" value="root" />
 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/cinema" />
 			<property name="hibernate.connection.show_sql" value="true" />
 			<property name="hibernate.show_sql" value="true" />
