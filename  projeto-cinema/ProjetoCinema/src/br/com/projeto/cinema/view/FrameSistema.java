@@ -32,6 +32,7 @@ import br.com.projeto.cinema.view.cadastros.CadastroFilmeLancamento;
 import br.com.projeto.cinema.view.cadastros.CadastroFilmePromocao;
 import br.com.projeto.cinema.view.cadastros.CadastroHorarioPreco;
 import br.com.projeto.cinema.view.cadastros.CadastroSala;
+import br.com.projeto.cinema.view.consultas.ConsultaFilme;
 
 public class FrameSistema extends JFrame 
 {
@@ -294,7 +295,7 @@ public class FrameSistema extends JFrame
 //			else if(e.getSource()==mntmUsurio) 			{ tela = new CadastroCategoriaFilme(); }
 //			else if(e.getSource()==mntmPessoa) 			{ tela = new CadastroCategoriaFilme(); }
 //			else if(e.getSource()==mntmHorarioExibio) 	{ tela = new CadastroCategoriaFilme(); }
-//			else if(e.getSource()==mntmFilmes) 			{ tela = new CadastroCategoriaFilme(); }
+			else if(e.getSource()==mntmFilmes) 			{ tela = new ConsultaFilme(); }
 			
 			FrameSistema.getInstancia().AbrirTela(tela);
 			tela.setVisible(true);	

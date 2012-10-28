@@ -8,6 +8,7 @@ import br.com.projeto.cinema.bean.Elenco;
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.dao.base.FactoryUtil;
 import br.com.projeto.cinema.dao.base.GenericDao;
+import br.com.projeto.cinema.utils.Query;
 
 public class FilmeDAO  extends GenericDao<Filme> 
 {
@@ -31,6 +32,30 @@ public class FilmeDAO  extends GenericDao<Filme>
 		}
 		catch (Exception e) {
 			return false;
+		}
+	}
+	
+	public List<Filme> obterFilmes(String codigo, String titulo, Long pkFilmeCategoria, String classificacao, String ano)
+	{
+		try
+		{
+			Query query = new Query();
+			
+			query.add("SELECT *");
+			query.add(" FROM Filme");
+			query.add(" WHERE pkFilme IS NOT NULL");
+			if(!codigo.equals("")) 			{ query.add(" AND UPPER(codigo) LIKE UPPER(?)", "%" + codigo + "%"); 	}
+			if(!titulo.equals("")) 			{ query.add(" AND UPPER(titulo) LIKE UPPER(?)", "%" + titulo + "%");	}
+			if(pkFilmeCategoria!=null) 		{ query.add(" AND fkTitulo = ?", pkFilmeCategoria); 					}
+			if(classificacao!=null)			{ query.add(" AND classificacaoIndicativa = ?", classificacao); 		}
+			if(!ano.equals("")) 			{ query.add(" AND UPPER(ano) LIKE UPPER(?)", "%" + ano + "%"); 			}
+			query.add(" ORDER BY titulo");
+			
+			System.out.println(query.toString());
+			return obtemTodos(query, Filme.class);
+		}
+		catch (Exception e) {
+			return null;
 		}
 	}
 }
