@@ -387,7 +387,7 @@ public class CadastroFilme extends JInternalFrame
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null,"Selecione o Ator e seu Tipo para adicioná-lo no Elenco.!","Erro ao adionar.",JOptionPane.INFORMATION_MESSAGE);  
+			JOptionPane.showMessageDialog(null,"Selecione o Ator e seu Tipo para adicioná-lo no Elenco!","Erro ao adionar.",JOptionPane.INFORMATION_MESSAGE);  
 		}
 	}
 	
