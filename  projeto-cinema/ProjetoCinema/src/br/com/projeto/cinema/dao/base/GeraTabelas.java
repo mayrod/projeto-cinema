@@ -9,7 +9,7 @@ import br.com.projeto.cinema.bean.Elenco;
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeCartaz;
 import br.com.projeto.cinema.bean.FilmeCategoria;
-import br.com.projeto.cinema.bean.FilmeHorario;
+import br.com.projeto.cinema.bean.Sessao;
 import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.bean.FilmePromocao;
 import br.com.projeto.cinema.bean.Horario;
@@ -28,7 +28,7 @@ public class GeraTabelas {
 		cfg.addAnnotatedClass(Filme.class);
 		cfg.addAnnotatedClass(FilmeCartaz.class);
 		cfg.addAnnotatedClass(FilmeCategoria.class);
-		cfg.addAnnotatedClass(FilmeHorario.class);
+		cfg.addAnnotatedClass(Sessao.class);
 		cfg.addAnnotatedClass(FilmeLancamento.class);
 		cfg.addAnnotatedClass(FilmePromocao.class);
 		cfg.addAnnotatedClass(Horario.class);		

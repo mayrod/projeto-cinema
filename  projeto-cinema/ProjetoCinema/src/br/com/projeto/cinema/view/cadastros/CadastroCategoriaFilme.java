@@ -51,17 +51,17 @@ public class CadastroCategoriaFilme extends JInternalFrame
 		
 		JLabel label = new JLabel("Nome:");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(10, 45, 46, 25);
+		label.setBounds(10, 55, 46, 25);
 		contentPane.add(label);
 		
 		txNome = new JTextField();
 		txNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txNome.setColumns(10);
-		txNome.setBounds(66, 45, 214, 25);
+		txNome.setBounds(66, 55, 214, 25);
 		contentPane.add(txNome);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(299, 11, 310, 96);
+		scrollPane.setBounds(290, 11, 328, 110);
 		contentPane.add(scrollPane);		
 		modelo.addColumn("Código");
 		modelo.addColumn("Nome");
@@ -73,21 +73,21 @@ public class CadastroCategoriaFilme extends JInternalFrame
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroCategoriaFilme.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(10, 121, 160, 41);
+		btLimpar.setBounds(10, 132, 160, 41);
 		contentPane.add(btLimpar);
 		btLimpar.addActionListener(new escutaBotao());
 				
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroCategoriaFilme.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(449, 121, 160, 41);
+		btSalvar.setBounds(458, 132, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroCategoriaFilme.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(227, 121, 160, 41);
+		btRemover.setBounds(241, 132, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		

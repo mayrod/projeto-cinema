@@ -33,6 +33,7 @@ import br.com.projeto.cinema.view.cadastros.CadastroFilmePromocao;
 import br.com.projeto.cinema.view.cadastros.CadastroHorarioPreco;
 import br.com.projeto.cinema.view.cadastros.CadastroSala;
 import br.com.projeto.cinema.view.consultas.ConsultaFilme;
+import br.com.projeto.cinema.view.lancamento.LancamentoSessao;
 
 public class FrameSistema extends JFrame 
 {
@@ -55,8 +56,6 @@ public class FrameSistema extends JFrame
     private JMenuItem mntmCategoriaFilme;
     private JMenuItem mntmSala; 
     private JMenuItem mntmHorario;
-    private JMenuItem mntmUsurio;
-    private JMenuItem mntmPessoa; 
     private JMenuItem mntmHorarioExibio;
     private JMenuItem mntmFilmes;
     
@@ -118,61 +117,53 @@ public class FrameSistema extends JFrame
 		menuBar.add(mnCadastro);
 		
 		mntmFilme = new JMenuItem("Filme");
-		mntmFilme.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/cinema3_add.png")));
+		mntmFilme.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/video.png")));
 		mntmFilme.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilme);
 		
 		mntmFilmeLanamento = new JMenuItem("Filme Lan\u00E7amento");
+		mntmFilmeLanamento.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/filmeLancamento.png")));
 		mntmFilmeLanamento.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilmeLanamento);
 		
 		mntmFilmePromoo = new JMenuItem("Filme Promo\u00E7\u00E3o");
+		mntmFilmePromoo.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/filmePromocao.png")));
 		mntmFilmePromoo.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilmePromoo);
 		
 		mntmFilmeCartaz = new JMenuItem("Filme Cartaz");
+		mntmFilmeCartaz.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/filmeCartaz.png")));
 		mntmFilmeCartaz.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmFilmeCartaz);
-		
-		mntmCategoriaFilme = new JMenuItem("Categoria Filme");
-		mntmCategoriaFilme.addActionListener(new AbrirTelas());
-		mnCadastro.add(mntmCategoriaFilme);
 		
 		JSeparator separator = new JSeparator();
 		mnCadastro.add(separator);
 		
 		mntmSala = new JMenuItem("Sala");
-		mntmSala.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/movie.png")));
+		mntmSala.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/sala.png")));
 		mntmSala.addActionListener(new AbrirTelas());
+		
+		mntmCategoriaFilme = new JMenuItem("Categoria Filme");
+		mntmCategoriaFilme.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/categoriaFilme.png")));
+		mntmCategoriaFilme.addActionListener(new AbrirTelas());
+		mnCadastro.add(mntmCategoriaFilme);
 		mnCadastro.add(mntmSala);
 		
 		mntmHorario = new JMenuItem("Hor\u00E1rio");
+		mntmHorario.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/hora.png")));
 		mntmHorario.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmHorario);
 		
-		JSeparator separator_1 = new JSeparator();
-		mnCadastro.add(separator_1);
-		
 		mntmAtor = new JMenuItem("Ator");
-		mntmAtor.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/cinema4_add.png")));
+		mntmAtor.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/ator.png")));
 		mntmAtor.addActionListener(new AbrirTelas());
 		mnCadastro.add(mntmAtor);
-				
-		JSeparator separator_2 = new JSeparator();
-		mnCadastro.add(separator_2);
-		
-		mntmUsurio = new JMenuItem("Usu\u00E1rio");
-		mntmUsurio.addActionListener(new AbrirTelas());
-		mnCadastro.add(mntmUsurio);
-		
-		mntmPessoa = new JMenuItem("Pessoa");
-		mntmPessoa.addActionListener(new AbrirTelas());
-		mnCadastro.add(mntmPessoa);
 
 		mnNewMenu_1 = new JMenu("Sess\u00E3o");
 		menuBar.add(mnNewMenu_1);
 		
 		mntmHorarioExibio = new JMenuItem("Hor\u00E1rio Exibi\u00E7\u00E3o");
+		mntmHorarioExibio.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/exibicao.png")));
 		mntmHorarioExibio.addActionListener(new AbrirTelas());
 		mnNewMenu_1.add(mntmHorarioExibio);
 
@@ -180,6 +171,7 @@ public class FrameSistema extends JFrame
 		menuBar.add(mnCaixa);
 		
 		mntmFilmes = new JMenuItem("Filmes");
+		mntmFilmes.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/video.png")));
 		mntmFilmes.addActionListener(new AbrirTelas());
 		mnCaixa.add(mntmFilmes);
 		
@@ -187,7 +179,7 @@ public class FrameSistema extends JFrame
 		menuBar.add(mnSair);
 		
 		mntmLogoof = new JMenuItem("Trocar usu\u00E1rio");
-		mntmLogoof.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/padraoFeminino.png")));
+		mntmLogoof.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/trocar.png")));
 		mnSair.add(mntmLogoof);
 		mntmLogoof.addActionListener(new ActionListener() {
 			@Override
@@ -200,7 +192,7 @@ public class FrameSistema extends JFrame
 		});
 		
 		mntmFecharSistema = new JMenuItem("Fechar sistema");
-		mntmFecharSistema.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
+		mntmFecharSistema.setIcon(new ImageIcon(FrameSistema.class.getResource("/br/com/projeto/cinema/imagens/sairSistema.png")));
 		mnSair.add(mntmFecharSistema);
 		mntmFecharSistema.addActionListener(new ActionListener() {
 			@Override
@@ -292,9 +284,7 @@ public class FrameSistema extends JFrame
 			else if(e.getSource()==mntmFilmeCartaz) 	{ tela = new CadastroFilmeCartaz(); }	
 			else if(e.getSource()==mntmSala) 			{ tela = new CadastroSala(); }			
 			else if(e.getSource()==mntmHorario) 		{ tela = new CadastroHorarioPreco(); }		
-//			else if(e.getSource()==mntmUsurio) 			{ tela = new CadastroCategoriaFilme(); }
-//			else if(e.getSource()==mntmPessoa) 			{ tela = new CadastroCategoriaFilme(); }
-//			else if(e.getSource()==mntmHorarioExibio) 	{ tela = new CadastroCategoriaFilme(); }
+			else if(e.getSource()==mntmHorarioExibio) 	{ tela = new LancamentoSessao(); }
 			else if(e.getSource()==mntmFilmes) 			{ tela = new ConsultaFilme(); }
 			
 			FrameSistema.getInstancia().AbrirTela(tela);

@@ -58,16 +58,16 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		
 		JLabel lblPreo = new JLabel("Pre\u00E7o:         R$");
 		lblPreo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPreo.setBounds(10, 170, 101, 25);
+		lblPreo.setBounds(10, 181, 101, 25);
 		contentPane.add(lblPreo);
 		
 		JLabel lblHorrio = new JLabel("Hor\u00E1rio:");
 		lblHorrio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblHorrio.setBounds(10, 134, 55, 25);
+		lblHorrio.setBounds(10, 145, 55, 25);
 		contentPane.add(lblHorrio);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(318, 11, 367, 278);
+		scrollPane.setBounds(309, 11, 421, 296);
 		contentPane.add(scrollPane);
 				
 		modelo.addColumn("Código");
@@ -81,11 +81,11 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		
 		JLabel lblDiaDaSemana = new JLabel("Dia da Semana:");
 		lblDiaDaSemana.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDiaDaSemana.setBounds(10, 98, 101, 25);
+		lblDiaDaSemana.setBounds(10, 109, 101, 25);
 		contentPane.add(lblDiaDaSemana);
 		
 		cbDiaSemana = new JComboBox<String>();
-		cbDiaSemana.setBounds(109, 98, 190, 25);
+		cbDiaSemana.setBounds(109, 109, 190, 25);
 		contentPane.add(cbDiaSemana);
 		
 		MaskFormatter formatoHorario = new MaskFormatter();
@@ -98,32 +98,32 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		 
 		txHorario = new JFormattedTextField(formatoHorario);
 		txHorario.setHorizontalAlignment(SwingConstants.CENTER);
-		txHorario.setBounds(109, 134, 71, 25);
+		txHorario.setBounds(109, 145, 71, 25);
 		contentPane.add(txHorario);
 		
 		txPreco = new JFormattedTextField(formatoDinheiro);
-		txPreco.setBounds(109, 172, 71, 25);
+		txPreco.setBounds(109, 183, 71, 25);
 		txPreco.setHorizontalAlignment(JFormattedTextField.RIGHT);
 		contentPane.add(txPreco);
 		
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroHorarioPreco.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(10, 306, 160, 41);
+		btLimpar.setBounds(10, 318, 160, 41);
 		contentPane.add(btLimpar);
 		btLimpar.addActionListener(new escutaBotao());
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroHorarioPreco.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(438, 306, 160, 41);
+		btSalvar.setBounds(570, 318, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroHorarioPreco.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(224, 306, 160, 41);
+		btRemover.setBounds(289, 318, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		

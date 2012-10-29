@@ -54,47 +54,47 @@ public class CadastroFilmeCartaz extends JInternalFrame
 		
 		JLabel lblDataInicio = new JLabel("Data Inicio:");
 		lblDataInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDataInicio.setBounds(10, 83, 114, 25);
+		lblDataInicio.setBounds(10, 154, 114, 25);
 		contentPane.add(lblDataInicio);
 		
 		JLabel label_1 = new JLabel("Filme:");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(10, 47, 46, 25);
+		label_1.setBounds(10, 118, 46, 25);
 		contentPane.add(label_1);
 		
 		cbFilme = new JComboBox<Filme>();
-		cbFilme.setBounds(66, 47, 190, 25);
+		cbFilme.setBounds(66, 118, 190, 25);
 		contentPane.add(cbFilme);
 		
 		dataInicio = new JDateChooser();
 		dataInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dataInicio.setBounds(109, 83, 145, 25);
+		dataInicio.setBounds(109, 154, 145, 25);
 		contentPane.add(dataInicio);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
 		lblCdigo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCdigo.setBounds(10, 11, 55, 25);
+		lblCdigo.setBounds(10, 82, 55, 25);
 		contentPane.add(lblCdigo);
 		
 		txCodigo = new JTextField();
 		txCodigo.setEnabled(false);
 		txCodigo.setEditable(false);
-		txCodigo.setBounds(66, 13, 190, 25);
+		txCodigo.setBounds(66, 84, 190, 25);
 		contentPane.add(txCodigo);
 		txCodigo.setColumns(10);
 		
 		JLabel lblDataTrmino = new JLabel("Data T\u00E9rmino:");
 		lblDataTrmino.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDataTrmino.setBounds(10, 119, 114, 25);
+		lblDataTrmino.setBounds(10, 190, 114, 25);
 		contentPane.add(lblDataTrmino);
 		
 		dataTermino = new JDateChooser();
 		dataTermino.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dataTermino.setBounds(109, 119, 145, 25);
+		dataTermino.setBounds(109, 190, 145, 25);
 		contentPane.add(dataTermino);
 			
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(272, 11, 452, 209);
+		scrollPane.setBounds(266, 11, 487, 281);
 		contentPane.add(scrollPane);
 		
 		modelo.addColumn("Código");
@@ -109,21 +109,21 @@ public class CadastroFilmeCartaz extends JInternalFrame
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroFilmeCartaz.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(564, 264, 160, 41);
+		btSalvar.setBounds(593, 303, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroFilmeCartaz.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(43, 264, 160, 41);
+		btLimpar.setBounds(10, 303, 160, 41);
 		contentPane.add(btLimpar);
 		btLimpar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroFilmeCartaz.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(305, 264, 160, 41);
+		btRemover.setBounds(318, 303, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
