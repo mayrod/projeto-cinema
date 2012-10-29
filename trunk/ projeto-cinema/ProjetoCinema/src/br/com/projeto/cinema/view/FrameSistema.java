@@ -276,16 +276,17 @@ public class FrameSistema extends JFrame
 		public void actionPerformed(ActionEvent e) {
 			JInternalFrame tela = null;
 			
-			if(e.getSource()==mntmAtor) 				{ tela = new CadastroAtor(); }
-			else if(e.getSource()==mntmCategoriaFilme) 	{ tela = new CadastroCategoriaFilme(); }
-			else if(e.getSource()==mntmFilme) 			{ tela = new CadastroFilme(); }			
+			if(e.getSource()==mntmAtor) 				{ tela = new CadastroAtor(); 			}
+			else if(e.getSource()==mntmCategoriaFilme) 	{ tela = new CadastroCategoriaFilme(); 	}
+			else if(e.getSource()==mntmFilme) 			{ tela = new CadastroFilme(); 			}			
 			else if(e.getSource()==mntmFilmeLanamento) 	{ tela = new CadastroFilmeLancamento(); }			
-			else if(e.getSource()==mntmFilmePromoo) 	{ tela = new CadastroFilmePromocao(); }			
-			else if(e.getSource()==mntmFilmeCartaz) 	{ tela = new CadastroFilmeCartaz(); }	
-			else if(e.getSource()==mntmSala) 			{ tela = new CadastroSala(); }			
-			else if(e.getSource()==mntmHorario) 		{ tela = new CadastroHorarioPreco(); }		
-			else if(e.getSource()==mntmHorarioExibio) 	{ tela = new LancamentoSessao(); }
-			else if(e.getSource()==mntmFilmes) 			{ tela = new ConsultaFilme(); }
+			else if(e.getSource()==mntmFilmePromoo) 	{ tela = new CadastroFilmePromocao(); 	}			
+			else if(e.getSource()==mntmFilmeCartaz) 	{ tela = new CadastroFilmeCartaz(); 	}	
+			else if(e.getSource()==mntmSala) 			{ tela = new CadastroSala(); 			}			
+			else if(e.getSource()==mntmHorario) 		{ tela = new CadastroHorarioPreco(); 	}		
+			else if(e.getSource()==mntmHorarioExibio) 	{ tela = new LancamentoSessao(); 		}
+			else if(e.getSource()==mntmFilmes) 			{ tela = new ConsultaFilme(); 			}
+			else if(e.getSource()==mntmLogoof) 			{ tela = new FrameLogin(); 				}
 			
 			FrameSistema.getInstancia().AbrirTela(tela);
 			tela.setVisible(true);	
