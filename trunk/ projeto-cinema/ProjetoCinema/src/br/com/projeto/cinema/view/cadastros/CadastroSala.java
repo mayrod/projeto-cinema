@@ -52,35 +52,35 @@ public class CadastroSala extends JInternalFrame
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTipo.setBounds(10, 110, 46, 25);
+		lblTipo.setBounds(10, 119, 46, 25);
 		contentPane.add(lblTipo);
 		
 		cbTipo = new JComboBox<String>();
-		cbTipo.setBounds(66, 110, 190, 25);
+		cbTipo.setBounds(66, 119, 190, 25);
 		contentPane.add(cbTipo);
 		
 		JLabel label_2 = new JLabel("C\u00F3digo:");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_2.setBounds(10, 74, 55, 25);
+		label_2.setBounds(10, 83, 55, 25);
 		contentPane.add(label_2);
 		
 		txCodigo = new JTextField();
 		txCodigo.setColumns(10);
-		txCodigo.setBounds(66, 76, 190, 25);
+		txCodigo.setBounds(66, 85, 190, 25);
 		contentPane.add(txCodigo);
 		
 		JLabel lblCapacidade = new JLabel("Capacidade:");
 		lblCapacidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCapacidade.setBounds(10, 146, 75, 25);
+		lblCapacidade.setBounds(10, 155, 75, 25);
 		contentPane.add(lblCapacidade);
 		
 		txCapacidade = new JTextField();
 		txCapacidade.setColumns(10);
-		txCapacidade.setBounds(95, 148, 80, 25);
+		txCapacidade.setBounds(95, 157, 80, 25);
 		contentPane.add(txCapacidade);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(288, 11, 355, 236);
+		scrollPane.setBounds(266, 11, 387, 247);
 		contentPane.add(scrollPane);
 		
 		modelo.addColumn("Código");
@@ -94,21 +94,21 @@ public class CadastroSala extends JInternalFrame
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(483, 257, 160, 41);
+		btSalvar.setBounds(493, 269, 160, 41);
 		btSalvar.addActionListener(new escutaBotao());
 		contentPane.add(btSalvar);
 		
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(10, 257, 160, 41);
+		btLimpar.setBounds(10, 269, 160, 41);
 		btLimpar.addActionListener(new escutaBotao());
 		contentPane.add(btLimpar);
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroSala.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(244, 258, 160, 41);
+		btRemover.setBounds(248, 269, 160, 41);
 		btRemover.addActionListener(new escutaBotao());
 		contentPane.add(btRemover);
 		

@@ -10,18 +10,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.projeto.cinema.utils.Constantes;
+
 @Entity
-@Table(name = "FILMEHORARIO")
-public class FilmeHorario implements Serializable{
+@Table(name = "SESSAO")
+public class Sessao implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue
 	@Column(name = "pkFilmeHorario")
-	private Long pkFilmeHorario;
+	private Long pkSessao;
 	
 	@Column(name = "tipoExibicao")
-	private String tipoExibicao;
+	private int tipoExibicao;
 	
 	@OneToOne @JoinColumn(name="fkHorario")
 	private Horario horario;
@@ -29,12 +31,15 @@ public class FilmeHorario implements Serializable{
 	@OneToOne @JoinColumn(name="fkSala")
 	private Sala sala;
 	
-	public Long getPkFilmeHorario() {
-		return pkFilmeHorario;
+	@OneToOne @JoinColumn(name="fkFilme")
+	private Filme filme;
+	
+	public Long getPkSessao() {
+		return pkSessao;
 	}
 
-	public void setPkFilmeHorario(Long pkFilmeHorario) {
-		this.pkFilmeHorario = pkFilmeHorario;
+	public void setPkSessao(Long pkSessao) {
+		this.pkSessao = pkSessao;
 	}
 
 	public Horario getHorario() {
@@ -53,13 +58,27 @@ public class FilmeHorario implements Serializable{
 		this.sala = sala;
 	}
 
-	public String getTipoExibicao() {
+	public int getTipoExibicao() {
 		return tipoExibicao;
 	}
 
-	public void setTipoExibicao(String tipoExibicao) {
+	public void setTipoExibicao(int tipoExibicao) {
 		this.tipoExibicao = tipoExibicao;
 	}
-	
 
+	public Filme getFilme() {
+		return filme;
+	}
+
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	}
+
+	@Override
+	public String toString() 
+	{
+		if(tipoExibicao==Constantes.TIPO_SALA_2D) 		{ return "2D"; 		}
+		else if(tipoExibicao==Constantes.TIPO_SALA_3D) 	{ return "3D"; 		}
+		else 											{ return "2D e 3D"; }
+	}
 }

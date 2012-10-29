@@ -58,24 +58,24 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		
 		JLabel lblFilme = new JLabel("Filme:");
 		lblFilme.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblFilme.setBounds(10, 27, 46, 25);
+		lblFilme.setBounds(10, 68, 46, 25);
 		contentPane.add(lblFilme);
 		
 		JLabel lblData = new JLabel("Data Lan\u00E7amento:");
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblData.setBounds(10, 63, 114, 25);
+		lblData.setBounds(10, 104, 114, 25);
 		contentPane.add(lblData);
 		
 		cbFilme = new JComboBox<Filme>();
-		cbFilme.setBounds(66, 27, 213, 25);
+		cbFilme.setBounds(66, 68, 213, 25);
 		contentPane.add(cbFilme);
 		
 		data.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		data.setBounds(134, 63, 145, 25);
+		data.setBounds(134, 104, 145, 25);
 		contentPane.add(data);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(306, 11, 369, 159);
+		scrollPane.setBounds(289, 11, 402, 176);
 		contentPane.add(scrollPane);
 		
 		modelo.addColumn("Código");
@@ -89,21 +89,21 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		btLimpar = new JButton("  Limpar");
 		btLimpar.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Trash.png")));
 		btLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btLimpar.setBounds(10, 181, 160, 41);
+		btLimpar.setBounds(10, 198, 160, 41);
 		contentPane.add(btLimpar);
 		btLimpar.addActionListener(new escutaBotao());
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
 		btSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btSalvar.setBounds(515, 181, 160, 41);
+		btSalvar.setBounds(531, 198, 160, 41);
 		contentPane.add(btSalvar);
 		btSalvar.addActionListener(new escutaBotao());
 		
 		btRemover = new JButton("  Remover");
 		btRemover.setIcon(new ImageIcon(CadastroFilmeLancamento.class.getResource("/br/com/projeto/cinema/imagens/Close.png")));
 		btRemover.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btRemover.setBounds(258, 181, 160, 41);
+		btRemover.setBounds(260, 198, 160, 41);
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
