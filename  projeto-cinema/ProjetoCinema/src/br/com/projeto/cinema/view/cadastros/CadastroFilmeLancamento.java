@@ -3,6 +3,8 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +27,8 @@ import br.com.projeto.cinema.dao.FilmeDAO;
 import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
 import br.com.projeto.cinema.view.componentes.calendario.JDateChooser;
 
-public class CadastroFilmeLancamento extends JInternalFrame {
-
-	/**
-	 * 
-	 */
+public class CadastroFilmeLancamento extends JInternalFrame 
+{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JDateChooser data = new JDateChooser();
@@ -43,9 +42,6 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 	private List<Filme> filmes = new ArrayList<Filme>();
 	private List<FilmeLancamento> filmesLancamento = new ArrayList<FilmeLancamento>();
 	
-	/**
-	 * Create the frame.
-	 */
 	public CadastroFilmeLancamento() 
 	{
 		setClosable(true);
@@ -78,11 +74,20 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		scrollPane.setBounds(289, 11, 402, 176);
 		contentPane.add(scrollPane);
 		
-		modelo.addColumn("Código");
-		modelo.addColumn("Filme");
-		modelo.addColumn("Data Lançamento");
-
-		tblFilmeLancamento = new JTable(modelo);
+		tblFilmeLancamento = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Código", "Filme", "Dt. Lançamento"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane.setViewportView(tblFilmeLancamento);
 		tblFilmeLancamento.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -107,9 +112,27 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
+		tblFilmeLancamento.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) { escutaTabela(arg0); }
+		});
+		
+		modelo = (DefaultTableModel) tblFilmeLancamento.getModel();
+		
 		preencherFilme();
 		preencherTabela();
 	}
+	
+	public void escutaTabela(MouseEvent e) 
+	{
+		if(tblFilmeLancamento.getSelectedRow()!=-1)
+		{
+			registro = (FilmeLancamento) modelo.getValueAt(tblFilmeLancamento.getSelectedRow(), 0);
+			
+			cbFilme.setSelectedItem(registro.getFilme());
+			data.setDate(registro.getDataEstreia());
+		}
+	}	
 	
 	private class escutaBotao implements ActionListener 
 	{
@@ -129,11 +152,13 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 			{
 				for(FilmeLancamento obj : filmesLancamento)
 				{
-					modelo.addRow(new Object[]{obj.getPkFilmeLancamento(),obj.getFilme(),obj.getDataEstreia()});
+					modelo.addRow(new Object[]{obj, obj.getFilme(), obj.getDataEstreia()});
 				}
 			}
 			
-		} catch (Exception e) {
+			limpar();
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -155,25 +180,31 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		registro = new FilmeLancamento();
 		cbFilme.setSelectedItem(null);
 		data.setDate(null);
+		
+		if(modelo.getRowCount()>0)
+		{
+			tblFilmeLancamento.removeRowSelectionInterval(0, modelo.getRowCount() - 1);
+		}
 	}
 	
 	public void salvar()
 	{
 		if(cbFilme.getSelectedItem()!=null)
-		{
-			long countId = new FilmeLancamentoDAO().count() + 1;
-			
-			registro = new FilmeLancamento();		
-			registro.setPkFilmeLancamento(countId);
+		{	
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
 			java.sql.Date dataEstreia = new java.sql.Date(data.getDate().getTime());  
-
 			registro.setDataEstreia(dataEstreia);
 			
-			try{
-				new FilmeLancamentoDAO().save(registro);
-				registro = new FilmeLancamentoDAO().findById(countId);
-				modelo.addRow(new Object[]{registro.getPkFilmeLancamento(), registro.getFilme().getTitulo(),registro.getDataEstreia()});
+			try
+			{
+				if(tblFilmeLancamento.getSelectedRow()==-1) 	{ new FilmeLancamentoDAO().save(registro); }
+				else 													
+				{ 
+					registro = new FilmeLancamentoDAO().update(registro); 
+					modelo.removeRow(tblFilmeLancamento.getSelectedRow()); 
+				}
+				
+				modelo.addRow(new Object[]{registro, registro.getFilme().getTitulo(),registro.getDataEstreia()});
 				limpar();
 			}catch (Exception e) {
 				JOptionPane.showMessageDialog(null," Erro ao salvar os dados de Filme Lançamento.","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
@@ -191,7 +222,12 @@ public class CadastroFilmeLancamento extends JInternalFrame {
 		{
 			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((Filme) modelo.getValueAt(tblFilmeLancamento.getSelectedRow(),0)).getTitulo() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblFilmeLancamento.getSelectedRow()); }
+			if(valor==0) 
+			{ 
+				new FilmeLancamentoDAO().delete((FilmeLancamento) modelo.getValueAt(tblFilmeLancamento.getSelectedRow(), 0));
+				modelo.removeRow(tblFilmeLancamento.getSelectedRow()); 
+				limpar();
+			}
 		}
 		else
 		{

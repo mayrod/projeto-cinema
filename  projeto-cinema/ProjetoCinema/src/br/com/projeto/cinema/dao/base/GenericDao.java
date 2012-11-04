@@ -58,19 +58,20 @@ public class GenericDao<T extends Serializable> {
 	    }
 	
 
-	    public void update(T entity) {
+	    public T update(T entity) {
 	        EntityTransaction tx = getEntityManager().getTransaction();
 	        try {
 	            tx.begin();
 	            getEntityManager().merge(entity);
 	            tx.commit();
-	
+	            return entity;
 	        } catch (Throwable t) {
 	            t.printStackTrace();
 	            tx.rollback();
 	        } finally {
 	            close();
 	        }
+	        return null;
 	    }
 	
 	    @SuppressWarnings("unchecked")

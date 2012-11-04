@@ -244,7 +244,7 @@ public class FrameSistema extends JFrame
 		return getInstancia().plPrincipal;
 	}
 
-	private void AbrirTela(JInternalFrame tela) {
+	public void AbrirTela(JInternalFrame tela) {
 		getInstancia().plPrincipal.add(tela);
 		int lDesk = plPrincipal.getWidth();
 		int aDesk = plPrincipal.getHeight();
@@ -285,8 +285,11 @@ public class FrameSistema extends JFrame
 			else if(e.getSource()==mntmSala) 			{ tela = new CadastroSala(); 			}			
 			else if(e.getSource()==mntmHorario) 		{ tela = new CadastroHorarioPreco(); 	}		
 			else if(e.getSource()==mntmHorarioExibio) 	{ tela = new LancamentoSessao(); 		}
-			else if(e.getSource()==mntmFilmes) 			{ tela = new ConsultaFilme(); 			}
 			else if(e.getSource()==mntmLogoof) 			{ tela = new FrameLogin(); 				}
+			else if(e.getSource()==mntmFilmes) 			
+			{ 
+				tela = new ConsultaFilme(getInstancia()); 			
+			}
 			
 			FrameSistema.getInstancia().AbrirTela(tela);
 			tela.setVisible(true);	

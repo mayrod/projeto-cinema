@@ -59,6 +59,7 @@ public class Query
 						Object ob = parametros[indexParametro];
 						
 						if(ob.getClass()==String.class) { querySQL.append("'" + ob.toString() + "'"); }		
+						else if(ob.getClass()==Long.class) { querySQL.append(ob.toString()); }		
 						
 						indexParametro++;
 					}

@@ -60,4 +60,9 @@ public class FilmeCartaz implements Serializable{
 	public void setFilme(Filme filme) {
 		this.filme = filme;
 	}
+
+	@Override
+	public String toString() {
+		return pkFilmeCartaz.toString();
+	}
 }

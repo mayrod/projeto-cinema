@@ -3,6 +3,8 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -33,7 +35,7 @@ public class CadastroCategoriaFilme extends JInternalFrame
 	private JButton btLimpar;
 	private JButton btSalvar;
 	private JButton btRemover; 
-	private final DefaultTableModel modelo = new DefaultTableModel();
+	private DefaultTableModel modelo = new DefaultTableModel();
 	private JTable tblCategoria;
 	private FilmeCategoria registro;
 	
@@ -62,11 +64,22 @@ public class CadastroCategoriaFilme extends JInternalFrame
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(290, 11, 328, 110);
-		contentPane.add(scrollPane);		
-		modelo.addColumn("Código");
-		modelo.addColumn("Nome");
+		contentPane.add(scrollPane);	
 		
-		tblCategoria = new JTable(modelo);
+		tblCategoria = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Código", "Nome"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane.setViewportView(tblCategoria);
 		tblCategoria.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 				
@@ -91,7 +104,22 @@ public class CadastroCategoriaFilme extends JInternalFrame
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
+		tblCategoria.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) { escutaTabela(arg0); }
+		});
+		
+		modelo = (DefaultTableModel) tblCategoria.getModel();
 		preencherTabela();
+	}
+	
+	public void escutaTabela(MouseEvent e) 
+	{
+		if(tblCategoria.getSelectedRow()!=-1)
+		{
+			registro = (FilmeCategoria) modelo.getValueAt(tblCategoria.getSelectedRow(), 1);
+			txNome.setText(registro.getNome());
+		}
 	}
 	
 	private class escutaBotao implements ActionListener 
@@ -108,6 +136,11 @@ public class CadastroCategoriaFilme extends JInternalFrame
 	{
 		registro = new FilmeCategoria();
 		txNome.setText("");
+		
+		if(modelo.getRowCount()>0)
+		{
+			tblCategoria.removeRowSelectionInterval(0, modelo.getRowCount() - 1);
+		}
 	}
 	
 	public void preencherTabela()
@@ -118,7 +151,7 @@ public class CadastroCategoriaFilme extends JInternalFrame
 		{
 			for(FilmeCategoria obj : list)
 			{
-				modelo.addRow(new Object[]{obj.getPkFilmeCategoria(),obj.getNome()});
+				modelo.addRow(new Object[]{obj.getPkFilmeCategoria(),obj});
 			}
 		}
 		
@@ -129,21 +162,17 @@ public class CadastroCategoriaFilme extends JInternalFrame
 	{
 		if(txNome.getText().length()>0)
 		{
-			FilmeCategoria filmeCategoria = new FilmeCategoria();		
-			filmeCategoria.setNome(txNome.getText());
+			registro.setNome(txNome.getText());
 			
-			try{
-				registro = new FilmeCategoriaDAO().save(filmeCategoria);
-				
-				if(registro!=null)
-				{
-					registro = new FilmeCategoriaDAO().findByName(filmeCategoria.getNome());
-					modelo.addRow(new Object[]{registro.getPkFilmeCategoria(), registro.getNome()});
-					limpar();
-				}
-			}catch (Exception e) {
-				e.getStackTrace();
+			if(tblCategoria.getSelectedRow()==-1) 	{ registro = new FilmeCategoriaDAO().save(registro); }
+			else 													
+			{ 
+				registro = new FilmeCategoriaDAO().update(registro); 
+				modelo.removeRow(tblCategoria.getSelectedRow()); 
 			}
+			
+			modelo.addRow(new Object[]{registro.getPkFilmeCategoria(), registro});
+			limpar();
 		}
 		else
 		{
@@ -160,9 +189,7 @@ public class CadastroCategoriaFilme extends JInternalFrame
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor == 0) 
 			{ 
-				long pkFilmeCategoria = Long.parseLong(modelo.getValueAt(tblCategoria.getSelectedRow(),0).toString());
-				FilmeCategoria filmeCategoriaSelecionado = new FilmeCategoriaDAO().findById(pkFilmeCategoria);
-				new FilmeCategoriaDAO().delete(filmeCategoriaSelecionado);
+				new FilmeCategoriaDAO().delete((FilmeCategoria) modelo.getValueAt(tblCategoria.getSelectedRow(), 1));
 				modelo.removeRow(tblCategoria.getSelectedRow()); 
 				limpar();
 			}

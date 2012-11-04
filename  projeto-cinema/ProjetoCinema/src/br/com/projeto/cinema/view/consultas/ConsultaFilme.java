@@ -3,6 +3,8 @@ package br.com.projeto.cinema.view.consultas;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -23,6 +25,8 @@ import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeCategoria;
 import br.com.projeto.cinema.dao.FilmeCategoriaDAO;
 import br.com.projeto.cinema.dao.FilmeDAO;
+import br.com.projeto.cinema.view.FrameSistema;
+import br.com.projeto.cinema.view.cadastros.CadastroFilme;
 
 public class ConsultaFilme extends JInternalFrame 
 {
@@ -39,9 +43,12 @@ public class ConsultaFilme extends JInternalFrame
 	private JComboBox<String> cbClassificacao;
 	private JComboBox<FilmeCategoria> cbCategoria;
 	private JLabel lblClassificao;
+	private FrameSistema frame;
 	
-	public ConsultaFilme() 
+	public ConsultaFilme(FrameSistema frame) 
 	{
+		this.frame = frame;
+		
 		setClosable(true);
 		setTitle("Consultar Filme");
 		setBounds(100, 100, 749, 469);
@@ -65,13 +72,24 @@ public class ConsultaFilme extends JInternalFrame
 		scrollPane.setBounds(10, 99, 723, 333);
 		contentPane.add(scrollPane);
 		
-		modelo.addColumn("Código");
-		modelo.addColumn("Título");
-		modelo.addColumn("Categoria");
-		modelo.addColumn("Classificação");
-		modelo.addColumn("Ano");
-
-		tblFilme = new JTable(modelo);
+		tblFilme = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Código", "Título", "Categoria", "Classificação", "Ano"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tblFilme.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) { escutaTabela(arg0); }
+		});
 		scrollPane.setViewportView(tblFilme);
 		tblFilme.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -130,6 +148,9 @@ public class ConsultaFilme extends JInternalFrame
 		contentPane.add(lblClassificao);
 		btLimpar.addActionListener(new escutaBotao());
 		
+		modelo = (DefaultTableModel) tblFilme.getModel();
+		
+		
 		preencherCombos();
 	}
 		
@@ -155,6 +176,16 @@ public class ConsultaFilme extends JInternalFrame
 		
 		limpar();
 	}
+	
+	public void escutaTabela(MouseEvent e) 
+	{
+		if(tblFilme.getSelectedRow()!=-1 && e.getClickCount()>1)
+		{
+			CadastroFilme cadas = new CadastroFilme();
+			frame.getInstancia().AbrirTela(cadas);
+			cadas.preencherFilme((Filme) modelo.getValueAt(tblFilme.getSelectedRow(), 1));
+		}
+	}	
 	
 	private class escutaBotao implements ActionListener 
 	{
@@ -190,7 +221,7 @@ public class ConsultaFilme extends JInternalFrame
 		{
 			for(Filme obj : list)
 			{
-				modelo.addRow(new Object[]{obj.getCodigo(), obj.getTitulo(), obj.getCategoria().getNome(), obj.getClassificacaoIndicativa(), obj.getAno()});
+				modelo.addRow(new Object[]{obj.getCodigo(), obj, obj.getCategoria().getNome(), obj.getClassificacaoIndicativa(), obj.getAno()});
 			}
 		}
 		else

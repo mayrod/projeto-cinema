@@ -3,6 +3,8 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -40,6 +42,7 @@ public class CadastroSala extends JInternalFrame
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("serial")
 	public CadastroSala() 
 	{
 		setClosable(true);
@@ -82,12 +85,33 @@ public class CadastroSala extends JInternalFrame
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(266, 11, 387, 247);
 		contentPane.add(scrollPane);
-		
-		modelo.addColumn("Código");
-		modelo.addColumn("Tipo");
-		modelo.addColumn("Capacidade");
-
-		tblContato = new JTable(modelo);
+						
+		tblContato = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Código", "Tipo", "Capacidade"
+			}
+		) {
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] {
+				String.class, Object.class, String.class
+			};
+			@SuppressWarnings("unchecked")
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tblContato.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) { escutaTabela(arg0); }
+		});
 		scrollPane.setViewportView(tblContato);
 		tblContato.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -112,9 +136,25 @@ public class CadastroSala extends JInternalFrame
 		btRemover.addActionListener(new escutaBotao());
 		contentPane.add(btRemover);
 		
+		modelo = (DefaultTableModel) tblContato.getModel();
 		preencherDados();
 	}
 		
+	public void escutaTabela(MouseEvent e) 
+	{
+		if(tblContato.getSelectedRow()!=-1)
+		{
+			registro = (Sala) modelo.getValueAt(tblContato.getSelectedRow(), 1);
+			
+			txCapacidade.setText(registro.getQuantidade().toString());
+			txCodigo.setText(registro.getCodigo());
+			
+			if(registro.getTipoSala()==Constantes.TIPO_SALA_2D) { cbTipo.setSelectedItem("2D"); }
+			else if(registro.getTipoSala()==Constantes.TIPO_SALA_2D_3D) { cbTipo.setSelectedItem("2D e 3D"); }
+			else if(registro.getTipoSala()==Constantes.TIPO_SALA_3D) { cbTipo.setSelectedItem("3D"); }
+		}
+	}	
+	
 	private class escutaBotao implements ActionListener 
 	{
 		public void actionPerformed(ActionEvent e) 
@@ -133,8 +173,13 @@ public class CadastroSala extends JInternalFrame
 		txCapacidade.setText("");
 		txCodigo.setText("");
 		cbTipo.setSelectedItem(null);
+		
+		if(modelo.getRowCount()>0)
+		{
+			tblContato.removeRowSelectionInterval(0, modelo.getRowCount() - 1);
+		}
 	}
-	
+		
 	public void preencherDados()
 	{
 		List<Sala> list = new SalaDAO().obterTodos();
@@ -162,13 +207,19 @@ public class CadastroSala extends JInternalFrame
 			registro.setQuantidade(new Integer(txCapacidade.getText()));
 			registro.setTipoSala(Constantes.getTipoSala((String) cbTipo.getSelectedItem()));
 			
-			registro = new SalaDAO().save(registro);
-			
 			if(registro!=null)
 			{
-				modelo.addRow(new Object[]{registro.getCodigo(), registro, registro.getQuantidade().toString()});
-				limpar();
+				if(tblContato.getSelectedRow()==-1) 	{ registro = new SalaDAO().save(registro); }
+				else 													
+				{ 
+					registro = new SalaDAO().update(registro); 
+					modelo.removeRow(tblContato.getSelectedRow()); 
+				}
 			}
+			
+			modelo.addRow(new Object[]{registro.getCodigo(), registro, registro.getQuantidade().toString()});
+			
+			limpar();
 		}
 		else
 		{
