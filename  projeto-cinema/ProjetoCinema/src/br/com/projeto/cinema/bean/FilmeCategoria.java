@@ -41,4 +41,37 @@ public class FilmeCategoria implements Serializable{
 	public String toString() {
 		return nome;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime
+				* result
+				+ ((pkFilmeCategoria == null) ? 0 : pkFilmeCategoria.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FilmeCategoria other = (FilmeCategoria) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (pkFilmeCategoria == null) {
+			if (other.pkFilmeCategoria != null)
+				return false;
+		} else if (!pkFilmeCategoria.equals(other.pkFilmeCategoria))
+			return false;
+		return true;
+	}
 }
