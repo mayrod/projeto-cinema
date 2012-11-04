@@ -4,8 +4,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
 import br.com.projeto.cinema.bean.Elenco;
 import br.com.projeto.cinema.bean.Filme;
+import br.com.projeto.cinema.bean.FilmeCategoria;
 import br.com.projeto.cinema.dao.base.FactoryUtil;
 import br.com.projeto.cinema.dao.base.GenericDao;
 import br.com.projeto.cinema.utils.Query;
@@ -56,5 +60,11 @@ public class FilmeDAO  extends GenericDao<Filme>
 		catch (Exception e) {
 			return null;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Filme> getFilmes(FilmeCategoria categoria){
+		   Session session = (Session) getEntityManager().getDelegate();
+	        return  session.createCriteria(Filme.class).add(Restrictions.eq("categoria", categoria)).list();
 	}
 }
