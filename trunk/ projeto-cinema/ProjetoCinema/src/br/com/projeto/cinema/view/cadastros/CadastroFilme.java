@@ -68,7 +68,7 @@ public class CadastroFilme extends JInternalFrame
 	{
 		setClosable(true);
 		setTitle("Cadastro Filme");
-		setBounds(100, 100, 837, 472);
+		setBounds(100, 100, 814, 472);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -294,6 +294,38 @@ public class CadastroFilme extends JInternalFrame
 		limpar();
 	}
 	
+	public void preencherFilme(Filme filme)
+	{
+		registro = filme;
+		
+		txAno.setText(filme.getAno());
+		txCodigo.setText(filme.getCodigo());
+		txDiretor.setText(filme.getDiretor());
+		txDuracao.setText(filme.getDuracao());
+		txNome.setText(filme.getTitulo());
+		txSinopse.setText(filme.getSinopse());
+		txTreiler.setText(filme.getTrailer());
+		
+		cbAudio.setSelectedItem(filme.getTipoAudio());
+		cbCategoria.setSelectedItem(filme.getCategoria());
+		cbClassificacaoIndicativa.setSelectedItem(filme.getClassificacaoIndicativa());
+		cbLegenda.setSelectedItem(filme.getLegenda());
+		cbNacionalidade.setSelectedItem(filme.getNacionalidade());
+		cbProdutora.setSelectedItem(filme.getProdutora());
+		
+		List<Elenco> elenco = new ElencoDAO().obterElenco(filme.getPkFilme());
+		registroElenco = new ArrayList<Elenco>();
+		
+		if(elenco!=null)
+		{
+			for(Elenco ele : elenco)
+			{
+				modelo.addRow(new Object[]{ele.getAtor(), Constantes.getTipoPalelProtagonista(ele.getTipoPapel())});
+				registroElenco.add(ele);
+			}
+		}
+	}
+	
 	public void preencherCombos()
 	{
 		cbClassificacaoIndicativa.addItem("Livre"); 
@@ -411,7 +443,7 @@ public class CadastroFilme extends JInternalFrame
 	
 	public void limpar()
 	{
-		registro = new Filme();
+		registro = null;
 		registroElenco = new ArrayList<Elenco>();
 		
 		txCodigo.setText("");
@@ -429,12 +461,24 @@ public class CadastroFilme extends JInternalFrame
 		cbAudio.setSelectedItem(null);
 		cbNacionalidade.setSelectedItem(null);
 		cbClassificacaoIndicativa.setSelectedItem(null);
+		
+		int linhas = tblContato.getRowCount();
+		
+		for(int i=linhas-1; i>=0; i--) { modelo.removeRow(i); }
 	}
 	
 	public void salvar()
 	{
-		if(txNome.getText().length()>0)
+		if(txNome.getText().length()>0 && cbCategoria.getSelectedIndex()!=-1)
 		{	
+			boolean tipoSalvar = false;
+			
+			if(registro == null) 
+			{
+				registro = new Filme();
+				tipoSalvar = true;
+			}
+			
 			registro.setTitulo(txNome.getText());
 			registro.setAno(txAno.getText());
 			registro.setCodigo(txCodigo.getText());
@@ -449,28 +493,29 @@ public class CadastroFilme extends JInternalFrame
 			registro.setLegenda((String) cbLegenda.getSelectedItem());
 			registro.setProdutora((String) cbProdutora.getSelectedItem());
 			registro.setCategoria((FilmeCategoria) cbCategoria.getSelectedItem());
-			registro.setPkFilme(new Long(txCodigo.getText()));
-
-			registro = new FilmeDAO().save(registro);
+			
+			if(tipoSalvar) 	{ registro = new FilmeDAO().save(registro); 	}
+			else 			{ registro = new FilmeDAO().update(registro); 	}
 			
 			salvarElenco();
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null,"Digite um nome por favor!","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
+			JOptionPane.showMessageDialog(null,"Digite os dados corretamente!","Erro ao salvar.",JOptionPane.INFORMATION_MESSAGE);  
 		}
 	}
 	
-	private void salvarElenco(){
-		long countIdFilme = new Long(txCodigo.getText());
-		Filme filemSelecionado = new FilmeDAO().findById(countIdFilme);
-
+	private void salvarElenco()
+	{		
+		if(registro.getPkFilme()!=null) { new ElencoDAO().removerForaLista(registro.getPkFilme()); }
+		
 		for(Elenco el : registroElenco)
 		{
-			el.setFilme(filemSelecionado);
+			el.setPkElenco(null);
+			el.setFilme(registro);
 			new ElencoDAO().save(el);
 		}
-		
+
 		JOptionPane.showMessageDialog(null,"Registro salvo com sucesso!","Sucesso.",JOptionPane.INFORMATION_MESSAGE);  
 	}
 	

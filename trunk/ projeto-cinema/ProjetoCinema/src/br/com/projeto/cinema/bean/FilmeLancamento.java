@@ -12,8 +12,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "FILMELANCAMENTO")
-public class FilmeLancamento implements Serializable{
-
+public class FilmeLancamento implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -48,5 +48,10 @@ public class FilmeLancamento implements Serializable{
 
 	public void setFilme(Filme filme) {
 		this.filme = filme;
+	}
+
+	@Override
+	public String toString() {
+		return pkFilmeLancamento.toString();
 	}
 }

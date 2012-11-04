@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,14 +128,25 @@ public class CadastroFilmePromocao extends JInternalFrame
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(272, 11, 542, 322);
 		contentPane.add(scrollPane);
-		
-		modelo.addColumn("Código");
-		modelo.addColumn("Filme");
-		modelo.addColumn("Dt. Inicio");
-		modelo.addColumn("Dt. Término");
-		modelo.addColumn("% Promoção");
 
-		tblFilmePromocao = new JTable(modelo);
+		tblFilmePromocao = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Código", "Filme", "Dt. Inicio", "Dt. Término", "% Promoção"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tblFilmePromocao.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) { escutaTabela(arg0); }
+		});
 		scrollPane.setViewportView(tblFilmePromocao);
 		tblFilmePromocao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -158,9 +171,12 @@ public class CadastroFilmePromocao extends JInternalFrame
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
+		modelo = (DefaultTableModel) tblFilmePromocao.getModel();
+		
 		preencherCodigo();
 		preencherTabela();
 		preencherFilme();
+		limpar();
 	}
 	
 	private class escutaBotao implements ActionListener 
@@ -173,6 +189,21 @@ public class CadastroFilmePromocao extends JInternalFrame
 		}
 	}
 	
+	public void escutaTabela(MouseEvent e) 
+	{
+		if(tblFilmePromocao.getSelectedRow()!=-1)
+		{
+			registro =  (FilmePromocao) modelo.getValueAt(tblFilmePromocao.getSelectedRow(), 0);
+			
+			txCodigo.setText(registro.getPkFilmePromocao().toString());
+			txPorcentagemPromocao.setText(registro.getPorcentagemPromocao().toString());
+			txDescricao.setText(registro.getDescricao());
+			cbFilme.setSelectedItem(registro.getPorcentagemPromocao());
+			dataInicio.setDate(registro.getDataInicio());
+			dataTermino.setDate(registro.getDataTermino());
+		}
+	}	
+	
 	public void limpar()
 	{
 		registro = new FilmePromocao();
@@ -184,6 +215,11 @@ public class CadastroFilmePromocao extends JInternalFrame
 		dataInicio.setDate(null);
 		dataTermino.setDate(null);
 		preencherCodigo();
+		
+		if(modelo.getRowCount()>0)
+		{
+			tblFilmePromocao.removeRowSelectionInterval(0, modelo.getRowCount() - 1);
+		}
 	}
 	
 	public void preencherTabela()
@@ -194,7 +230,7 @@ public class CadastroFilmePromocao extends JInternalFrame
 		{
 			for(FilmePromocao obj : list)
 			{
-				modelo.addRow(new Object[]{obj.getPkFilmePromocao(), obj.getFilme().getTitulo(), obj.getDataInicio().toString(), 
+				modelo.addRow(new Object[]{obj, obj.getFilme().getTitulo(), obj.getDataInicio().toString(), 
 						obj.getDataTermino().toString(), obj.getPorcentagemPromocao().toString()});
 			}
 		}
@@ -219,13 +255,21 @@ public class CadastroFilmePromocao extends JInternalFrame
 			registro.setDataTermino(dtTermino);
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
 			
-			try{
-				registro = new FilmePromocaoDAO().save(registro);
-				registro = new FilmePromocaoDAO().findById(Long.parseLong(txCodigo.getText()));
+			try
+			{
+				if(registro!=null)
+				{
+					if(tblFilmePromocao.getSelectedRow()==-1) 	{ registro = new FilmePromocaoDAO().save(registro); }
+					else 													
+					{ 
+						registro = new FilmePromocaoDAO().update(registro); 
+						modelo.removeRow(tblFilmePromocao.getSelectedRow()); 
+					}
+				}
 				
 				if(registro!=null)
 				{
-					modelo.addRow(new Object[]{registro.getPkFilmePromocao(), registro.getFilme().getTitulo(), registro.getDataInicio(), 
+					modelo.addRow(new Object[]{registro, registro.getFilme().getTitulo(), registro.getDataInicio(), 
 							registro.getDataTermino(), registro.getPorcentagemPromocao()});
 					limpar();
 				}			
@@ -245,7 +289,12 @@ public class CadastroFilmePromocao extends JInternalFrame
 		{
 			int valor = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o item " + ((FilmePromocao) modelo.getValueAt(tblFilmePromocao.getSelectedRow(),0)).getFilme().getTitulo() 
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-			if(valor==0) { modelo.removeRow(tblFilmePromocao.getSelectedRow()); }
+			if(valor==0) 
+			{ 
+				new FilmePromocaoDAO().delete((FilmePromocao) modelo.getValueAt(tblFilmePromocao.getSelectedRow(), 1));
+				modelo.removeRow(tblFilmePromocao.getSelectedRow()); 
+				limpar();
+			}
 		}
 		else
 		{

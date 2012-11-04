@@ -107,4 +107,9 @@ public class FilmePromocao implements Serializable{
 	public void setHorarios(List<Sessao> horarios) {
 		this.horarios = horarios;
 	}
+
+	@Override
+	public String toString() {
+		return codigo;
+	}
 }

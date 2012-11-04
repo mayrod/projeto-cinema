@@ -3,6 +3,8 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -58,12 +60,26 @@ public class CadastroAtor extends JInternalFrame
 		scrollPane.setBounds(290, 11, 369, 111);
 		contentPane.add(scrollPane);
 		
-		modelo.addColumn("Código");
-		modelo.addColumn("Nome");
-
-		tblAtor = new JTable(modelo);
+		tblAtor = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Código", "Nome"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane.setViewportView(tblAtor);
 		tblAtor.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tblAtor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) { escutaTabela(arg0); }
+		});
 		
 		btSalvar = new JButton("  Salvar");
 		btSalvar.setIcon(new ImageIcon(CadastroAtor.class.getResource("/br/com/projeto/cinema/imagens/Save.png")));
@@ -86,6 +102,7 @@ public class CadastroAtor extends JInternalFrame
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
+		modelo = (DefaultTableModel) tblAtor.getModel();
 		preencherTabela();
 	}
 		
@@ -100,10 +117,25 @@ public class CadastroAtor extends JInternalFrame
 		}
 	}
 	
+	public void escutaTabela(MouseEvent e) 
+	{
+		if(tblAtor.getSelectedRow()!=-1)
+		{
+			registro = (Ator) modelo.getValueAt(tblAtor.getSelectedRow(), 1);
+			
+			txNome.setText(registro.getNome());
+		}
+	}
+	
 	public void limpar()
 	{
 		registro = new Ator();
-		txNome.setText("");
+		txNome.setText("");				
+		
+		if(modelo.getRowCount()>0)
+		{
+			tblAtor.removeRowSelectionInterval(0, modelo.getRowCount() - 1);
+		}
 	}
 	
 	public void preencherTabela()
@@ -114,7 +146,7 @@ public class CadastroAtor extends JInternalFrame
 		{
 			for(Ator obj : list)
 			{
-				modelo.addRow(new Object[]{obj.getPkAtor(), obj.getNome()});
+				modelo.addRow(new Object[]{obj.getPkAtor(), obj});
 			}
 		}
 		
@@ -126,14 +158,16 @@ public class CadastroAtor extends JInternalFrame
 		if(txNome.getText().length()>0)
 		{		
 			registro.setNome(txNome.getText());
-			registro = new AtorDAO().salvar(registro);
 			
-			if(registro!=null)
-			{
-				registro = new AtorDAO().findByName(registro.getNome());
-				modelo.addRow(new Object[]{registro.getPkAtor(),registro.getNome()});
-				limpar();
+			if(tblAtor.getSelectedRow()==-1) 	{ registro = new AtorDAO().salvar(registro); }
+			else 													
+			{ 
+				registro = new AtorDAO().update(registro); 
+				modelo.removeRow(tblAtor.getSelectedRow()); 
 			}
+			
+			modelo.addRow(new Object[]{registro.getPkAtor(),registro});
+			limpar();
 		}
 		else
 		{
@@ -149,9 +183,7 @@ public class CadastroAtor extends JInternalFrame
 					+ "?", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
 			if(valor==0) 
 			{ 
-				long pkAtor = Long.parseLong(modelo.getValueAt(tblAtor.getSelectedRow(),0).toString());
-				Ator atorSelecionado = new AtorDAO().findById(pkAtor);
-				new AtorDAO().delete(atorSelecionado);
+				new AtorDAO().delete((Ator) modelo.getValueAt(tblAtor.getSelectedRow(),1));
 				modelo.removeRow(tblAtor.getSelectedRow()); 
 				limpar();
 			}

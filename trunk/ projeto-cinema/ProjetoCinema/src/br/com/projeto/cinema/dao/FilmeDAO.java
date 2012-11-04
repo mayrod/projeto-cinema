@@ -51,7 +51,6 @@ public class FilmeDAO  extends GenericDao<Filme>
 			if(!ano.equals("")) 			{ query.add(" AND UPPER(ano) LIKE UPPER(?)", "%" + ano + "%"); 			}
 			query.add(" ORDER BY titulo");
 			
-			System.out.println(query.toString());
 			return obtemTodos(query, Filme.class);
 		}
 		catch (Exception e) {

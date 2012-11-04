@@ -3,6 +3,8 @@ package br.com.projeto.cinema.view.cadastros;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -70,12 +72,20 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		scrollPane.setBounds(309, 11, 421, 296);
 		contentPane.add(scrollPane);
 				
-		modelo.addColumn("Código");
-		modelo.addColumn("Dia");
-		modelo.addColumn("Horário");
-		modelo.addColumn("Preço");
-
-		tblHorario = new JTable(modelo);
+		tblHorario = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Código", "Dia", "Horário", "Preço"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane.setViewportView(tblHorario);
 		tblHorario.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -127,8 +137,27 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		contentPane.add(btRemover);
 		btRemover.addActionListener(new escutaBotao());
 		
-		preencherTabela();
+		tblHorario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) { escutaTabela(arg0); }
+		});
+		
+		modelo = (DefaultTableModel) tblHorario.getModel();
+		
 		carregarCombo();
+		preencherTabela();
+	}
+	
+	public void escutaTabela(MouseEvent e) 
+	{
+		if(tblHorario.getSelectedRow()!=-1)
+		{
+			registro = (Horario) modelo.getValueAt(tblHorario.getSelectedRow(), 1);
+			
+			txHorario.setText(registro.getHorario().toString().toString().substring(11, 16));
+			txPreco.setText(registro.getPreco().toString());
+			cbDiaSemana.setSelectedIndex(registro.getDiaSemana() -1);
+		}
 	}
 	
 	private class escutaBotao implements ActionListener 
@@ -175,6 +204,11 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		txHorario.setText("");
 		txPreco.setText("");
 		cbDiaSemana.setSelectedItem(null);
+		
+		if(modelo.getRowCount()>0)
+		{
+			tblHorario.removeRowSelectionInterval(0, modelo.getRowCount() - 1);
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -196,13 +230,15 @@ public class CadastroHorarioPreco extends JInternalFrame {
 				
 				registro.setPreco(new Double(txPreco.getText()));
 			
-				registro = new HorarioDAO().save(registro);
-			
-				if(registro!=null)
-				{
-					modelo.addRow(new Object[]{ registro.getPkHorario(),registro, registro.getHorario().toString().substring(11, 16),"R$ " + registro.getPreco()});
-					limpar();
+				if(tblHorario.getSelectedRow()==-1) 	{ registro = new HorarioDAO().save(registro); }
+				else 													
+				{ 
+					registro = new HorarioDAO().update(registro); 
+					modelo.removeRow(tblHorario.getSelectedRow()); 
 				}
+				
+				modelo.addRow(new Object[]{ registro.getPkHorario(),registro, registro.getHorario().toString().substring(11, 16),"R$ " + registro.getPreco()});
+				limpar();
 			}
 			catch (NumberFormatException e) 
 			{

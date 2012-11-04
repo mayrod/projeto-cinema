@@ -211,6 +211,4 @@ public class Filme implements Serializable{
 	public String toString() {
 		return titulo;
 	}
-
-	
 }
