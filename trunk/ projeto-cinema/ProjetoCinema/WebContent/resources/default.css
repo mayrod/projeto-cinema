@@ -1,0 +1,11 @@
+.cor{
+  background:red;	
+}
+
+.espacoPanel{
+  padding-top: 10px;
+}
+
+.fundoPipoca{
+    background: url("../imagensProjeto/pipoca.png") repeat-x scroll left top transparent;
+}
