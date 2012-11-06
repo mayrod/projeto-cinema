@@ -2,10 +2,54 @@
   background:red;	
 }
 
-.espacoPanel{
-  padding-top: 10px;
+.panelPesquisa{
+   margin-top: 20px;
+}
+
+.fontePreto{
+   font-weight: 20px;	
+}
+
+.fundoSaco{
+    background: url("../imagensProjeto/saco.png") repeat-x scroll left top transparent;
+    padding: 4px;
+    height: 40px;
+    margin-top: 8px;
+    border: none;
+    margin-bottom: 20px;
 }
 
 .fundoPipoca{
-    background: url("../imagensProjeto/pipoca.png") repeat-x scroll left top transparent;
+    background: url("../imagensProjeto/saco.png") repeat-x scroll left top transparent;
+    padding: 72px;
+    border: none;
+    margin-bottom: 4px;
+}
+
+.logo{
+    background: url("../imagensProjeto/logo.png") no-repeat;
+    width: 183px;
+    height: 128px;
+    float: left;
+    border: none;
+}
+
+.fundo{		
+	/* IE10 Consumer Preview */ 
+	background-image: -ms-linear-gradient(top, #FFFFFF 0%, #FFFF00 100%);
+	
+	/* Mozilla Firefox */ 
+	background-image: -moz-linear-gradient(top, #FFFFFF 0%, #FFFF00 100%);
+	
+	/* Opera */ 
+	background-image: -o-linear-gradient(top, #FFFFFF 0%, #FFFF00 100%);
+	
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #FFFF00));
+	
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #FFFF00 100%);
+	
+	/* W3C Markup, IE10 Release Preview */ 
+	background-image: linear-gradient(to bottom, #FFFFFF 0%, #FFFF00 100%);
 }
