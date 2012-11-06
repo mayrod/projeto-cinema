@@ -4,28 +4,29 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	>
 
 <h:head>
 	<title>MoviePlex</title>
 	<link rel="stylesheet" type="text/css" href="../resources/default.css" />  
 </h:head>
-<h:body>
+<h:body styleClass="fundo">
 	<ui:insert name="menu">
-	<div>
-	
-	      <p:panel styleClass="fundoPipoca">
+
+	   <p:panel styleClass="logo"/>
+	     <p:panel styleClass="fundoPipoca" />
+
 			<p:dock position="top">
-				<p:menuitem  id="consulta" value="Categoria" icon="/imagensProjeto/cinema3_fav.png" url="/paginas/consultaFilme.jsf" />
+				<p:menuitem id="consulta" value="Categoria" icon="/imagensProjeto/cinema3_fav.png" url="/paginas/consultaFilme.jsf" styleClass="fontePreto" />
 				<p:menuitem value="Atores" icon="/imagensProjeto/cinema4_fav.png" url="/paginas/teste.jsf" />
 				<p:menuitem value="Diretor" icon="/imagensProjeto/cinema5_fav.png" url="#" />
 				<p:menuitem value="Email" icon="/imagensProjeto/cinema1_fav.png" url="#" />
 				<p:menuitem value="Portfolio" icon="/imagensProjeto/Cinema-icon.png" url="#" />
-				<p:menuitem value="Link" icon="/imagensProjeto/cinema-icon-ingresso.png" url="#" />
+				<p:menuitem value="Link" icon="/imagensProjeto/cinema-icon-ingresso.png" url="/paginas/index.jsf" />
 			</p:dock>  
-		  </p:panel>
 		  
-	</div>
+
 	</ui:insert>
 	
 	<ui:insert name="conteudo">
