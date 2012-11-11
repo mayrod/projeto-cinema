@@ -8,74 +8,52 @@
  
    <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
-
 	       <h:form id="form">  
-  	         
-  	         <p:panel header="Em cartaz" styleClass="panelPaginaInicial">
-			    <p:dataGrid var="filme" value="#{inicial.filmesCartaz}" columns="3"  
-			         rows="12" paginator="true"  
-				     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-				     rowsPerPageTemplate="9,12,15">  
-			  
-			         <p:panel header="#{filme.filme.titulo}" style="text-align:center">  
-			            <h:panelGrid columns="1">  
-			                <h:outputText value="#{car.ano}" />  
-			                <p:commandLink update="" oncomplete="carDialog.show()" title="View Detail">  
-			                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
-			                    <f:setPropertyActionListener value="#{car}"   
-			                            target="#{tableBean.selectedCar}" />  
-			                </p:commandLink>  
-			         </h:panelGrid>  
-			        </p:panel>  
-			  
-			    </p:dataGrid>  
-            </p:panel>
-            
-            
-            <p:panel header="Promoções" styleClass="panelPaginaInicial">
-			    <p:dataGrid var="filme" value="#{inicial.filmesPromocao}" columns="3"  
-				    rows="12" paginator="true"  
-			        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-			        rowsPerPageTemplate="9,12,15">  
-			  
-			         <p:panel header="#{filme.filme.titulo}" style="text-align:center">  
-			            <h:panelGrid columns="3" style="width:100%">  
-			  
-			                <h:outputText value="#{car.ano}" />  
-			                <p:commandLink update="" oncomplete="carDialog.show()" title="View Detail">  
-			                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
-			                    <f:setPropertyActionListener value="#{car}"   
-			                            target="#{tableBean.selectedCar}" />  
-			                </p:commandLink>  
-			         </h:panelGrid>  
-			        </p:panel>  
-			  
-			    </p:dataGrid>  
-            </p:panel>
-            
-           <p:panel header="Lançamentos" styleClass="panelPaginaInicial">
-			    <p:dataGrid var="filme" value="#{inicial.filmesLancamento}" columns="3"  
-				    rows="12" paginator="true"  
-			        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-			        rowsPerPageTemplate="9,12,15">  
-			  
-			         <p:panel header="#{filme.filme.titulo}" style="text-align:center">  
-			            <h:panelGrid columns="1" style="width:100%">  
-			  
-			                <h:outputText value="#{car.ano}" />  
-			                <p:commandLink update="" oncomplete="carDialog.show()" title="View Detail">  
-			                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
-			                    <f:setPropertyActionListener value="#{car}"   
-			                            target="#{tableBean.selectedCar}" />  
-			                </p:commandLink>  
-			         </h:panelGrid>  
-			        </p:panel>  
-			  
-			    </p:dataGrid>  
-           </p:panel>
-            
+	  	       <br> </br>
+			   <p:carousel id="carouselCartaz" value="#{inicial.filmesCartaz}" var="filmeCartaz" headerText="Em cartaz" circular="true" >  
+			       <p:panel header="#{filmeCartaz.filme.titulo}" style="text-align:center; width:400px">  
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/homem-de-ferro.jpg" height="300"/>   
+			            <h:panelGrid columns="2" > 
+			            	Produtora:
+			                <h:outputText value="#{filmeCartaz.filme.produtora}" />  
+			         	</h:panelGrid>
+			            <h:panelGrid columns="2" > 
+			            	Sinopse:
+			                <h:outputText value="#{filmeCartaz.filme.sinopse}" />  
+			         	</h:panelGrid>
+			        </p:panel>   
+			   </p:carousel>  
+			   
+			   <br> </br>
+			   <p:carousel id="carouselPromocao" value="#{inicial.filmesPromocao}" var="filmePromocao" headerText="Promoções" circular="true" >  
+			       <p:panel header="#{filmePromocao.filme.titulo}" style="text-align:center; width:400px">  
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/homem-de-ferro.jpg" height="300"/>   
+			            <h:panelGrid columns="2" > 
+			            	Desconto:
+			                <h:outputText value="#{filmePromocao.porcentagemPromocao}" />  
+			         	</h:panelGrid>
+			            <h:panelGrid columns="2" > 
+			            	Descrição:
+			                <h:outputText value="#{filmePromocao.descricao}" />  
+			         	</h:panelGrid>
+			        </p:panel>   
+			   </p:carousel>  
+	
+			   <br> </br>
+	           <p:carousel id="carouselLancamentos" value="#{inicial.filmesLancamento}" var="filmeLancamento" headerText="Lançamentos" circular="true" >  
+			       <p:panel header="#{filmeLancamento.filme.titulo}" style="text-align:center; width:400px">  
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/homem-de-ferro.jpg" height="300"/>   
+			            <h:panelGrid columns="2" > 
+			            	Produtora:
+			                <h:outputText value="#{filmeLancamento.filme.produtora}" />  
+			         	</h:panelGrid>
+			            <h:panelGrid columns="2" > 
+			            	Sinopse:
+			                <h:outputText value="#{filmeLancamento.filme.sinopse}" />  
+			         	</h:panelGrid>
+			        </p:panel>   
+			   </p:carousel>  
          </h:form>  
 	  </ui:define>
   </ui:composition>
-      
 </html>
