@@ -9,23 +9,19 @@
 
 <h:head>
 	<title>MoviePlex</title>
-	<link rel="stylesheet" type="text/css" href="../resources/default.css" />  
+	<link rel="stylesheet" type="text/css" href="../resources/teste.css" />  
 </h:head>
 <h:body styleClass="fundo">
 	<ui:insert name="menu">
 
 	   <p:panel styleClass="logo"/>
 	     <p:panel styleClass="fundoPipoca" />
-
-			<p:dock position="top">
-				<p:menuitem id="consulta" value="Categoria" icon="/imagensProjeto/cinema3_fav.png" url="/paginas/consultaFilme.jsf" styleClass="fontePreto" />
-				<p:menuitem value="Atores" icon="/imagensProjeto/cinema4_fav.png" url="/paginas/teste.jsf" />
-				<p:menuitem value="Diretor" icon="/imagensProjeto/cinema5_fav.png" url="#" />
-				<p:menuitem value="Email" icon="/imagensProjeto/cinema1_fav.png" url="#" />
-				<p:menuitem value="Portfolio" icon="/imagensProjeto/Cinema-icon.png" url="#" />
-				<p:menuitem value="Link" icon="/imagensProjeto/cinema-icon-ingresso.png" url="/paginas/index.jsf" />
-			</p:dock>  
-		  
+			 <p:tabMenu activeIndex="1">  
+		        <p:menuitem value="Home"   url="/paginas/index.jsf"  />
+				<p:menuitem value="Filmes" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/consultaFilme.jsf" />
+				<p:menuitem value="Horários" icon="/imagensProjeto/cinema5_fav.png" url="#" />
+				<p:menuitem value="Contato" icon="/imagensProjeto/cinema-icon-ingresso.png" url="/paginas/index.jsf" />
+		    </p:tabMenu>
 
 	</ui:insert>
 	

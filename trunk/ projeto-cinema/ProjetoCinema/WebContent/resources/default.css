@@ -27,12 +27,13 @@
 }
 
 .logo{
-    background: url("../imagensProjeto/logo.png") no-repeat;
-    width: 183px;
-    height: 128px;
-    float: left;
-    border: none;
+    background: url("../imagensProjeto/logo.png") no-repeat !important;
+    width: 183px !important;
+    height: 128px !important;
+    float: left !important;
+    border: none !important;
 }
+
 
 .fundo{		
 	/* IE10 Consumer Preview */ 
@@ -52,4 +53,13 @@
 	
 	/* W3C Markup, IE10 Release Preview */ 
 	background-image: linear-gradient(to bottom, #FFFFFF 0%, #FFFF00 100%);
+}
+
+.panelPaginaInicial{
+   margin-top: 50px !important;
+   margin-bottom: 50px !important;
+}
+
+.teste{
+   background-image: url(../imagensProjeto/cinema3_fav_teste.png) no-repeat !important;	
 }
