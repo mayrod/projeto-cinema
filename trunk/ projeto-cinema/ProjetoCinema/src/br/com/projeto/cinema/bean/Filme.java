@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,7 +19,7 @@ public class Filme implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id 
+	@Id @GeneratedValue
 	@Column(name = "pkFilme")
 	private Long pkFilme;
 	
