@@ -2,15 +2,22 @@ package br.com.projeto.cinema.view.cadastros;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -63,7 +70,10 @@ public class CadastroFilme extends JInternalFrame
 	private String pathImagem;
 	private JEditorPane txSinopse;
 	private List<Elenco> registroElenco;
-	
+	private String caminhoImagem;
+    private JLabel lblImagem = new JLabel("");
+    private BufferedImage imagem_buffered;
+    
 	public CadastroFilme() 
 	{
 		setClosable(true);
@@ -74,16 +84,16 @@ public class CadastroFilme extends JInternalFrame
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel label = new JLabel("");
-		label.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		label.setBounds(624, 11, 154, 172);
-		contentPane.add(label);
+		lblImagem.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		lblImagem.setBounds(624, 11, 154, 172);
+		contentPane.add(lblImagem);
 		
 		JButton btCarregarImagem = new JButton("Carregar Imagem");
 		btCarregarImagem.setIcon(new ImageIcon(CadastroFilme.class.getResource("/br/com/projeto/cinema/imagens/Picture.png")));
 		btCarregarImagem.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btCarregarImagem.setBounds(615, 188, 175, 44);
 		contentPane.add(btCarregarImagem);
+		btCarregarImagem.addActionListener(new Abrir());
 		
 		JLabel label_1 = new JLabel("C\u00F3digo:");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -445,6 +455,7 @@ public class CadastroFilme extends JInternalFrame
 	{
 		registro = null;
 		registroElenco = new ArrayList<Elenco>();
+		caminhoImagem = null;
 		
 		txCodigo.setText("");
 		txNome.setText("");
@@ -515,8 +526,27 @@ public class CadastroFilme extends JInternalFrame
 			el.setFilme(registro);
 			new ElencoDAO().save(el);
 		}
-
-		JOptionPane.showMessageDialog(null,"Registro salvo com sucesso!","Sucesso.",JOptionPane.INFORMATION_MESSAGE);  
+		
+		salvarImagem();
+	}
+	
+	public void salvarImagem()
+	{
+		//*********************************************************************//
+		//Salvar imagem na pasta
+		try
+		{
+			if(caminhoImagem!=null)
+			{
+				File imagem_file = new File(caminhoImagem);
+				BufferedImage imagem_buffered = null;
+				imagem_buffered = ImageIO.read( imagem_file );
+				ImageIO.write(imagem_buffered, "jpg", new File("WebContent/imagensProjeto/filmes/filme_"+registro.getCodigo()+".jpg"));
+			}
+			JOptionPane.showMessageDialog(null,"Registro salvo com sucesso!","Sucesso.",JOptionPane.INFORMATION_MESSAGE); 
+		}
+		catch (Exception e1) {}
+		//*********************************************************************//
 	}
 	
 	public void remover()
@@ -534,6 +564,38 @@ public class CadastroFilme extends JInternalFrame
 		else
 		{
 			JOptionPane.showMessageDialog(null,"Não há nenhum registro de Filme salvo!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
+		}
+	}
+	
+	private class Abrir implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(CadastroFilme.this);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				fc.getSelectedFile().toString();
+
+				//*********************************************************************//
+				//Salvar imagem na pasta
+
+				try {
+				    imagem_buffered = null;
+					File imagem_file = new File(fc.getSelectedFile().toString());
+					imagem_buffered = ImageIO.read( imagem_file );
+					ImageIO.write(imagem_buffered, "jpg", new File("WebContent/imagensProjeto/filmes/Filme.jpg"));
+					lblImagem.setIcon(new ImageIcon(("WebContent/imagensProjeto/filmes/Filme.jpg")));
+					caminhoImagem = fc.getSelectedFile().toString();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, "Arquivo selecionado não é uma imagem!");
+				}
+				//*********************************************************************//
+
+				 BufferedImage aux = new BufferedImage(lblImagem.getSize().width, lblImagem.getSize().height, imagem_buffered.getType());//cria um buffer auxiliar com o tamanho desejado
+				 Graphics2D g = aux.createGraphics();//pega a classe graphics do aux para edicao
+				 AffineTransform at = AffineTransform.getScaleInstance((double) lblImagem.getSize().width / imagem_buffered.getWidth(), (double) lblImagem.getSize().height / imagem_buffered.getHeight());//cria a transformacao
+				 g.drawRenderedImage(imagem_buffered, at);//pinta e transforma a imagem real no auxiliar
+
+				 lblImagem.setIcon(new ImageIcon(aux));
+			}
 		}
 	}
 }
