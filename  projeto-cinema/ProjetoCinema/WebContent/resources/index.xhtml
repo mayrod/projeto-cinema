@@ -6,21 +6,22 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://primefaces.org/ui">
  
-   <ui:composition template="../resources/template.xhtml">
+   <ui:composition template="template.xhtml">
 	    <ui:define name="conteudo">
 
 	       <h:form id="form">  
-  	         
-  	         <p:panel header="Em cartaz" styleClass="panelPaginaInicial">
+  
+  	        <p:panel header="Em cartaz" styleClass="panelPesquisa">
+  
 			    <p:dataGrid var="filme" value="#{inicial.filmesCartaz}" columns="3"  
-			         rows="12" paginator="true"  
-				     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-				     rowsPerPageTemplate="9,12,15">  
+			        rows="1" paginator="true"  
+			        rowsPerPageTemplate="9,12,15">  
 			  
 			         <p:panel header="#{filme.filme.titulo}" style="text-align:center">  
 			            <h:panelGrid columns="1">  
+			  
 			                <h:outputText value="#{car.ano}" />  
-			                <p:commandLink update="" oncomplete="carDialog.show()" title="View Detail">  
+			                <p:commandLink update=":form:carDetail" oncomplete="carDialog.show()" title="View Detail">  
 			                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
 			                    <f:setPropertyActionListener value="#{car}"   
 			                            target="#{tableBean.selectedCar}" />  
@@ -32,9 +33,10 @@
             </p:panel>
             
             
-            <p:panel header="Promoções" styleClass="panelPaginaInicial">
+            <p:panel header="Promoções" styleClass="panelPesquisa">
+  
 			    <p:dataGrid var="filme" value="#{inicial.filmesPromocao}" columns="3"  
-				    rows="12" paginator="true"  
+			        rows="1" paginator="true"  
 			        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
 			        rowsPerPageTemplate="9,12,15">  
 			  
@@ -42,7 +44,7 @@
 			            <h:panelGrid columns="3" style="width:100%">  
 			  
 			                <h:outputText value="#{car.ano}" />  
-			                <p:commandLink update="" oncomplete="carDialog.show()" title="View Detail">  
+			                <p:commandLink update=":form:carDetail" oncomplete="carDialog.show()" title="View Detail">  
 			                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
 			                    <f:setPropertyActionListener value="#{car}"   
 			                            target="#{tableBean.selectedCar}" />  
@@ -53,17 +55,19 @@
 			    </p:dataGrid>  
             </p:panel>
             
-           <p:panel header="Lançamentos" styleClass="panelPaginaInicial">
+            
+           <p:panel header="Lançamentos" styleClass="panelPesquisa">
+  
 			    <p:dataGrid var="filme" value="#{inicial.filmesLancamento}" columns="3"  
-				    rows="12" paginator="true"  
+			        rows="1" paginator="false"  
 			        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
 			        rowsPerPageTemplate="9,12,15">  
 			  
 			         <p:panel header="#{filme.filme.titulo}" style="text-align:center">  
-			            <h:panelGrid columns="1" style="width:100%">  
+			            <h:panelGrid columns="3" style="width:100%">  
 			  
 			                <h:outputText value="#{car.ano}" />  
-			                <p:commandLink update="" oncomplete="carDialog.show()" title="View Detail">  
+			                <p:commandLink update=":form:carDetail" oncomplete="carDialog.show()" title="View Detail">  
 			                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
 			                    <f:setPropertyActionListener value="#{car}"   
 			                            target="#{tableBean.selectedCar}" />  
@@ -72,10 +76,13 @@
 			        </p:panel>  
 			  
 			    </p:dataGrid>  
-           </p:panel>
+            </p:panel>
             
-         </h:form>  
-	  </ui:define>
+            </h:form>  
+	      
+	    </ui:define>
   </ui:composition>
-      
+ 
 </html>
+
+
