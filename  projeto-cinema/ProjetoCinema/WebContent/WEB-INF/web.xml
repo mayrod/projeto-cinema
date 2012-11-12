@@ -16,9 +16,9 @@
   <welcome-file>/paginas/index.jsf</welcome-file>
  </welcome-file-list>
  
-<!--   <context-param>  
+  <context-param>  
     <param-name>primefaces.THEME</param-name>  
     <param-value>ui-lightness</param-value>  
- </context-param> -->
+ </context-param> 
  
 </web-app>
