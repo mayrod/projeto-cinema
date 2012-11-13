@@ -172,8 +172,8 @@ public class CadastroFilmePromocao extends JInternalFrame
 		btRemover.addActionListener(new escutaBotao());
 		
 		modelo = (DefaultTableModel) tblFilmePromocao.getModel();
+		txCodigo.enable(false);
 		
-		preencherCodigo();
 		preencherTabela();
 		preencherFilme();
 		limpar();
@@ -220,6 +220,8 @@ public class CadastroFilmePromocao extends JInternalFrame
 		{
 			tblFilmePromocao.removeRowSelectionInterval(0, modelo.getRowCount() - 1);
 		}
+		
+		preencherCodigo();
 	}
 	
 	public void preencherTabela()
@@ -246,8 +248,6 @@ public class CadastroFilmePromocao extends JInternalFrame
 			java.sql.Date dtTermino = new java.sql.Date(dataTermino.getDate().getTime());  
 			
 			registro = new FilmePromocao();		
-			
-			registro.setPkFilmePromocao(Long.parseLong(txCodigo.getText()));
 			registro.setCodigo(txCodigo.getText());
 			registro.setDescricao(txDescricao.getText());
 			registro.setPorcentagemPromocao(new Double(txPorcentagemPromocao.getText()));

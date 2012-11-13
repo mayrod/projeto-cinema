@@ -41,7 +41,7 @@ public class Filme implements Serializable{
 	@Column(name = "nacionalidade")
 	private String nacionalidade;
 	
-	@Column(name = "sinopse")
+	@Column(name = "sinopse", length=10000)
 	private String sinopse;
 	
 	@Column(name = "tipoAudio")
