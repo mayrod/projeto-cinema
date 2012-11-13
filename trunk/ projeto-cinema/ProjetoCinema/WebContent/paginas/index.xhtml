@@ -9,23 +9,19 @@
    <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
 	       <h:form id="form">  
-	  	       <br> </br>
-			   <p:carousel id="carouselCartaz" value="#{inicial.filmesCartaz}" var="filmeCartaz" headerText="Em Cartaz" circular="true" >  
-			       <p:panel header="#{filmeCartaz.filme.titulo}" style="text-align:center; width:400px">  
-			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeCartaz.filme.codigo}.jpg" height="300"/>   
-			            <h:panelGrid columns="2" > 
-			            	Produtora:
-			                <h:outputText value="#{filmeCartaz.filme.produtora}" />  
-			         	</h:panelGrid>
-			            <h:panelGrid columns="2" > 
-			            	Sinopse:
-			                <h:outputText value="#{filmeCartaz.filme.sinopse}" />  
-			         	</h:panelGrid>
-			        </p:panel>   
-			   </p:carousel>  
-			   
-			   <br> </br>
-			   <p:carousel id="carouselPromocao" value="#{inicial.filmesPromocao}" var="filmePromocao" headerText="Promoções" circular="true" >  
+		       <br> </br>
+				   <p:carousel id="tabsCarousel" rows="1" autoPlayInterval="3000" itemStyle="width:1235px" effect="easeInStrong"  value="#{inicial.filmesLancamento}" var="filmeLancamento" headerText="Lançamentos" circular="true">  
+				    <p:tab header="#{filmeLancamento.filme.titulo}">  
+				        <h:panelGrid columns="2" cellpadding="10">  
+				            <p:graphicImage value="/imagensProjeto/filmes/filme_#{filmeLancamento.filme.codigo}.jpg" height="300"/>  
+				            <h:outputText  
+				                value="#{filmeLancamento.filme.sinopse}" />  
+				        </h:panelGrid>  
+				    </p:tab>  
+				</p:carousel> 
+				
+				<br> </br>
+			   <p:carousel id="carouselPromocao" value="#{inicial.filmesPromocao}" var="filmePromocao" headerText="Promoções" circular="true" style="width:1235px">  
 			       <p:panel header="#{filmePromocao.filme.titulo}" style="text-align:center; width:400px">  
 			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmePromocao.filme.codigo}.jpg" height="300"/>   
 			            <h:panelGrid columns="2" > 
@@ -38,18 +34,18 @@
 			         	</h:panelGrid>
 			        </p:panel>   
 			   </p:carousel>  
-	
-			   <br> </br>
-	           <p:carousel id="carouselLancamentos" value="#{inicial.filmesLancamento}" var="filmeLancamento" headerText="Lançamentos" circular="true" >  
-			       <p:panel header="#{filmeLancamento.filme.titulo}" style="text-align:center; width:400px">  
-			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeLancamento.filme.codigo}.jpg" height="300"/>   
+			   
+	  	       <br> </br>
+			   <p:carousel id="carouselCartaz" value="#{inicial.filmesCartaz}" var="filmeCartaz" headerText="Em Cartaz" circular="true" style="width:1235px">  
+			       <p:panel header="#{filmeCartaz.filme.titulo}" style="text-align:center; width:400px">  
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeCartaz.filme.codigo}.jpg" height="300"/>   
 			            <h:panelGrid columns="2" > 
 			            	Produtora:
-			                <h:outputText value="#{filmeLancamento.filme.produtora}" />  
+			                <h:outputText value="#{filmeCartaz.filme.produtora}" />  
 			         	</h:panelGrid>
 			            <h:panelGrid columns="2" > 
 			            	Sinopse:
-			                <h:outputText value="#{filmeLancamento.filme.sinopse}" />  
+			                <h:outputText value="#{filmeCartaz.filme.sinopse}" />  
 			         	</h:panelGrid>
 			        </p:panel>   
 			   </p:carousel>  
