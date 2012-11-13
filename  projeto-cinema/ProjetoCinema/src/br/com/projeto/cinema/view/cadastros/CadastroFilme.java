@@ -300,6 +300,7 @@ public class CadastroFilme extends JInternalFrame
 		txAno.setBounds(212, 47, 57, 25);
 		contentPane.add(txAno);
 				
+		txCodigo.enable(false);
 		preencherCombos();
 		limpar();
 	}
@@ -472,10 +473,13 @@ public class CadastroFilme extends JInternalFrame
 		cbAudio.setSelectedItem(null);
 		cbNacionalidade.setSelectedItem(null);
 		cbClassificacaoIndicativa.setSelectedItem(null);
+		lblImagem.setIcon(null);
 		
 		int linhas = tblContato.getRowCount();
 		
 		for(int i=linhas-1; i>=0; i--) { modelo.removeRow(i); }
+		
+		preencherCodigo();
 	}
 	
 	public void salvar()
@@ -597,5 +601,10 @@ public class CadastroFilme extends JInternalFrame
 				 lblImagem.setIcon(new ImageIcon(aux));
 			}
 		}
+	}
+	
+	private void preencherCodigo(){
+		long countId = new FilmeDAO().count() + 1;
+		txCodigo.setText(Long.toString(countId));
 	}
 }
