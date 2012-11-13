@@ -13,16 +13,14 @@
 </h:head>
 <h:body styleClass="fundo">
 	<ui:insert name="menu">
-
 	   <p:panel styleClass="logo"/>
 	     <p:panel styleClass="fundoPipoca" />
-			 <p:tabMenu activeIndex="1" style="border: none; margin-bottom: 4px">  
-		        <p:menuitem value="Home"   url="/paginas/index.jsf"  />
-				<p:menuitem value="Filmes" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/consultaFilme.jsf" />
-				<p:menuitem value="Horários" icon="/imagensProjeto/cinema5_fav.png" url="#" />
-				<p:menuitem value="Contato" icon="/imagensProjeto/cinema-icon-ingresso.png" url="/paginas/index.jsf" />
+			 <p:tabMenu activeIndex="-1" style="border: none; margin-bottom: 4px; align:center" >  
+		        <p:menuitem value="Home"  icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/index.jsf"/>
+				<p:menuitem value="Filmes" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/consultaFilme.jsf"/>
+				<p:menuitem value="Horários" icon="/imagensProjeto/cinema5_fav.png" url="#"/>
+				<p:menuitem value="Contato" icon="/imagensProjeto/cinema-icon-ingresso.png" url="/paginas/index.jsf"/>
 		    </p:tabMenu>
-
 	</ui:insert>
 	
 	<ui:insert name="conteudo">
