@@ -10,9 +10,9 @@
 	    <ui:define name="conteudo">
 	       <h:form id="form">  
 	  	       <br> </br>
-			   <p:carousel id="carouselCartaz" value="#{inicial.filmesCartaz}" var="filmeCartaz" headerText="Em cartaz" circular="true" >  
+			   <p:carousel id="carouselCartaz" value="#{inicial.filmesCartaz}" var="filmeCartaz" headerText="Em Cartaz" circular="true" >  
 			       <p:panel header="#{filmeCartaz.filme.titulo}" style="text-align:center; width:400px">  
-			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/homem-de-ferro.jpg" height="300"/>   
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeCartaz.filme.codigo}.jpg" height="300"/>   
 			            <h:panelGrid columns="2" > 
 			            	Produtora:
 			                <h:outputText value="#{filmeCartaz.filme.produtora}" />  
@@ -27,7 +27,7 @@
 			   <br> </br>
 			   <p:carousel id="carouselPromocao" value="#{inicial.filmesPromocao}" var="filmePromocao" headerText="Promoções" circular="true" >  
 			       <p:panel header="#{filmePromocao.filme.titulo}" style="text-align:center; width:400px">  
-			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/homem-de-ferro.jpg" height="300"/>   
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmePromocao.filme.codigo}.jpg" height="300"/>   
 			            <h:panelGrid columns="2" > 
 			            	Desconto:
 			                <h:outputText value="#{filmePromocao.porcentagemPromocao}" />  
@@ -42,7 +42,7 @@
 			   <br> </br>
 	           <p:carousel id="carouselLancamentos" value="#{inicial.filmesLancamento}" var="filmeLancamento" headerText="Lançamentos" circular="true" >  
 			       <p:panel header="#{filmeLancamento.filme.titulo}" style="text-align:center; width:400px">  
-			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/homem-de-ferro.jpg" height="300"/>   
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeLancamento.filme.codigo}.jpg" height="300"/>   
 			            <h:panelGrid columns="2" > 
 			            	Produtora:
 			                <h:outputText value="#{filmeLancamento.filme.produtora}" />  
