@@ -15,12 +15,18 @@
 	<ui:insert name="menu">
 	   <p:panel styleClass="logo"/>
 	     <p:panel styleClass="fundoPipoca" />
-			 <p:tabMenu activeIndex="-1" style="border: none; margin-bottom: 4px; align:center" >  
-		        <p:menuitem value="Home"  icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/index.jsf"/>
-				<p:menuitem value="Filmes" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/consultaFilme.jsf"/>
-				<p:menuitem value="Horários" icon="/imagensProjeto/cinema5_fav.png" url="#"/>
-				<p:menuitem value="Contato" icon="/imagensProjeto/cinema-icon-ingresso.png" url="/paginas/index.jsf"/>
-		    </p:tabMenu>
+		 <p:tabMenu activeIndex="-1" style="border: none; margin-bottom: 0px; align:center">  
+	        <p:menuitem value="Home"  icon="iconHome" url="/paginas/index.jsf"/>
+			<p:menuitem value="Filmes" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/consultaFilme.jsf"/>
+			<p:menuitem value="Lançamentos" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/lancamentos.jsf"/>
+			<p:menuitem value="Em Cartaz" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/emcartaz.jsf"/>
+			<p:menuitem value="Promoções" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/promocoes.jsf"/>
+			<p:menuitem value="Salas" icon="/imagensProjeto/cinema3_fav_teste.png" url="/paginas/salas.jsf"/>
+			<p:menuitem value="Horários" icon="/imagensProjeto/cinema5_fav.png" url="#"/>
+			<p:menuitem value="Contato" icon="/imagensProjeto/cinema-icon-ingresso.png" url="/paginas/contato.jsf"/>
+			<p:menuitem icon="iconFacebook" url="http://www.facebook.com.br"/>
+			<p:menuitem url="http://www.twitter.com" icon="iconTwitter"/>
+	    </p:tabMenu>
 	</ui:insert>
 	
 	<ui:insert name="conteudo">

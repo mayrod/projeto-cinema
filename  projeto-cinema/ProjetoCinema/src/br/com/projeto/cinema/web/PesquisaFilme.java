@@ -60,11 +60,17 @@ public class PesquisaFilme {
 	}
     
     
-    public void buscarFilme(){
+    public void buscarFilme()
+    {
     	categoria = new FilmeCategoriaDAO().findById(new Long(pkCategoria));
     	
-    	if(categoria != null){
+    	if(categoria != null)
+    	{
         	filmes = new FilmeDAO().getFilmes(categoria);
+    	}
+    	else
+    	{
+    		filmes = new ArrayList<Filme>();
     	}
     }
 
