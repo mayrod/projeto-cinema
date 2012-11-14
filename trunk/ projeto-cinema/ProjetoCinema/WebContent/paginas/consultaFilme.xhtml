@@ -9,12 +9,12 @@
      <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
 	      <h:form id="fmCategoria">
-	        <p:panel header="Pesquisa" styleClass="panelPesquisa">
-	            <h:outputText value="Categoria: " /> 
+	        <p:panel header="Pesquisa" styleClass="panelPesquisa" >
+	            <h:outputText value="Categoria:"/> 
 	             
-				<h:selectOneMenu id="categoria" value="#{pesquisa.pkCategoria}" >  
-				    <f:selectItem itemLabel="-- Selecione a categoria -- " itemValue="Nenhuma"/>    
-				    <f:selectItems value="#{pesquisa.categorias}" var="c"  itemValue="#{c.pkFilmeCategoria}" />  
+				<h:selectOneMenu id="categoria" value="#{pesquisa.pkCategoria}" style="width:800px; text-align:center;">  
+				    <f:selectItem itemLabel="-- Selecione a categoria -- " itemValue="0" style="text-align:center;"/>    
+				    <f:selectItems value="#{pesquisa.categorias}" var="c"  itemValue="#{c.pkFilmeCategoria}" style="text-align:center;"/>  
 				</h:selectOneMenu>    
 				
                 <p:commandButton id="fmCategoria" action="#{pesquisa.buscarFilme}" value="Buscar" ajax="false" /> 
