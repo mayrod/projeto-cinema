@@ -17,10 +17,9 @@ import br.com.projeto.cinema.dao.FilmeDAO;
 public class PesquisaFilme {
 	
 	private FilmeCategoria categoria;
-	
 	private int pkCategoria;
-	
 	private List<Filme> filmes;
+	private Filme filmeSelecionado;
 
 	public FilmeCategoria getCategoria() {
 		return categoria;
@@ -70,8 +69,20 @@ public class PesquisaFilme {
     	}
     	else
     	{
-    		filmes = new ArrayList<Filme>();
+    		try {
+				filmes = new FilmeDAO().getAll();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}
     }
+
+	public Filme getFilmeSelecionado() {
+		return filmeSelecionado;
+	}
+
+	public void setFilmeSelecionado(Filme filmeSelecionado) {
+		this.filmeSelecionado = filmeSelecionado;
+	}
 
 }

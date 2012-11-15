@@ -8,28 +8,34 @@
  
      <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
-	      <h:form id="fmCategoria">
+	      <h:form id="form">
 	        <p:panel header="Pesquisa" styleClass="panelPesquisa" >
 	            <h:outputText value="Categoria:"/> 
 	             
-				<h:selectOneMenu id="categoria" value="#{pesquisa.pkCategoria}" style="width:800px; text-align:center;">  
+				<h:selectOneMenu id="categoria" value="#{pesquisa.pkCategoria}" style="width:300px; text-align:center;">  
 				    <f:selectItem itemLabel="-- Selecione a categoria -- " itemValue="0" style="text-align:center;"/>    
 				    <f:selectItems value="#{pesquisa.categorias}" var="c"  itemValue="#{c.pkFilmeCategoria}" style="text-align:center;"/>  
 				</h:selectOneMenu>    
 				
-                <p:commandButton id="fmCategoria" action="#{pesquisa.buscarFilme}" value="Buscar" ajax="false" /> 
+                <p:commandButton id="form" action="#{pesquisa.buscarFilme}" value="Buscar" ajax="false" /> 
 		    </p:panel>
 	        
 	       <br/>
-	        <p:carousel id="carouselPesquisaFilme" value="#{pesquisa.filmes}" var="filme" headerText=""  circular="true" style="width:100%">  
-		       <p:panel header="#{filme.titulo}" style="text-align:center; width:390px;">  
-		       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filme.codigo}.jpg" height="300"/>   
+	        <p:carousel id="carouselPesquisaFilme" value="#{pesquisa.filmes}" var="filmeSelecionado" headerText=""  circular="true" style="width:100%">  
+		       <p:panel header="#{filmeSelecionado.titulo}" style="text-align:center; width:390px;">  
+		       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeSelecionado.codigo}.jpg" height="300"/>   
 		            <h:panelGrid columns="2"> 
 		            	Produtora:
-		                <h:outputText value="#{filme.produtora}" />  
+		                <h:outputText value="#{filmeSelecionado.produtora}" />  
 		         	</h:panelGrid>
+		         	<p:commandLink id="view" update=":form:filmeDetalhe" oncomplete="filmeDialog.show()" title="Ver detalhes">  
+			            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+			            <f:setPropertyActionListener value="#{filmeSelecionado}" target="#{pesquisa.filmeSelecionado}" />  
+                   </p:commandLink>  
 		        </p:panel>   
 		   </p:carousel>  
+		   <ui:include src="/paginas/detalheFilme.xhtml"/>
+		    
 	      </h:form>
 	   </ui:define>
   </ui:composition>
