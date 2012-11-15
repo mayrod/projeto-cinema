@@ -1,0 +1,67 @@
+<ui:fragment
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+   <p:dialog header="Detalhes do filme" showEffect="fade" hideEffect="fade" modal="true"  widgetVar="promocaoDialog" height="500" width="1000">  
+          
+        <p:outputPanel id="promocaoDetalhe" style="text-align:center;">  
+              
+           <div style="float: left;">
+               <p:graphicImage value="/imagensProjeto/filmes/filme_#{inicial.filmePromocaoSelecionado.filme.codigo}.png" height="300"  />
+           </div>
+            
+            <div class="divDadosDetalhe">
+
+                <h:outputLabel for="titulo2" value="Titulo: " />  
+                <h:outputText id="titulo2"  value="#{inicial.filmePromocaoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" />  
+                <br/>
+                
+                <h:outputLabel for="diretor2" value="Diretor: " />  
+                <h:outputText id="diretor2"  value="#{inicial.filmePromocaoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
+                <br/>
+                
+                <h:outputLabel for="produtora2" value="Produtora: " />  
+                <h:outputText id="produtora2"  value="#{inicial.filmePromocaoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
+                <br/>
+                  
+                <h:outputLabel for="ano2" value="Ano: " />  
+                <h:outputText id="ano2" value="#{inicial.filmePromocaoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
+                <br/> 
+                  
+                <h:outputLabel for="class2" value="Classificação: " />  
+                <h:outputText id="class2" value="#{inicial.filmePromocaoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
+                <br/>
+                
+                <h:outputLabel for="duracao2" value="Duração: " />  
+                <h:outputText id="duracao2" value="#{inicial.filmePromocaoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
+                <br/> 
+                
+                <h:outputLabel for="nacio2" value="Nacionalidade: " />  
+                <h:outputText id="nacio2" value="#{inicial.filmePromocaoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
+                <br/>
+                
+                <h:outputLabel for="audio2" value="Aúdio: " />  
+                <h:outputText id="audio2" value="#{inicial.filmePromocaoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
+                <br/>
+                
+                <h:outputLabel for="legenda2" value="Legenda: " />  
+                <h:outputText id="legenda2" value="#{inicial.filmePromocaoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
+                <br/><!--
+                        
+                <h:outputText value="Avaliação: " styleClass="textoDadosDetalhe" />  
+                <p:rating value="#{ratingController.rating1}" /> 
+                
+                         
+             --></div>  
+                   
+                <br/>    
+                <p:separator id="customSeparator2" style="width:500px;height:4px" />    
+           
+        </p:outputPanel>  
+          
+	</p:dialog>  
+   
+</ui:fragment>

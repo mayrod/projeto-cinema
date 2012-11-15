@@ -94,3 +94,64 @@ background: url(../imagensProjeto/cinema3_fav_teste.png) no-repeat !important;
 height:24px;
 width:24px;
 }
+
+.iconLancamento {
+background: url(../imagensProjeto/cinema4_fav1.png) no-repeat !important;	
+height:24px;
+width:24px;
+}
+
+.iconFilmes {
+background: url(../imagensProjeto/database1.png) no-repeat !important;	
+height:24px;
+width:24px;
+}
+
+.iconCartaz {
+background: url(../imagensProjeto/cinema1_fav1.png) no-repeat !important;	
+height:24px;
+width:24px;
+}
+
+.iconSala {
+background: url(../imagensProjeto/Cinema-icon1.png) no-repeat !important;	
+height:24px;
+width:24px;
+}
+
+.iconHorario {
+background: url(../imagensProjeto/hora.png) no-repeat !important;	
+height:24px;
+width:24px;
+}
+
+.iconPromocao {
+background: url(../imagensProjeto/filmePromocao.png) no-repeat !important;	
+height:24px;
+width:24px;
+}
+
+.iconContato {
+background: url(../imagensProjeto/reel.png) no-repeat !important;	
+height:24px;
+width:24px;
+}
+
+.divImagemDetalhe{
+   height: 300px !important;
+   width: 200px !important;	
+   float: left !important;
+}
+
+.divDadosDetalhe{
+	height: 300px !important;
+	width: 460px !important;
+	float: left !important;
+	margin-top: 3px;
+}
+
+.textoDadosDetalhe{
+	margin: 5px !important;
+	text-align: left !important;
+}
+

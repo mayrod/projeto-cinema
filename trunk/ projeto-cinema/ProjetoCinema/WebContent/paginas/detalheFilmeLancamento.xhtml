@@ -1,0 +1,67 @@
+<ui:fragment
+ xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+   <p:dialog header="Detalhes do filme" showEffect="fade" hideEffect="fade" modal="true"  widgetVar="lancamentoDialog" height="500" width="1000">  
+          
+        <p:outputPanel id="lancamentoDetalhe" style="text-align:center;">  
+              
+           <div style="float: left;">
+               <p:graphicImage value="/imagensProjeto/filmes/filme_#{inicial.filmeLancamentoSelecionado.filme.codigo}.png" height="300"  />
+           </div>
+            
+            <div class="divDadosDetalhe">
+
+                <h:outputLabel for="titulo3" value="Titulo: " />  
+                <h:outputText id="titulo3"  value="#{inicial.filmeLancamentoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" />  
+                <br/>
+                
+                <h:outputLabel for="diretor3" value="Diretor: " />  
+                <h:outputText id="diretor3"  value="#{inicial.filmeLancamentoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
+                <br/>
+                
+                <h:outputLabel for="produtora3" value="Produtora: " />  
+                <h:outputText id="produtora3"  value="#{inicial.filmeLancamentoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
+                <br/>
+                  
+                <h:outputLabel for="ano3" value="Ano: " />  
+                <h:outputText id="ano3" value="#{inicial.filmeLancamentoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
+                <br/> 
+                  
+                <h:outputLabel for="class3" value="Classificação: " />  
+                <h:outputText id="class3" value="#{inicial.filmeLancamentoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
+                <br/>
+                
+                <h:outputLabel for="duracao3" value="Duração: " />  
+                <h:outputText id="duracao3" value="#{inicial.filmeLancamentoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
+                <br/> 
+                
+                <h:outputLabel for="nacio3" value="Nacionalidade: " />  
+                <h:outputText id="nacio3" value="#{inicial.filmeLancamentoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
+                <br/>
+                
+                <h:outputLabel for="audio3" value="Aúdio: " />  
+                <h:outputText id="audio3" value="#{inicial.filmeLancamentoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
+                <br/>
+                
+                <h:outputLabel for="legenda3" value="Legenda: " />  
+                <h:outputText id="legenda3" value="#{inicial.filmeLancamentoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
+                <br/><!--
+                        
+                <h:outputText value="Avaliação: " styleClass="textoDadosDetalhe" />  
+                <p:rating value="#{ratingController.rating1}" /> 
+                
+                         
+             --></div>  
+                   
+                <br/>    
+                <p:separator id="customSeparator3" style="width:500px;height:4px" />    
+           
+        </p:outputPanel>  
+          
+	</p:dialog>  
+   
+</ui:fragment>
