@@ -9,20 +9,28 @@
    <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
 	       <h:form id="form">  
-		      <p:panel columns="1" style="border: none; margin-bottom: 4px"> 
-					   <p:carousel id="tabsCarousel" rows="1" autoPlayInterval="3000" itemStyle="width:1205px" style="width:100%" effect="easeInStrong"  value="#{inicial.filmesLancamento}" var="filmeLancamento" headerText="Lançamentos" circular="true">  
-					    <p:tab header="#{filmeLancamento.filme.titulo}">  
-					        <h:panelGrid columns="2" cellpadding="10">  
-					            <p:graphicImage value="/imagensProjeto/filmes/filme_#{filmeLancamento.filme.codigo}.jpg" height="300"/>  
+		      <p:panel columns="1" style="border: none; margin-bottom: 4px">
+		          
+		          <p:carousel id="tabsCarousel" rows="1" autoPlayInterval="3000" itemStyle="width:1205px" style="width:100%" effect="easeInStrong"  value="#{inicial.filmesCartaz}" var="filmeCartaz" headerText="Em cartaz" circular="true">  
+					    <p:tab header="#{filmeCartaz.filme.titulo}">  
+					        <h:panelGrid columns="2" cellpadding="10"  onkeypress="/paginas/consultaFilme.jsf" >  
+					            <p:graphicImage value="/imagensProjeto/filmes/filme_#{filmeCartaz.filme.codigo}.png" height="300"  />  
 					            <h:outputText  
-					                value="#{filmeLancamento.filme.sinopse}" />  
-					        </h:panelGrid>  
+					                value="#{filmeCartaz.filme.sinopse}" />  
+					        </h:panelGrid> 
+					        
+					        <p:commandLink id="viewCartaz" update=":form:cartazDetalhe" oncomplete="cartazDialog.show()" title="Ver detalhes">  
+					            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+					            <f:setPropertyActionListener value="#{filmeCartaz}"   
+					                    target="#{inicial.filmeCartazSelecionado}" />  
+                            </p:commandLink>    
 					    </p:tab>  
-					</p:carousel> 
+				 </p:carousel> 
+				<ui:include src="/paginas/detalheFilmeCartaz.xhtml"/>
 					
-				   <p:carousel id="carouselPromocao" value="#{inicial.filmesPromocao}" var="filmePromocao" headerText="Promoções" circular="true" style="width:100%">  
+				<p:carousel id="carouselPromocao" value="#{inicial.filmesPromocao}" var="filmePromocao" headerText="Promoções" circular="true" style="width:100%">  
 				       <p:panel header="#{filmePromocao.filme.titulo}" style="text-align:center; width:390px;">  
-				       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmePromocao.filme.codigo}.jpg" height="300"/>   
+				       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmePromocao.filme.codigo}.png" height="300"/>   
 				            <h:panelGrid columns="2" > 
 				            	Desconto:
 				                <h:outputText value="#{filmePromocao.porcentagemPromocao}" />  
@@ -31,18 +39,33 @@
 				            	Descrição:
 				                <h:outputText value="#{filmePromocao.descricao}" />  
 				         	</h:panelGrid>
+				         	
+				         	<p:commandLink id="view" update=":form:promocaoDetalhe" oncomplete="promocaoDialog.show()" title="Ver detalhes">  
+					            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+					            <f:setPropertyActionListener value="#{filmePromocao}"   
+					                    target="#{inicial.filmePromocaoSelecionado}" />  
+                            </p:commandLink>    
 				        </p:panel>   
 				   </p:carousel>  
+				   <ui:include src="/paginas/detalheFilmePromocao.xhtml"/>
 				   
-				   <p:carousel id="carouselCartaz" value="#{inicial.filmesCartaz}" var="filmeCartaz" headerText="Em Cartaz" circular="true" style="width:100%">  
-				       <p:panel header="#{filmeCartaz.filme.titulo}" style="text-align:center; width:390px;">  
-				       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeCartaz.filme.codigo}.jpg" height="300"/>   
+				   <p:carousel id="carouselCartaz" value="#{inicial.filmesLancamento}" var="filmeLancamento" headerText="Lançamentos" circular="true" style="width:100%">  
+				       <p:panel header="#{filmeLancamento.filme.titulo}" style="text-align:center; width:390px;">  
+				       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{filmeLancamento.filme.codigo}.png" height="300"/>   
 				            <h:panelGrid columns="2"> 
 				            	Produtora:
-				                <h:outputText value="#{filmeCartaz.filme.produtora}" />  
+				                <h:outputText value="#{filmeLancamento.filme.produtora}" />  
 				         	</h:panelGrid>
+				         	
+				         	<p:commandLink id="view" update=":form:lancamentoDetalhe" oncomplete="lancamentoDialog.show()" title="Ver detalhes">  
+					            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+					            <f:setPropertyActionListener value="#{filmeLancamento}"   
+					                    target="#{inicial.filmeLancamentoSelecionado}" />  
+                            </p:commandLink>    
 				        </p:panel>   
 				   </p:carousel>  
+				   <ui:include src="/paginas/detalheFilmeLancamento.xhtml"/>
+				   
 			   </p:panel>   
          </h:form>  
 	  </ui:define>
