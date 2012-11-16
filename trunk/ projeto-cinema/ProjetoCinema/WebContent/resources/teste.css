@@ -138,16 +138,13 @@ width:24px;
 }
 
 .divImagemDetalhe{
-   height: 300px !important;
-   width: 200px !important;	
    float: left !important;
+   margin: 10px !important;
 }
 
 .divDadosDetalhe{
-	height: 300px !important;
-	width: 460px !important;
 	float: left !important;
-	margin-top: 3px;
+	margin: 10px !important;
 }
 
 .textoDadosDetalhe{
@@ -155,3 +152,7 @@ width:24px;
 	text-align: left !important;
 }
 
+.video{
+	float: inherit !important;
+	text-align: center !important;
+}
