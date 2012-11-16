@@ -68,8 +68,11 @@ public class Filme implements Serializable{
 	@OneToMany @JoinTable(name="filmeHorario" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkFilmeHorario"))
 	private List<Sessao> horariosExibicoes;
 	
-	@OneToMany @JoinTable(name="avaliacaofilme" , joinColumns = @JoinColumn(name = "pkFilme"), inverseJoinColumns = @JoinColumn(name = "pkAvaliacaoFilme"))
-	private List<AvaliacaoFilme> avaliacoes;
+	@OneToMany(mappedBy="filme")
+	private List<AvaliacaoFilme> avaliacaoFilme;
+	
+	@OneToMany(mappedBy="filme")
+	private List<Elenco> elenco;
 
 	public Long getPkFilme() {
 		return pkFilme;
@@ -184,12 +187,12 @@ public class Filme implements Serializable{
 		this.horariosExibicoes = horariosExibicoes;
 	}
 
-	public List<AvaliacaoFilme> getAvaliacoes() {
-		return avaliacoes;
+	public List<AvaliacaoFilme> getAvaliacaoFilme() {
+		return avaliacaoFilme;
 	}
 
-	public void setAvaliacoes(List<AvaliacaoFilme> avaliacoes) {
-		this.avaliacoes = avaliacoes;
+	public void setAvaliacaoFilme(List<AvaliacaoFilme> avaliacaoFilme) {
+		this.avaliacaoFilme = avaliacaoFilme;
 	}
 
 	public String getLegenda() {
@@ -206,6 +209,14 @@ public class Filme implements Serializable{
 
 	public void setProdutora(String produtora) {
 		this.produtora = produtora;
+	}
+
+	public List<Elenco> getElenco() {
+		return elenco;
+	}
+
+	public void setElenco(List<Elenco> elenco) {
+		this.elenco = elenco;
 	}
 
 	@Override

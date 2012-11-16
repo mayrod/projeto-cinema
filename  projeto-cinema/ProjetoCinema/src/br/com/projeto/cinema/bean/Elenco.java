@@ -28,7 +28,7 @@ public class Elenco implements Serializable{
 	
 	@ManyToOne @JoinColumn(name="fkFilme")
 	private Filme filme;
-	
+		
 	public Long getPkElenco() {
 		return pkElenco;
 	}

@@ -6,8 +6,10 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import br.com.projeto.cinema.bean.AvaliacaoFilme;
 import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeCategoria;
+import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
 import br.com.projeto.cinema.dao.FilmeCategoriaDAO;
 import br.com.projeto.cinema.dao.FilmeDAO;
 
@@ -20,7 +22,9 @@ public class PesquisaFilme {
 	private int pkCategoria;
 	private List<Filme> filmes;
 	private Filme filmeSelecionado;
-
+	private Integer avaliacaoGeral = 0;
+	private AvaliacaoFilme avaliacao = new AvaliacaoFilme();
+	
 	public FilmeCategoria getCategoria() {
 		return categoria;
 	}
@@ -85,4 +89,49 @@ public class PesquisaFilme {
 		this.filmeSelecionado = filmeSelecionado;
 	}
 
+	public Integer getAvaliacaoGeral() 
+	{
+		avaliacaoGeral = 0;
+		
+		if(filmeSelecionado.getAvaliacaoFilme()!=null && filmeSelecionado.getAvaliacaoFilme().size()>0)
+		{
+			for(AvaliacaoFilme af : filmeSelecionado.getAvaliacaoFilme())
+			{
+				avaliacaoGeral += af.getAvaliacao();
+			}
+			avaliacaoGeral = avaliacaoGeral / filmeSelecionado.getAvaliacaoFilme().size();
+		}
+		
+		return avaliacaoGeral;
+	}
+
+	public void setAvaliacaoGeral(Integer avaliacaoGeral) {
+		this.avaliacaoGeral = avaliacaoGeral;
+	}
+
+	public AvaliacaoFilme getAvaliacao() 
+	{
+		avaliacao = new AvaliacaoFilme(); 
+		avaliacao.setAvaliacao(5);
+		avaliacao.setEmail("");
+		avaliacao.setNome("");
+		avaliacao.setComentario("");
+		avaliacaoGeral = 0;
+		return avaliacao;
+	}
+
+	public void setAvaliacao(AvaliacaoFilme avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+	
+	public void salvarAvaliacao()
+    {
+		avaliacao.setFilme(filmeSelecionado);
+		new AvaliacaoFilmeDAO().save(avaliacao);
+		avaliacao = new AvaliacaoFilme(); 
+		avaliacao.setAvaliacao(5);
+		avaliacao.setEmail("");
+		avaliacao.setNome("");
+		avaliacao.setComentario("");
+    }
 }
