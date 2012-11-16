@@ -65,6 +65,13 @@ public class FilmeDAO  extends GenericDao<Filme>
 	@SuppressWarnings("unchecked")
 	public List<Filme> getFilmes(FilmeCategoria categoria){
 		   Session session = (Session) getEntityManager().getDelegate();
-	        return  session.createCriteria(Filme.class).add(Restrictions.eq("categoria", categoria)).list();
+		   List<Filme> filmes =  session.createCriteria(Filme.class).add(Restrictions.eq("categoria", categoria)).list();
+		   
+		   for(Filme filme : filmes)
+		   {
+			   filme.setAvaliacaoFilme(new AvaliacaoFilmeDAO().obterAvaliacoes(filme.getPkFilme()));
+		   }
+		   
+		   return filmes;
 	}
 }
