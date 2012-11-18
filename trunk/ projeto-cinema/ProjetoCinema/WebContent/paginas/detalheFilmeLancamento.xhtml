@@ -5,63 +5,71 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	
-   <p:dialog header="Detalhes do filme" showEffect="fade" hideEffect="fade" modal="true"  widgetVar="lancamentoDialog" height="500" width="1000">  
-          
-        <p:outputPanel id="lancamentoDetalhe" style="text-align:center;">  
-              
+ <p:dialog header="Detalhes do filme" showEffect="fade" hideEffect="fade" modal="true" widgetVar="lancamentoDialog" height="550" width="1000">  
+        
+        <p:outputPanel id="lancamentoDetalhe" style="margin: 20px;">  
            <div style="float: left;">
                <p:graphicImage value="/imagensProjeto/filmes/filme_#{inicial.filmeLancamentoSelecionado.filme.codigo}.png" height="300"  />
            </div>
             
-            <div class="divDadosDetalhe">
-
-                <h:outputLabel for="titulo3" value="Titulo: " />  
-                <h:outputText id="titulo3"  value="#{inicial.filmeLancamentoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" />  
-                <br/>
-                
-                <h:outputLabel for="diretor3" value="Diretor: " />  
-                <h:outputText id="diretor3"  value="#{inicial.filmeLancamentoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
-                <br/>
-                
-                <h:outputLabel for="produtora3" value="Produtora: " />  
-                <h:outputText id="produtora3"  value="#{inicial.filmeLancamentoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
-                <br/>
-                  
-                <h:outputLabel for="ano3" value="Ano: " />  
-                <h:outputText id="ano3" value="#{inicial.filmeLancamentoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
-                <br/> 
-                  
-                <h:outputLabel for="class3" value="Classificação: " />  
-                <h:outputText id="class3" value="#{inicial.filmeLancamentoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
-                <br/>
-                
-                <h:outputLabel for="duracao3" value="Duração: " />  
-                <h:outputText id="duracao3" value="#{inicial.filmeLancamentoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
-                <br/> 
-                
-                <h:outputLabel for="nacio3" value="Nacionalidade: " />  
-                <h:outputText id="nacio3" value="#{inicial.filmeLancamentoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
-                <br/>
-                
-                <h:outputLabel for="audio3" value="Aúdio: " />  
-                <h:outputText id="audio3" value="#{inicial.filmeLancamentoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
-                <br/>
-                
-                <h:outputLabel for="legenda3" value="Legenda: " />  
-                <h:outputText id="legenda3" value="#{inicial.filmeLancamentoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
-                <br/><!--
-                        
-                <h:outputText value="Avaliação: " styleClass="textoDadosDetalhe" />  
-                <p:rating value="#{ratingController.rating1}" /> 
-                
-                         
-             --></div>  
-                   
-                <br/>    
-                <p:separator id="customSeparator3" style="width:500px;height:4px" />    
-           
+            <div class="divDadosDetalhe"  style="float: right;">
+ 				<h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/index.jsf" style="text-align:left;">  
+	                <h:outputLabel for="titulo3" value="Titulo: "/>  
+	                <h:outputText id="titulo3"  value="#{inicial.filmeLancamentoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" style="font-weight: bold;"/>  
+	                
+	                <h:outputLabel for="diretor3" value="Diretor: " />  
+	                <h:outputText id="diretor3"  value="#{inicial.filmeLancamentoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
+	                
+	                <h:outputLabel for="produtora3" value="Produtora: " />  
+	                <h:outputText id="produtora3"  value="#{inicial.filmeLancamentoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
+	                  
+	                <h:outputLabel for="ano3" value="Ano: " />  
+	                <h:outputText id="ano3" value="#{inicial.filmeLancamentoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
+	                  
+	                <h:outputLabel for="class3" value="Classificação: " />  
+	                <h:outputText id="class3" value="#{inicial.filmeLancamentoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
+	                
+	                <h:outputLabel for="duracao3" value="Duração: " />  
+	                <h:outputText id="duracao3" value="#{inicial.filmeLancamentoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
+	                
+	                <h:outputLabel for="nacio3" value="Nacionalidade: " />  
+	                <h:outputText id="nacio3" value="#{inicial.filmeLancamentoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
+	                
+	                <h:outputLabel for="audio3" value="Audio: " />  
+	                <h:outputText id="audio3" value="#{inicial.filmeLancamentoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
+	                
+	                <h:outputLabel for="legenda3" value="Legenda: " />  
+	                <h:outputText id="legenda3" value="#{inicial.filmeLancamentoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
+	                
+                </h:panelGrid> 
+            </div>  
+	        
+	        <br/>   
+            <p:separator style="width:100%;height:4px" />   
+	        
+            <h:outputText id="sinopse3" value="#{inicial.filmeLancamentoSelecionado.filme.sinopse}" styleClass="textoDadosDetalhe" /> 
+	        
+	        <br/><!-- 
+	        <p:media value="#{inicial.filmeLancamentoSelecionado.filme.trailer}" width="420" height="315" player="flash" styleClass="video"/>   
+	        
+	        --><br/>      
+            <p:separator style="width:100%;height:4px" />    
+            
+            <h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/consultaFilme.jsf" style="text-align:left;">  
+	            <h:outputText value="Avaliação: " styleClass="textoDadosDetalhe" />  
+	            <h:panelGrid columns="1" cellpadding="3">  
+		            <p:rating value="#{inicial.avaliacao.avaliacao}" stars="10"/> 
+		            <h:panelGrid columns="5" cellpadding="3"> 
+		            	<h:outputText value="Nome: "/>
+		            	<p:inputText value="#{inicial.avaliacao.nome}"/>  
+		            	<h:outputText value="E-mail: " style="width:450px;"/>
+		            	<p:inputText value="#{inicial.avaliacao.email}"/>  
+		            	<p:commandButton action="#{inicial.salvarAvaliacao}" value="Enviar" ajax="false" /> 
+		            </h:panelGrid>
+		            <p:inputTextarea rows="6" cols="33" style="width:800px; height:70px" value="#{inicial.avaliacao.comentario}" /> 
+	            </h:panelGrid> 
+            </h:panelGrid> 
         </p:outputPanel>  
-          
 	</p:dialog>  
    
 </ui:fragment>
