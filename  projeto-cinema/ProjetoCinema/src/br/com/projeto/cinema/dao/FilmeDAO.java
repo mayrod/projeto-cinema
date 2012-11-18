@@ -74,4 +74,15 @@ public class FilmeDAO  extends GenericDao<Filme>
 		   
 		   return filmes;
 	}
+	
+	public List<Filme> getFilmesPorNome(String nome) throws Exception
+	{
+		Query query = new Query();
+		
+		query.add("SELECT *");
+		query.add(" FROM Filme");
+		query.add(" WHERE UPPER(titulo) LIKE (?%)", nome);
+		   
+		return obtemTodos(query, Filme.class);
+	}
 }
