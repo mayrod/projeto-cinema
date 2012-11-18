@@ -24,6 +24,7 @@ public class PesquisaFilme {
 	private Filme filmeSelecionado;
 	private Integer avaliacaoGeral = 0;
 	private AvaliacaoFilme avaliacao = new AvaliacaoFilme();
+	private boolean visibilidade;
 	
 	public FilmeCategoria getCategoria() {
 		return categoria;
@@ -134,4 +135,12 @@ public class PesquisaFilme {
 		avaliacao.setNome("");
 		avaliacao.setComentario("");
     }
+	
+	public boolean isVisibilidade() {
+		return visibilidade;
+	}
+
+	public void setVisibilidade(boolean visibilidade) {
+		this.visibilidade = visibilidade;
+	}  
 }
