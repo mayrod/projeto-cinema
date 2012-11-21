@@ -1,7 +1,6 @@
 package br.com.projeto.cinema.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,13 +18,16 @@ public class Horario implements Serializable{
 	private Long pkHorario;
 	
 	@Column(name = "horario")
-	private Date horario;
+	private String horario;
 	
 	@Column(name = "diaSemana")
 	private int diaSemana;
 	
 	@Column(name = "preco")
 	private Double preco;
+	
+	@Column(name = "extensoDiaSemana")
+	private String extensoDiaSemana;
 
 	public Long getPkHorario() {
 		return pkHorario;
@@ -35,11 +37,11 @@ public class Horario implements Serializable{
 		this.pkHorario = pkHorario;
 	}
 
-	public Date getHorario() {
+	public String getHorario() {
 		return horario;
 	}
 
-	public void setHorario(Date horario) {
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
 
@@ -75,5 +77,13 @@ public class Horario implements Serializable{
 				break;
 		}
 		return "";
+	}
+
+	public String getExtensoDiaSemana() {
+		return extensoDiaSemana;
+	}
+
+	public void setExtensoDiaSemana(String extensoDiaSemana) {
+		this.extensoDiaSemana = extensoDiaSemana;
 	}
 }

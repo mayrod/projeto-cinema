@@ -64,6 +64,9 @@
    background-image: url(../imagensProjeto/cinema3_fav_teste.png) no-repeat !important;	
 }
 
+.tabelaHorario{
+	margin-left: 100px !important;
+}
 
 /*! jQuery UI - v1.9.1 - 2012-11-11
 * http://jqueryui.com

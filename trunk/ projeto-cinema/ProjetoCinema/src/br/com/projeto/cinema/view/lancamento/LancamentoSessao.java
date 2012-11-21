@@ -169,7 +169,7 @@ public class LancamentoSessao extends JInternalFrame
 		{
 			for(Horario obj : horarios)
 			{
-				cbHorario.addItem(obj.toString() + " - " + obj.getHorario().toString().substring(11, 16) + " - R$ " + obj.getPreco());
+				cbHorario.addItem(obj.toString() + " - " + obj.getHorario() + " - R$ " + obj.getPreco());
 			}
 		}
 		
@@ -189,7 +189,7 @@ public class LancamentoSessao extends JInternalFrame
 			for(Sessao obj : list)
 			{
 				modelo.addRow(new Object[]{obj.getPkSessao(),obj.getFilme().getTitulo(), obj.getSala().getCodigo(), obj.getHorario().toString() + " - " + 
-						obj.getHorario().getHorario().toString().substring(11, 16) + " - R$ " + obj.getHorario().getPreco(), obj});
+						obj.getHorario().getHorario()+ " - R$ " + obj.getHorario().getPreco(), obj});
 			}
 		}
 		
@@ -220,7 +220,7 @@ public class LancamentoSessao extends JInternalFrame
 			if(sessao!=null) 
 			{ 
 				modelo.addRow(new Object[]{sessao.getPkSessao(),sessao.getFilme().getTitulo(), sessao.getSala().getCodigo(), sessao.getHorario().toString() + " - " + 
-						sessao.getHorario().getHorario().toString().substring(11, 16) + " - R$ " + sessao.getHorario().getPreco(), sessao});
+						sessao.getHorario().getHorario() + " - R$ " + sessao.getHorario().getPreco(), sessao});
 				limpar();
 			}
 		}
