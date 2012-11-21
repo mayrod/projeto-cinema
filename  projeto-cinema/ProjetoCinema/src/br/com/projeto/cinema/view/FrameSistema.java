@@ -45,19 +45,19 @@ public class FrameSistema extends JFrame
 	private static FrameSistema frame;	
 	private JDesktopPane plPrincipal;    
     private static Usuario usuario; 
-    private JMenu mnSair;
-    private JMenuItem mntmLogoof;
-    private JMenuItem mntmFecharSistema;
-    private JMenuItem mntmFilme;
-    private JMenuItem mntmFilmeLanamento;
-    private JMenuItem mntmFilmePromoo;
-    private JMenuItem mntmFilmeCartaz;
-    private JMenuItem mntmAtor;
-    private JMenuItem mntmCategoriaFilme;
-    private JMenuItem mntmSala; 
-    private JMenuItem mntmHorario;
-    private JMenuItem mntmHorarioExibio;
-    private JMenuItem mntmFilmes;
+    private static JMenu mnSair;
+    private static JMenuItem mntmLogoof;
+    private static JMenuItem mntmFecharSistema;
+    private static JMenuItem mntmFilme;
+    private static JMenuItem mntmFilmeLanamento;
+    private static JMenuItem mntmFilmePromoo;
+    private static JMenuItem mntmFilmeCartaz;
+    private static JMenuItem mntmAtor;
+    private static JMenuItem mntmCategoriaFilme;
+    private static JMenuItem mntmSala; 
+    private static JMenuItem mntmHorario;
+    private static JMenuItem mntmHorarioExibio;
+    private static JMenuItem mntmFilmes;
     
 	public static void main(String[] args) 
 	{
@@ -258,17 +258,60 @@ public class FrameSistema extends JFrame
 	public static void permissao(){
 
 		if(usuario !=null && usuario.getAdministrador() == 1){
-
+			mnCadastro.setEnabled(true);
+			mnNewMenu_1.setEnabled(true);
+			mnCaixa.setEnabled(true);
+		    mnSair.setEnabled(true);
+		    mntmLogoof.setEnabled(true);
+		    mntmFecharSistema.setEnabled(true);
+		    mntmFilme.setEnabled(true);
+		    mntmFilmeLanamento.setEnabled(true);
+		    mntmFilmePromoo.setEnabled(true);
+		    mntmFilmeCartaz.setEnabled(true);
+		    mntmAtor.setEnabled(true);
+		    mntmCategoriaFilme.setEnabled(true);
+		    mntmSala.setEnabled(true);
+		    mntmHorario.setEnabled(true);
+		    mntmHorarioExibio.setEnabled(true);
+		    mntmFilmes.setEnabled(true);
 		}
 		else{
-
+			mnCadastro.setEnabled(false);
+			mnNewMenu_1.setEnabled(false);
+			mnCaixa.setEnabled(true);
+		    mnSair.setEnabled(true);
+		    mntmLogoof.setEnabled(true);
+		    mntmFecharSistema.setEnabled(true);
+		    mntmFilme.setEnabled(false);
+		    mntmFilmeLanamento.setEnabled(false);
+		    mntmFilmePromoo.setEnabled(false);
+		    mntmFilmeCartaz.setEnabled(false);
+		    mntmAtor.setEnabled(false);
+		    mntmCategoriaFilme.setEnabled(false);
+		    mntmSala.setEnabled(false);
+		    mntmHorario.setEnabled(false);
+		    mntmHorarioExibio.setEnabled(false);
+		    mntmFilmes.setEnabled(true);
 		}
 	}
 	
 	private void bloquearMenu(){
-		mnCadastro.setEnabled(true);
-		mnNewMenu_1.setEnabled(true);
-		mnCaixa.setEnabled(true);
+		mnCadastro.setEnabled(false);
+		mnNewMenu_1.setEnabled(false);
+		mnCaixa.setEnabled(false);
+		mnSair.setEnabled(false);
+	    mntmLogoof.setEnabled(false);
+	    mntmFecharSistema.setEnabled(false);
+	    mntmFilme.setEnabled(false);
+	    mntmFilmeLanamento.setEnabled(false);
+	    mntmFilmePromoo.setEnabled(false);
+	    mntmFilmeCartaz.setEnabled(false);
+	    mntmAtor.setEnabled(false);
+	    mntmCategoriaFilme.setEnabled(false);
+	    mntmSala.setEnabled(false);
+	    mntmHorario.setEnabled(false);
+	    mntmHorarioExibio.setEnabled(false);
+	    mntmFilmes.setEnabled(false);
 	}
 	
 	private class AbrirTelas implements ActionListener{
