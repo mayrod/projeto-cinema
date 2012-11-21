@@ -6,7 +6,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 
 import br.com.projeto.cinema.bean.Filme;
-import br.com.projeto.cinema.bean.Horario;
 import br.com.projeto.cinema.bean.Sessao;
 import br.com.projeto.cinema.dao.FilmeDAO;
 import br.com.projeto.cinema.dao.HorarioDAO;
@@ -38,7 +37,6 @@ public class ConsultaHorario {
     public List<String> getHorarios() throws Exception{
 		return new HorarioDAO().getHorarios();
     }
-
     
     public void buscarSessao()
     {
@@ -56,7 +54,6 @@ public class ConsultaHorario {
 		}
     }
     
-
 	public int getPkFilme() {
 		return pkFilme;
 	}
