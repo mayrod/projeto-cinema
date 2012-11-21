@@ -1,20 +1,11 @@
 package br.com.projeto.cinema.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
-
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
-
-import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.Horario;
-import br.com.projeto.cinema.bean.Sessao;
 import br.com.projeto.cinema.dao.base.FactoryUtil;
 import br.com.projeto.cinema.dao.base.GenericDao;
 import br.com.projeto.cinema.utils.Query;
@@ -52,8 +43,7 @@ public class HorarioDAO extends GenericDao<Horario>
 		
 		List<Horario> horarios = obtemTodos(query, Horario.class); 
 		List<String>  todosHorarios = new ArrayList<String>();
-	  
-		
+
 		if(horarios != null){
 		   for(Horario h: horarios){
 			   todosHorarios.add(h.getHorario());
@@ -61,8 +51,6 @@ public class HorarioDAO extends GenericDao<Horario>
 		}
 	   
 	   return todosHorarios;
-	  
 	}
-	
 	
 }

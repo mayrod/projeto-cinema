@@ -34,7 +34,6 @@ public class SessaoDAO extends GenericDao<Sessao>
 	
 	public List<Sessao> getSessaoPorFilme(Filme filme, String horario, Long dia) throws Exception
 	{
-	  
 	        Query query = new Query();
 		   
 			query.add("SELECT *");
@@ -47,6 +46,7 @@ public class SessaoDAO extends GenericDao<Sessao>
 				query.add(" WHERE pkHorario IS NOT NULL");
 				if(horario!=null) { query.add(" AND horario = ?", horario); }
 				if(dia!=null) 	  { query.add(" AND diaSemana = ?", dia); }
+				query.add(")");
 			}
 			
 			return obtemTodos(query, Sessao.class); 
