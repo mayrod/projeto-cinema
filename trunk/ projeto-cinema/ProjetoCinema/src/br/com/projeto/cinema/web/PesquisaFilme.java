@@ -25,6 +25,10 @@ public class PesquisaFilme {
 	private Integer avaliacaoGeral = 0;
 	private AvaliacaoFilme avaliacao = new AvaliacaoFilme();
 	private boolean visibilidade;
+	private String comentario;
+	private String email;
+	private String nome;
+	private int avaliacaoDada;
 	
 	public FilmeCategoria getCategoria() {
 		return categoria;
@@ -130,12 +134,17 @@ public class PesquisaFilme {
 	public void salvarAvaliacao()
     {
 		avaliacao.setFilme(filmeSelecionado);
+		avaliacao.setEmail(email);
+		avaliacao.setNome(nome);
+		avaliacao.setComentario(comentario);
+		avaliacao.setAvaliacao(avaliacaoDada);
+		
 		new AvaliacaoFilmeDAO().save(avaliacao);
 		avaliacao = new AvaliacaoFilme(); 
-		avaliacao.setAvaliacao(5);
-		avaliacao.setEmail("");
-		avaliacao.setNome("");
-		avaliacao.setComentario("");
+		setAvaliacaoDada(5);
+		setEmail("");
+		setNome("");
+		setComentario("");
     }
 	
 	public boolean isVisibilidade() {
@@ -144,5 +153,37 @@ public class PesquisaFilme {
 
 	public void setVisibilidade(boolean visibilidade) {
 		this.visibilidade = visibilidade;
+	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public int getAvaliacaoDada() {
+		return avaliacaoDada;
+	}
+
+	public void setAvaliacaoDada(int avaliacaoDada) {
+		this.avaliacaoDada = avaliacaoDada;
 	}  
 }
