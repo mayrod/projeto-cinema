@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -23,7 +22,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.MaskFormatter;
 
 import br.com.projeto.cinema.bean.Horario;
@@ -79,6 +77,10 @@ public class CadastroHorarioPreco extends JInternalFrame {
 				"Código", "Dia", "Horário", "Preço"
 			}
 		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] {
 				false, false, false, false
 			};
@@ -190,7 +192,7 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		{
 			for(Horario obj : list)
 			{
-				modelo.addRow(new Object[]{obj.getPkHorario(),obj, obj.getHorario().toString().substring(11, 16),"R$ " + obj.getPreco()});
+				modelo.addRow(new Object[]{obj.getPkHorario(),obj, obj.getHorario(),"R$ " + obj.getPreco()});
 			}
 		}
 		
@@ -211,7 +213,6 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void salvar()
 	{
 		if(cbDiaSemana.getSelectedItem()!=null)
@@ -220,13 +221,13 @@ public class CadastroHorarioPreco extends JInternalFrame {
 			{
 				HorarioDAO horarioDao = new HorarioDAO();
 				long countId = horarioDao.count() + 1;
+				int diaSemana = cbDiaSemana.getSelectedIndex() + 1;
 				
 				registro.setPkHorario(countId);
-				registro.setDiaSemana(cbDiaSemana.getSelectedIndex() + 1);
+				registro.setDiaSemana(diaSemana);
+				registro.setExtensoDiaSemana(getDefinirDiaSemana(diaSemana));
 				
-				registro.setHorario(new Date());
-				registro.getHorario().setHours(new Integer(txHorario.getText(0, 2)));
-				registro.getHorario().setMinutes(new Integer(txHorario.getText().substring(3, 5)));
+				registro.setHorario(txHorario.getText());
 				
 				registro.setPreco(new Double(txPreco.getText()));
 			
@@ -237,17 +238,14 @@ public class CadastroHorarioPreco extends JInternalFrame {
 					modelo.removeRow(tblHorario.getSelectedRow()); 
 				}
 				
-				modelo.addRow(new Object[]{ registro.getPkHorario(),registro, registro.getHorario().toString().substring(11, 16),"R$ " + registro.getPreco()});
+				modelo.addRow(new Object[]{ registro.getPkHorario(),registro, registro.getHorario(),"R$ " + registro.getPreco()});
 				limpar();
 			}
 			catch (NumberFormatException e) 
 			{
 				e.printStackTrace();
 			}
-			catch (BadLocationException e) 
-			{
-				e.printStackTrace();
-			}
+			
 		}
 		else
 		{
@@ -275,5 +273,22 @@ public class CadastroHorarioPreco extends JInternalFrame {
 		{
 			JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela por favor!","Erro ao excluir.",JOptionPane.INFORMATION_MESSAGE);  
 		}
+	}
+	
+	private String getDefinirDiaSemana(int diaSemana){
+		
+		switch (diaSemana) 
+		{
+			case 1: return "Domingo"; 
+			case 2: return "Segunda-Feira";
+			case 3: return "Terça-Feira";
+			case 4: return "Quarta-Feira";
+			case 5: return "Quinta-Feira";
+			case 6: return "Sexta-Feira";
+			case 7: return "Sábado";
+			default:
+				break;
+		}
+		return "";
 	}
 }

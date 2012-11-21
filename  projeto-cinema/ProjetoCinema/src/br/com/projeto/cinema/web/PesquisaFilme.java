@@ -112,12 +112,14 @@ public class PesquisaFilme {
 
 	public AvaliacaoFilme getAvaliacao() 
 	{
-		avaliacao = new AvaliacaoFilme(); 
-		avaliacao.setAvaliacao(5);
-		avaliacao.setEmail("");
-		avaliacao.setNome("");
-		avaliacao.setComentario("");
-		avaliacaoGeral = 0;
+		if(avaliacao != null){
+			avaliacao = new AvaliacaoFilme(); 
+			avaliacao.setAvaliacao(5);
+			avaliacao.setEmail("");
+			avaliacao.setNome("");
+			avaliacao.setComentario("");
+			avaliacaoGeral = 0;
+		}
 		return avaliacao;
 	}
 
