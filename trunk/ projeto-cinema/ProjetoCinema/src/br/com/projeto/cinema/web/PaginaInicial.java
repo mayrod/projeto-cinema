@@ -53,15 +53,17 @@ public class PaginaInicial {
 		}
 	
 	public List<FilmeLancamento> getFilmesLancamento(){
-		 filmesLancamento = new ArrayList<FilmeLancamento>();
+		if(filmesLancamento==null)
+		{
+			filmesLancamento = new ArrayList<FilmeLancamento>();
 			
 			try {
 				filmesLancamento = new FilmeLancamentoDAO().getAll();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			return filmesLancamento;
+		}
+		return filmesLancamento;
 	}
 
 	public void setFilmesLancamento(List<FilmeLancamento> filmesLancamento) {
@@ -161,5 +163,11 @@ public class PaginaInicial {
 		avaliacao.setEmail("");
 		avaliacao.setNome("");
 		avaliacao.setComentario("");
+    }
+	
+
+	public void buscarFilme()
+    {
+    	filmeLancamentoSelecionado = filmesLancamento.get(1);
     }
 }
