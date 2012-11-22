@@ -8,10 +8,63 @@
  
    <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
-	   			     Rua
-	   			     
-	   			     
-	   			     Sistema MoviePlex Copyright ©
+	   			    <h:form id="form">
+	    	<div style="float: inherit; width: 100%; text-align: center;">
+	    	<p:panel header="Pesquisa Filme Promoção">
+                <p:selectOneMenu id="fc" value="#{fpromocao.pkFilme}" style="width:450px; vertical-align: middle;" > 
+		            <f:selectItem itemLabel="---- Selecione um filme ----" itemValue="0"/>  
+		            <f:selectItems value="#{fpromocao.filmesPromocao}" var="f" itemLabel="#{f.filme.titulo}" itemValue="#{f.pkFilmePromocao}"/>
+		        </p:selectOneMenu>  
+		        
+	            <p:commandButton id="form" action="#{fpromocao.buscarFilme}" value="Buscar" ajax="false" style="vertical-align: middle;"/> 
+		    </p:panel>        	
+            <br/>
+            			    
+           <div style="float: left;">
+               <p:graphicImage value="/imagensProjeto/filmes/filme_#{fpromocao.filmePromocaoSelecionado.filme.codigo}.png" height="300"  />
+           </div>
+          
+            <div class="divDadosDetalhe"  style="float: right;">
+ 				<h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/consultaFilme.jsf" style="text-align:left; font-family: sans-serif; font-size: 20px;">  
+	                <h:outputLabel for="titulo1" value="Título: "/>  
+	                <h:outputText id="titulo1"  value="#{fpromocao.filmePromocaoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" style="font-weight: bold;"/>  
+	                
+	                <h:outputLabel for="diretor1" value="Diretor: " />  
+	                <h:outputText id="diretor1"  value="#{fpromocao.filmePromocaoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
+	                
+	                <h:outputLabel for="produtora1" value="Produtora: " />  
+	                <h:outputText id="produtora1"  value="#{fpromocao.filmePromocaoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
+	                  
+	                <h:outputLabel for="ano1" value="Ano: " />  
+	                <h:outputText id="ano1" value="#{fpromocao.filmePromocaoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
+	                  
+	                <h:outputLabel for="class1" value="Classificação: " />  
+	                <h:outputText id="class1" value="#{fpromocao.filmePromocaoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
+	                
+	                <h:outputLabel for="duracao1" value="Duração: " />  
+	                <h:outputText id="duracao1" value="#{fpromocao.filmePromocaoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
+	                
+	                <h:outputLabel for="nacio1" value="Nacionalidade: " />  
+	                <h:outputText id="nacio1" value="#{fpromocao.filmePromocaoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
+	                
+	                <h:outputLabel for="audio1" value="Audio: " />  
+	                <h:outputText id="audio1" value="#{fpromocao.filmePromocaoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
+	                
+	                <h:outputLabel for="legenda1" value="Legenda: " />  
+	                <h:outputText id="legenda1" value="#{fpromocao.filmePromocaoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
+	                
+                </h:panelGrid> 
+            </div>  
+            <br/>   
+            <p:separator style="width:100%;height:4px" />    
+            <h:outputText id="sinopse1" value="#{fpromocao.filmePromocaoSelecionado.filme.sinopse}" style="text-align:center; font-family: sans-serif; font-size: 20px;" /> 
+	        
+	        <br/> 
+	        <br/> 
+	        <p:media value="#{fpromocao.filmePromocaoSelecionado.filme.trailer}" width="420" height="315" player="flash" styleClass="video"/>
+	        
+	        </div>
+        </h:form>
 	    </ui:define>
   </ui:composition>
 </html>
