@@ -8,53 +8,57 @@
  
    <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
-	    		<p:selectOneMenu value="#{inicial.filmeLancamentoSelecionado}">  
-		            <f:selectItem itemLabel="Selecione um filme"/>  
-		            <f:selectItems value="#{inicial.filmesLancamento}" />  
+	    <h:form id="form">
+	    	<div style="float: inherit; width: 100%; text-align: center;">
+	    	<p:panel header="Pesquisa" styleClass="panelPesquisa" >
+                <p:selectOneMenu id="fc" value="#{inicial.filmeLancamentoSelecionado}" style="width:450px; text-align:center;" onchange="#{inicial.buscarFilme}"> 
+		            <f:selectItem itemLabel="---- Selecione um filme ----" itemValue=""/>  
+		            <f:selectItems value="#{inicial.filmesLancamento}" var="f" itemLabel="#{f.filme.titulo}" itemValue="#{f}"/>
 		        </p:selectOneMenu>  
-            	<br/>
-	   		<p:outputPanel id="filmeDetalhe" style="margin: 20px;" visible="#{pesquisa.visibilidade}">  
+		    </p:panel>        	
+	            <br/>
+	            			    
 	           <div style="float: left;">
-	               <p:graphicImage value="/imagensProjeto/filmes/filme_#{inicial.filmeLancamentoSelecionado.codigo}.png" height="300"  />
+	               <p:graphicImage value="/imagensProjeto/filmes/filme_#{inicial.filmeLancamentoSelecionado.filme.codigo}.png" height="300"  />
 	           </div>
-            
+           
             <div class="divDadosDetalhe"  style="float: right;">
  				<h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/consultaFilme.jsf" style="text-align:left;">  
 	                <h:outputLabel for="titulo1" value="Titulo: "/>  
-	                <h:outputText id="titulo1"  value="#{inicial.filmeLancamentoSelecionado.titulo}" styleClass="textoDadosDetalhe" style="font-weight: bold;"/>  
+	                <h:outputText id="titulo1"  value="#{inicial.filmeLancamentoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" style="font-weight: bold;"/>  
 	                
 	                <h:outputLabel for="diretor1" value="Diretor: " />  
-	                <h:outputText id="diretor1"  value="#{inicial.filmeLancamentoSelecionado.diretor}" styleClass="textoDadosDetalhe" />  
+	                <h:outputText id="diretor1"  value="#{inicial.filmeLancamentoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
 	                
 	                <h:outputLabel for="produtora1" value="Produtora: " />  
-	                <h:outputText id="produtora1"  value="#{inicial.filmeLancamentoSelecionado.produtora}" styleClass="textoDadosDetalhe" />  
+	                <h:outputText id="produtora1"  value="#{inicial.filmeLancamentoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
 	                  
 	                <h:outputLabel for="ano1" value="Ano: " />  
-	                <h:outputText id="ano1" value="#{inicial.filmeLancamentoSelecionado.ano}" styleClass="textoDadosDetalhe" /> 
+	                <h:outputText id="ano1" value="#{inicial.filmeLancamentoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
 	                  
 	                <h:outputLabel for="class1" value="ClassificaÃ§Ã£o: " />  
-	                <h:outputText id="class1" value="#{inicial.filmeLancamentoSelecionado.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
+	                <h:outputText id="class1" value="#{inicial.filmeLancamentoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
 	                
 	                <h:outputLabel for="duracao1" value="DuraÃ§Ã£o: " />  
-	                <h:outputText id="duracao1" value="#{inicial.filmeLancamentoSelecionado.duracao}" styleClass="textoDadosDetalhe" /> 
+	                <h:outputText id="duracao1" value="#{inicial.filmeLancamentoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
 	                
 	                <h:outputLabel for="nacio1" value="Nacionalidade: " />  
-	                <h:outputText id="nacio1" value="#{inicial.filmeLancamentoSelecionado.nacionalidade}" styleClass="textoDadosDetalhe" /> 
+	                <h:outputText id="nacio1" value="#{inicial.filmeLancamentoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
 	                
 	                <h:outputLabel for="audio1" value="Audio: " />  
-	                <h:outputText id="audio1" value="#{inicial.filmeLancamentoSelecionado.tipoAudio}" styleClass="textoDadosDetalhe" /> 
+	                <h:outputText id="audio1" value="#{inicial.filmeLancamentoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
 	                
 	                <h:outputLabel for="legenda1" value="Legenda: " />  
-	                <h:outputText id="legenda1" value="#{inicial.filmeLancamentoSelecionado.legenda}" styleClass="textoDadosDetalhe" /> 
+	                <h:outputText id="legenda1" value="#{inicial.filmeLancamentoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
 	                
                 </h:panelGrid> 
             </div>  
             <br/>   
             <p:separator style="width:100%;height:4px" />    
-            <h:outputText id="sinopse1" value="#{inicial.filmeLancamentoSelecionado.sinopse}" styleClass="textoDadosDetalhe" /> 
+            <h:outputText id="sinopse1" value="#{inicial.filmeLancamentoSelecionado.filme.sinopse}" styleClass="textoDadosDetalhe" /> 
 	        
 	        <br/> 
-	        <p:media value="#{inicial.filmeLancamentoSelecionado.trailer}" width="420" height="315" player="flash" styleClass="video"/>   
+	        <p:media value="#{inicial.filmeLancamentoSelecionado.filme.trailer}" width="420" height="315" player="flash" styleClass="video"/>   
 	        
 	        <br/>      
             <p:separator style="width:100%;height:4px" />    
@@ -73,7 +77,8 @@
 		            <p:inputTextarea rows="6" cols="33" style="width:800px; height:70px" value="#{inicial.avaliacao.comentario}" /> 
 	            </h:panelGrid> 
             </h:panelGrid> 
-        </p:outputPanel>  
+        </div>
+        </h:form>
 	    </ui:define>
   </ui:composition>
 </html>

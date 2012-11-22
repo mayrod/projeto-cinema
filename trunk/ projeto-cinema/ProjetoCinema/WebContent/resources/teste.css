@@ -79,8 +79,9 @@
 
 .iconTwitter {
 background: url(../imagensProjeto/icone-twitter.png) no-repeat !important;	
-height:38px;
-width:38px;
+height:38px !important;
+width:38px !important;
+
 }
 
 .iconFacebook {
