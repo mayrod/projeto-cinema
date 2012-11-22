@@ -8,10 +8,36 @@
  
    <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
-	   			     Rua
-	   			     
-	   			     
-	   			     Sistema MoviePlex Copyright ©
+	    	<h:panelGrid columns="2" cellpadding="10">  
+		   		<p:graphicImage value="/imagensProjeto/logo.png" height="200"  />
+		        
+		        <h:panelGrid columns="1" cellpadding="10" style="text-align: left; font-family: sans-serif; font-size: 20px;">
+		        	<h:panelGrid columns="2" cellpadding="10">
+		        		<h:outputText  value="Facebook: " />  
+		        		<p:commandLink value="www.facebook.com" />
+		        	</h:panelGrid>
+		        	
+		        	<h:panelGrid columns="2" cellpadding="10">  
+		        		<h:outputText  value="Twitter: " />  
+		        		<p:commandLink value="www.twitter.com" />
+		        	</h:panelGrid>
+
+		        	<h:panelGrid columns="2" cellpadding="10">  
+		        		<h:outputText  value="Telefones: " />  
+		        		<h:outputText value="(19) 3246-3311 - (19) 7840-2031" />
+		        	</h:panelGrid>
+
+		        	<h:panelGrid columns="2" cellpadding="10">  
+		        		<h:outputText value="E-mais: " />  
+		        		<p:commandLink value="movieplex@movieplex.com.br" />
+		        	</h:panelGrid>
+		        	
+		        	<h:panelGrid columns="2" cellpadding="10">  
+		        		<h:outputText value="Endereço: " />  
+		        		<h:outputText value="Av. Guilherme Campos, 500 Lj. A18- Shop. D. Pedro. Bairro Santa Genebra " />
+		        	</h:panelGrid>
+		        </h:panelGrid>
+		   </h:panelGrid>
 	    </ui:define>
   </ui:composition>
 </html>
