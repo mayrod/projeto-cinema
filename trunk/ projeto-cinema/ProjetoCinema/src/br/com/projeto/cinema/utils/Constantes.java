@@ -41,4 +41,7 @@ public final class Constantes
 		else if(tipo==Constantes.TIPO_PAPEL_COADJUVANTE) 		{ return "Coadjuvante"; 	}
 		else											 		{ return "Figurante"; 		}
 	}
+	
+	public static final int STATUS_ATIVO = 8080;
+	public static final int STATUS_REMOVIDO = 8081;
 }

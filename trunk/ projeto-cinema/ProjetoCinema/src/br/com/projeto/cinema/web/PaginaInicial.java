@@ -1,6 +1,5 @@
 package br.com.projeto.cinema.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -14,6 +13,7 @@ import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
 import br.com.projeto.cinema.dao.FilmeCartazDAO;
 import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
 import br.com.projeto.cinema.dao.FilmePromocaoDAO;
+import br.com.projeto.cinema.utils.Constantes;
 
 @ManagedBean(name="inicial")
 public class PaginaInicial {
@@ -27,42 +27,28 @@ public class PaginaInicial {
 	private Integer avaliacaoGeral = 0;
 	private AvaliacaoFilme avaliacao = new AvaliacaoFilme();
 	
-	public List<FilmeCartaz> getFilmesCartaz(){
-		 filmesCartaz = new ArrayList<FilmeCartaz>();
-			
-			try {
-				filmesCartaz = new FilmeCartazDAO().getAll();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			return filmesCartaz;
+	public List<FilmeCartaz> getFilmesCartaz() throws Exception
+	{
+		new FilmeCartazDAO().atualizarStatus();
+		filmesCartaz = new FilmeCartazDAO().obterTodos();
+		
+		return filmesCartaz;
 	}
 
 
-	public List<FilmePromocao> getFilmesPromocao(){
-		 filmesPromocao = new ArrayList<FilmePromocao>();
-			
-			try {
-				filmesPromocao = new FilmePromocaoDAO().getAll();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			return filmesPromocao;
-		}
+	public List<FilmePromocao> getFilmesPromocao() throws Exception
+	{
+		new FilmePromocaoDAO().atualizarStatus();
+		filmesPromocao = new FilmePromocaoDAO().obterTodos();
+		
+		return filmesPromocao;
+	}
 	
-	public List<FilmeLancamento> getFilmesLancamento(){
-		if(filmesLancamento==null)
-		{
-			filmesLancamento = new ArrayList<FilmeLancamento>();
-			
-			try {
-				filmesLancamento = new FilmeLancamentoDAO().getAll();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+	public List<FilmeLancamento> getFilmesLancamento() throws Exception
+	{
+		new FilmeLancamentoDAO().atualizarStatus();
+		filmesLancamento = new FilmeLancamentoDAO().obterFilmeLancamento(Constantes.STATUS_ATIVO);
+		
 		return filmesLancamento;
 	}
 

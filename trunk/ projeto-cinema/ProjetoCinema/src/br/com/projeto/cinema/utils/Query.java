@@ -1,6 +1,7 @@
 package br.com.projeto.cinema.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Query
@@ -60,6 +61,8 @@ public class Query
 						
 						if(ob.getClass()==String.class) { querySQL.append("'" + ob.toString() + "'"); }		
 						else if(ob.getClass()==Long.class) { querySQL.append(ob.toString()); }		
+						else if(ob.getClass()==Date.class) { querySQL.append("'" + ob.toString() + "'"); }		
+						else { querySQL.append(ob.toString()); }		
 						
 						indexParametro++;
 					}

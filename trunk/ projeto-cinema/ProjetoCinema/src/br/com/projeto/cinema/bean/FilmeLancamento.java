@@ -27,6 +27,17 @@ public class FilmeLancamento implements Serializable
 	@OneToOne @JoinColumn(name="fkFilme")
 	private Filme filme;
 
+	@Column(name = "status")
+	private int status;
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
 	public Long getPkFilmeLancamento() {
 		return pkFilmeLancamento;
 	}
