@@ -39,6 +39,17 @@ public class FilmePromocao implements Serializable{
 	@Column(name = "porcentagemPromocao")
 	private Double porcentagemPromocao;
 
+	@Column(name = "status")
+	private int status;
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@ManyToOne @JoinColumn(name="fkFilme")
 	private Filme filme;
 	

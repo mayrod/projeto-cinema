@@ -1,10 +1,11 @@
 package br.com.projeto.cinema.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -16,7 +17,7 @@ public class FilmeCartaz implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id 
+	@Id @GeneratedValue
 	@Column(name = "pkFilmeCartaz")
 	private Long pkFilmeCartaz;
 	
@@ -29,6 +30,17 @@ public class FilmeCartaz implements Serializable{
 	@OneToOne @JoinColumn(name="fkFilme")
 	private Filme filme;
 
+	@Column(name = "status")
+	private int status;
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
 	public Long getPkFilmeCartaz() {
 		return pkFilmeCartaz;
 	}
