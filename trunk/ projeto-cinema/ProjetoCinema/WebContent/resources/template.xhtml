@@ -24,19 +24,17 @@
 <h:body styleClass="cor">
 	<ui:insert name="menu">
 		<p:panel styleClass="fundo">
-	     	
-	     	<p:panel styleClass="logo" />
-	     	<p:panel styleClass="fundoPipoca" />
-	     	<h:panelGrid columns="3" cellspacing="10" style="float: inherit; width: 100%; text-align: center;"> 
-				 <p:tabMenu activeIndex="-1">  
-			        <p:menuitem value="Home"  icon="iconHome" url="/paginas/index.jsf"/>
-					<p:menuitem value="Filmes" icon="iconFilmes" url="/paginas/consultaFilme.jsf"/>
-					<p:menuitem value="Lançamentos" icon="iconLancamento" url="/paginas/lancamentos.jsf"/>
-					<p:menuitem value="Em Cartaz" icon="iconCartaz" url="/paginas/emcartaz.jsf"/>
+		    <p:panel styleClass="fundoPipoca"/>
+	     	<h:panelGrid columns="3" cellspacing="13" style="float: inherit; width: 100%; text-align: center;"> 
+				<p:tabMenu activeIndex="-1">  
+			        <p:menuitem value="Home"  style="width: 100px;" icon="iconHome" url="/paginas/index.jsf"/>
+					<p:menuitem value="Filmes" style="width: 100px;" icon="iconFilmes" url="/paginas/consultaFilme.jsf"/>
+					<p:menuitem value="Lançamentos" style="width: 130px;" icon="iconLancamento" url="/paginas/lancamentos.jsf"/>
+					<p:menuitem value="Em Cartaz" style="width: 100px;" icon="iconCartaz" url="/paginas/emcartaz.jsf"/>
 					<p:menuitem value="Promoções" icon="iconPromocao" url="/paginas/promocoes.jsf"/>
-					<p:menuitem value="Salas" icon="iconSala" url="/paginas/salas.jsf"/>
-					<p:menuitem value="Horários" icon="iconHorario" url="/paginas/consultarHorario.jsf"/>
-					<p:menuitem value="Contato" icon="iconContato" url="/paginas/contato.jsf" style="margin: 0px !important;float: left !important; vertical-align: top !important;"/>
+					<p:menuitem value="Salas" style="width: 100px;" icon="iconSala" url="/paginas/salas.jsf"/>
+					<p:menuitem value="Horários" style="width: 100px;" icon="iconHorario" url="/paginas/consultarHorario.jsf"/>
+					<p:menuitem value="Contato" style="width: 100px;" icon="iconContato" url="/paginas/contato.jsf"/>
 			    </p:tabMenu>
 			    <h:link onclick="openFacebook()">
 			   		<p:graphicImage value="../imagensProjeto/icone-face-book.png"/>  
