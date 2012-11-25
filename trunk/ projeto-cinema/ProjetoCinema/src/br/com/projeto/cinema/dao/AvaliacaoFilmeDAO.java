@@ -24,4 +24,5 @@ public class AvaliacaoFilmeDAO extends GenericDao<AvaliacaoFilme>
 			return null;
 		}
 	}
+	
 }

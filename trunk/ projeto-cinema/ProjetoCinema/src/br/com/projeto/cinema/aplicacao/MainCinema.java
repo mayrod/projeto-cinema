@@ -11,6 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.projeto.cinema.dao.base.UtilDAO;
+
 public class MainCinema implements Servlet
 {
 	 
@@ -20,6 +22,15 @@ public class MainCinema implements Servlet
 		try
 		{
 			System.out.println("SISTEMA CINEMA INICIALIZADO COM SUCESSO");
+			double teste = new UtilDAO().obterMediaAvaliacoes(new Long(3));
+			System.out.println("valor: " + teste);
+			
+			double mediaAvaliacao = new UtilDAO().obterMediaAvaliacoes(new Long(3));
+			Integer avaliacaoGeral = (int) Math.ceil(mediaAvaliacao);
+			
+			Integer mediaAvaliacaoFilme = avaliacaoGeral;
+			System.out.println("valor novo: " + mediaAvaliacaoFilme);
+			
 		}
 		catch(Exception e)
 		{
