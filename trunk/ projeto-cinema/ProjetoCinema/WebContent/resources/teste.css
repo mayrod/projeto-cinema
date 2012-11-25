@@ -77,19 +77,6 @@
    background-image: url(../imagensProjeto/cinema3_fav_teste.png) !important;	
 }
 
-.iconTwitter {
-background: url(../imagensProjeto/icone-twitter.png) no-repeat !important;	
-height:38px !important;
-width:38px !important;
-
-}
-
-.iconFacebook {
-background: url(../imagensProjeto/icone-face-book.png) no-repeat !important;	
-height:38px;
-width:38px;
-}
-
 .iconHome {
 background: url(../imagensProjeto/cinema3_fav_teste.png) no-repeat !important;	
 height:24px;

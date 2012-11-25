@@ -9,24 +9,40 @@
 <h:head>
 	<title>MoviePlex</title>
 	<link rel="stylesheet" type="text/css" href="../resources/teste.css" />  
-	
+	<script type="text/javascript"> 
+		function openFacebook()
+		{
+			window.open('http://www.facebook.com.br');  
+		}
+		
+		function openTwitter()
+		{
+			window.open('http://www.twitter.com');  
+		}
+	</script>
 </h:head>
 <h:body styleClass="fundo">
 	<ui:insert name="menu">
 	   	 <p:panel styleClass="logo" />
 	     <p:panel styleClass="fundoPipoca" />
-			 <p:tabMenu activeIndex="-1">  
-		        <p:menuitem value="Home"  icon="iconHome" url="/paginas/index.jsf"/>
-				<p:menuitem value="Filmes" icon="iconFilmes" url="/paginas/consultaFilme.jsf"/>
-				<p:menuitem value="Lançamentos" icon="iconLancamento" url="/paginas/lancamentos.jsf"/>
-				<p:menuitem value="Em Cartaz" icon="iconCartaz" url="/paginas/emcartaz.jsf"/>
-				<p:menuitem value="Promoções" icon="iconPromocao" url="/paginas/promocoes.jsf"/>
-				<p:menuitem value="Salas" icon="iconSala" url="/paginas/salas.jsf"/>
-				<p:menuitem value="Horários" icon="iconHorario" url="/paginas/consultarHorario.jsf"/>
-				<p:menuitem value="Contato" icon="iconContato" url="/paginas/contato.jsf" style="margin: 0px !important;float: left !important; vertical-align: top !important;"/>
-				<p:menuitem icon="iconFacebook" url="http://www.facebook.com.br"/>
-				<p:menuitem url="http://www.twitter.com" icon="iconTwitter"/>
-		    </p:tabMenu>
+	     	<h:panelGrid columns="3" cellspacing="10" style="float: inherit; width: 100%; text-align: center;"> 
+				 <p:tabMenu activeIndex="-1">  
+			        <p:menuitem value="Home"  icon="iconHome" url="/paginas/index.jsf"/>
+					<p:menuitem value="Filmes" icon="iconFilmes" url="/paginas/consultaFilme.jsf"/>
+					<p:menuitem value="Lançamentos" icon="iconLancamento" url="/paginas/lancamentos.jsf"/>
+					<p:menuitem value="Em Cartaz" icon="iconCartaz" url="/paginas/emcartaz.jsf"/>
+					<p:menuitem value="Promoções" icon="iconPromocao" url="/paginas/promocoes.jsf"/>
+					<p:menuitem value="Salas" icon="iconSala" url="/paginas/salas.jsf"/>
+					<p:menuitem value="Horários" icon="iconHorario" url="/paginas/consultarHorario.jsf"/>
+					<p:menuitem value="Contato" icon="iconContato" url="/paginas/contato.jsf" style="margin: 0px !important;float: left !important; vertical-align: top !important;"/>
+			    </p:tabMenu>
+			    <h:link onclick="openFacebook()">
+			   		<p:graphicImage value="../imagensProjeto/icone-face-book.png"/>  
+			    </h:link>
+			    <h:link onclick="openTwitter()">
+			   		<p:graphicImage value="../imagensProjeto/icone-twitter.png"/>
+			    </h:link>  
+			</h:panelGrid>
 	</ui:insert>
 	
 	<ui:insert name="conteudo">  

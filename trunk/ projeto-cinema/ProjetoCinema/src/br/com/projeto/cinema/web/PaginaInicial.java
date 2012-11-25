@@ -35,7 +35,6 @@ public class PaginaInicial {
 		return filmesCartaz;
 	}
 
-
 	public List<FilmePromocao> getFilmesPromocao() throws Exception
 	{
 		new FilmePromocaoDAO().atualizarStatus();

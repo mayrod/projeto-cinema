@@ -8,63 +8,102 @@
  
    <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
-	    <h:form id="form">
-	    	<div style="float: inherit; width: 100%; text-align: center;">
-	    	<p:panel header="Pesquisa Filme Lançamento">
-                <p:selectOneMenu id="fc" value="#{cinicial.pkFilme}" style="width:450px; vertical-align: middle;" > 
-		            <f:selectItem itemLabel="---- Selecione um filme ----" itemValue="0"/>  
-		            <f:selectItems value="#{cinicial.filmesLancamento}" var="f" itemLabel="#{f.filme.titulo}" itemValue="#{f.pkFilmeLancamento}"/>
-		        </p:selectOneMenu>  
-		        
-	            <p:commandButton id="form" action="#{cinicial.buscarFilme}" value="Buscar" ajax="false" style="vertical-align: middle;"/> 
-		    </p:panel>        	
-            <br/>
-            			    
-           <div style="float: left;">
-               <p:graphicImage value="/imagensProjeto/filmes/filme_#{cinicial.filmeLancamentoSelecionado.filme.codigo}.jpg" height="300"  />
-           </div>
-          
-            <div class="divDadosDetalhe"  style="float: right;">
- 				<h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/consultaFilme.jsf" style="text-align:left; font-family: sans-serif; font-size: 20px;">  
-	                <h:outputLabel for="titulo1" value="Título: "/>  
-	                <h:outputText id="titulo1"  value="#{cinicial.filmeLancamentoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" style="font-weight: bold;"/>  
-	                
-	                <h:outputLabel for="diretor1" value="Diretor: " />  
-	                <h:outputText id="diretor1"  value="#{cinicial.filmeLancamentoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
-	                
-	                <h:outputLabel for="produtora1" value="Produtora: " />  
-	                <h:outputText id="produtora1"  value="#{cinicial.filmeLancamentoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
-	                  
-	                <h:outputLabel for="ano1" value="Ano: " />  
-	                <h:outputText id="ano1" value="#{cinicial.filmeLancamentoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
-	                  
-	                <h:outputLabel for="class1" value="Classificação: " />  
-	                <h:outputText id="class1" value="#{cinicial.filmeLancamentoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
-	                
-	                <h:outputLabel for="duracao1" value="Duração: " />  
-	                <h:outputText id="duracao1" value="#{cinicial.filmeLancamentoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
-	                
-	                <h:outputLabel for="nacio1" value="Nacionalidade: " />  
-	                <h:outputText id="nacio1" value="#{cinicial.filmeLancamentoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
-	                
-	                <h:outputLabel for="audio1" value="Audio: " />  
-	                <h:outputText id="audio1" value="#{cinicial.filmeLancamentoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
-	                
-	                <h:outputLabel for="legenda1" value="Legenda: " />  
-	                <h:outputText id="legenda1" value="#{cinicial.filmeLancamentoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
-	                
-                </h:panelGrid> 
-            </div>  
-            <br/>   
-            <p:separator style="width:100%;height:4px" />    
-            <h:outputText id="sinopse1" value="#{cinicial.filmeLancamentoSelecionado.filme.sinopse}" style="text-align:center; font-family: sans-serif; font-size: 20px;" /> 
-	        
-	        <br/> 
-	        <br/> 
-	        <p:media value="#{cinicial.filmeLancamentoSelecionado.filme.trailer}" width="420" height="315" player="flash" styleClass="video"/>
-	        
-	        </div>
-        </h:form>
+		    <div style="float: inherit; width: 100%; text-align: center;">
+		    	<h:form id="form">
+			    	<p:panel header="Pesquisa Filme Lançamento">
+		                <p:selectOneMenu id="fc" value="#{cinicial.pkFilme}" style="width:450px; vertical-align: middle;" > 
+				            <f:selectItem itemLabel="---- Selecione um filme ----" itemValue="0"/>  
+				            <f:selectItems value="#{cinicial.filmesLancamento}" var="f" itemLabel="#{f.filme.titulo}" itemValue="#{f.pkFilmeLancamento}"/>
+				        </p:selectOneMenu>  
+				        
+			            <p:commandButton id="form" action="#{cinicial.buscarFilme}" value="Buscar" ajax="false" style="vertical-align: middle;"/> 
+				    </p:panel>        	
+	        	<p:panel visible="#{cinicial.visibilidade}">
+		           <div style="float: left;">
+		               <p:graphicImage value="/imagensProjeto/filmes/filme_#{cinicial.filmeLancamentoSelecionado.filme.codigo}.jpg" height="300"  />
+		           </div>
+		          
+		            <div class="divDadosDetalhe"  style="float: right;">
+		 				<h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/consultaFilme.jsf" style="text-align:left; font-family: sans-serif; font-size: 20px;">  
+			                <h:outputLabel for="titulo1" value="Título: "/>  
+			                <h:outputText id="titulo1"  value="#{cinicial.filmeLancamentoSelecionado.filme.titulo}" styleClass="textoDadosDetalhe" style="font-weight: bold;"/>  
+			                
+			                <h:outputLabel for="diretor1" value="Diretor: " />  
+			                <h:outputText id="diretor1"  value="#{cinicial.filmeLancamentoSelecionado.filme.diretor}" styleClass="textoDadosDetalhe" />  
+			                
+			                <h:outputLabel for="produtora1" value="Produtora: " />  
+			                <h:outputText id="produtora1"  value="#{cinicial.filmeLancamentoSelecionado.filme.produtora}" styleClass="textoDadosDetalhe" />  
+			                  
+			                <h:outputLabel for="ano1" value="Ano: " />  
+			                <h:outputText id="ano1" value="#{cinicial.filmeLancamentoSelecionado.filme.ano}" styleClass="textoDadosDetalhe" /> 
+			                  
+			                <h:outputLabel for="class1" value="Classificação: " />  
+			                <h:outputText id="class1" value="#{cinicial.filmeLancamentoSelecionado.filme.classificacaoIndicativa}" styleClass="textoDadosDetalhe"/>  
+			                
+			                <h:outputLabel for="duracao1" value="Duração: " />  
+			                <h:outputText id="duracao1" value="#{cinicial.filmeLancamentoSelecionado.filme.duracao}" styleClass="textoDadosDetalhe" /> 
+			                
+			                <h:outputLabel for="nacio1" value="Nacionalidade: " />  
+			                <h:outputText id="nacio1" value="#{cinicial.filmeLancamentoSelecionado.filme.nacionalidade}" styleClass="textoDadosDetalhe" /> 
+			                
+			                <h:outputLabel for="audio1" value="Audio: " />  
+			                <h:outputText id="audio1" value="#{cinicial.filmeLancamentoSelecionado.filme.tipoAudio}" styleClass="textoDadosDetalhe" /> 
+			                
+			                <h:outputLabel for="legenda1" value="Legenda: " />  
+			                <h:outputText id="legenda1" value="#{cinicial.filmeLancamentoSelecionado.filme.legenda}" styleClass="textoDadosDetalhe" /> 
+			                
+		                </h:panelGrid> 
+		            </div>  
+		            <br/>   
+		            <p:separator style="width:100%;height:4px"/>    
+		            <h:outputText id="sinopse1" value="#{cinicial.filmeLancamentoSelecionado.filme.sinopse}" style="text-align:center; font-family: sans-serif; font-size: 20px;" /> 
+			        
+			        <br/> 
+			        <br/> 
+			        <p:media value="#{cinicial.filmeLancamentoSelecionado.filme.trailer}" width="420" height="315" player="flash" styleClass="video"/>
+			        
+			        <br/>  
+			        <br/>  
+		            <p:separator style="width:100%;height:4px"/>   
+			        
+			        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+			        <h:panelGrid columns="2" cellpadding="3">  
+			            <h:outputText value="Avaliação: " />  
+			            <p:panel columns="1" cellpadding="3" style="float: inherit; width: 100%; text-align: center;">  
+				            <p:rating value="#{cinicial.avaliacao}" stars="10"/> 
+				            <h:panelGrid columns="5" cellpadding="3"> 
+				            	<h:outputText value="Nome: "/>
+				            	<p:inputText value="#{cinicial.nome}" style="width:263px;"/>  
+				            	<h:outputText value="E-mail: "/>
+				            	<p:inputText value="#{cinicial.email}" style="width:500px;"/>  
+				            	<p:commandButton async="true" action="#{cinicial.salvarAvaliacao}" value="Enviar" partialSubmit="true" ajax="false" /> 
+				            </h:panelGrid>
+				            <p:inputTextarea rows="6" cols="33" style="width:1000px; height:70px" value="#{cinicial.comentario}" /> 
+			            </p:panel> 
+		            </h:panelGrid> 
+		            
+		            <br/>  
+		            <br/>  
+		            <p:dataTable var="ava" value="#{cinicial.avaliacoes}">  
+				        <p:column headerText="Nome">  
+				            <h:outputText value="#{ava.nome}" />  
+				        </p:column>  
+				  
+				        <p:column headerText="E-mail">  
+				            <h:outputText value="#{ava.email}" />  
+				        </p:column>  
+				  
+				        <p:column headerText="Avaliação">  
+				            <h:outputText value="#{ava.avaliacao}" />  
+				        </p:column>  
+				  
+				        <p:column headerText="Comentário">  
+				            <h:outputText value="#{ava.comentario}" />  
+				        </p:column>  
+				    </p:dataTable>  	
+			     </p:panel>
+		      </h:form>
+		   </div>
 	    </ui:define>
   </ui:composition>
 </html>

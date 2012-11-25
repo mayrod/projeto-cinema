@@ -45,30 +45,13 @@
             </div>  
 	       	          
 	        <br/>   
-            <p:separator style="width:100%;height:4px" />   
-	        
-            <h:outputText id="sinopse2" value="#{inicial.filmePromocaoSelecionado.filme.sinopse}" styleClass="textoDadosDetalhe" /> 
-	        
-	        <br/><!-- 
-	        <p:media value="#{inicial.filmePromocaoSelecionado.filme.trailer}" width="420" height="315" player="flash" styleClass="video"/>   
-	        
-	        --><br/>      
+            <br/>   
             <p:separator style="width:100%;height:4px" />    
             
-            <h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/consultaFilme.jsf" style="text-align:left;">  
-	            <h:outputText value="Avaliação: " styleClass="textoDadosDetalhe" />  
-	            <h:panelGrid columns="1" cellpadding="3">  
-		            <p:rating value="#{inicial.avaliacao.avaliacao}" stars="10"/> 
-		            <h:panelGrid columns="5" cellpadding="3"> 
-		            	<h:outputText value="Nome: "/>
-		            	<p:inputText value="#{inicial.avaliacao.nome}"/>  
-		            	<h:outputText value="E-mail: " style="width:450px;"/>
-		            	<p:inputText value="#{inicial.avaliacao.email}"/>  
-		            	<p:commandButton action="#{inicial.salvarAvaliacao}" value="Enviar" ajax="false" /> 
-		            </h:panelGrid>
-		            <p:inputTextarea rows="6" cols="33" style="width:800px; height:70px" value="#{inicial.avaliacao.comentario}" /> 
-	            </h:panelGrid> 
-            </h:panelGrid> 
+            <br/>   
+            <br/>    
+	        
+            <h:outputText id="sinopse2" value="#{inicial.filmePromocaoSelecionado.filme.sinopse}" styleClass="textoDadosDetalhe" /> 
         </p:outputPanel>  
 	</p:dialog>  
    
