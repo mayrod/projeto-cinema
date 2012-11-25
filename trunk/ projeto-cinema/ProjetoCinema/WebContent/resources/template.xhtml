@@ -12,19 +12,19 @@
 	<script type="text/javascript"> 
 		function openFacebook()
 		{
-			window.open('http://www.facebook.com.br');  
+			window.open('https://www.facebook.com/profile.php?id=100004723355766');  
 		}
 		
 		function openTwitter()
 		{
-			window.open('http://www.twitter.com');  
+			window.open('https://twitter.com/movieplex_forum');  
 		}
 	</script>
 </h:head>
-<h:body styleClass="fundo">
+<h:body styleClass="cor">
 	<ui:insert name="menu">
-	   	 <p:panel styleClass="logo" />
-	     <p:panel styleClass="fundoPipoca" />
+		<p:panel styleClass="fundo">
+	     	<p:panel styleClass="fundoPipoca" />
 	     	<h:panelGrid columns="3" cellspacing="10" style="float: inherit; width: 100%; text-align: center;"> 
 				 <p:tabMenu activeIndex="-1">  
 			        <p:menuitem value="Home"  icon="iconHome" url="/paginas/index.jsf"/>
@@ -43,6 +43,7 @@
 			   		<p:graphicImage value="../imagensProjeto/icone-twitter.png"/>
 			    </h:link>  
 			</h:panelGrid>
+		</p:panel>
 	</ui:insert>
 	
 	<ui:insert name="conteudo">  

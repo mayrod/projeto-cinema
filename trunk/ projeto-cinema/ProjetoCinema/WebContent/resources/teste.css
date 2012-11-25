@@ -5,7 +5,7 @@
 }
 
 .cor{
-  background:red;	
+	background-color: #FFFF00;
 }
 
 .panelPesquisa{
@@ -26,8 +26,8 @@
 }
 
 .fundoPipoca{
-    background: url("../imagensProjeto/saco.png") repeat-x scroll left top transparent !important;
-    padding: 72px;
+    background: url("../imagensProjeto/saco.png") no-repeat center top transparent !important;
+    padding: 62px;
     border: none;
     margin-bottom: 4px;
 }
