@@ -4,15 +4,13 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import br.com.projeto.cinema.bean.AvaliacaoFilme;
-import br.com.projeto.cinema.bean.Filme;
 import br.com.projeto.cinema.bean.FilmeCartaz;
 import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.bean.FilmePromocao;
-import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
 import br.com.projeto.cinema.dao.FilmeCartazDAO;
 import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
 import br.com.projeto.cinema.dao.FilmePromocaoDAO;
+import br.com.projeto.cinema.dao.base.UtilDAO;
 import br.com.projeto.cinema.utils.Constantes;
 
 @ManagedBean(name="inicial")
@@ -24,8 +22,7 @@ public class PaginaInicial {
 	private FilmeCartaz filmeCartazSelecionado;
 	private FilmePromocao filmePromocaoSelecionado;
 	private FilmeLancamento filmeLancamentoSelecionado;
-	private Integer avaliacaoGeral = 0;
-	private AvaliacaoFilme avaliacao = new AvaliacaoFilme();
+	private Integer avaliacaoGeral;
 	
 	public List<FilmeCartaz> getFilmesCartaz() throws Exception
 	{
@@ -65,6 +62,9 @@ public class PaginaInicial {
 	
 	
 	public FilmeCartaz getFilmeCartazSelecionado() {
+		if(filmeCartazSelecionado != null){
+			obterMediaAvaliacaoFilme();
+		}
 		return filmeCartazSelecionado;
 	}
 
@@ -74,6 +74,9 @@ public class PaginaInicial {
 
 
 	public FilmePromocao getFilmePromocaoSelecionado() {
+		if(filmePromocaoSelecionado != null){
+			obterMediaAvaliacaoFilme();
+		}
 		return filmePromocaoSelecionado;
 	}
 
@@ -92,67 +95,30 @@ public class PaginaInicial {
 			FilmeLancamento filmeLancamentoSelecionado) {
 		this.filmeLancamentoSelecionado = filmeLancamentoSelecionado;
 	}
-
-	public Integer getAvaliacaoGeral() 
-	{
-		avaliacaoGeral = 0;
-		Filme filme = null;
+	
+	private void obterMediaAvaliacaoFilme(){
 		
-		if(filmeCartazSelecionado!=null) { filme = filmeCartazSelecionado.getFilme(); }
-		else if(filmeLancamentoSelecionado!=null) { filme = filmeLancamentoSelecionado.getFilme(); }
-		else if(filmePromocaoSelecionado!=null) { filme = filmePromocaoSelecionado.getFilme(); }
+		Long pkFilmeSelecionado = null;
 		
-		if(filme.getAvaliacaoFilme()!=null && filme.getAvaliacaoFilme().size()>0)
-		{
-			for(AvaliacaoFilme af : filme.getAvaliacaoFilme())
-			{
-				avaliacaoGeral += af.getAvaliacao();
-			}
-			avaliacaoGeral = avaliacaoGeral / filme.getAvaliacaoFilme().size();
-		}
+		if(filmeCartazSelecionado!=null){ pkFilmeSelecionado = filmeCartazSelecionado.getFilme().getPkFilme(); }
+		else if(filmeLancamentoSelecionado!=null) { pkFilmeSelecionado = filmeLancamentoSelecionado.getFilme().getPkFilme(); }
+		else if(filmePromocaoSelecionado!=null) {  pkFilmeSelecionado = filmePromocaoSelecionado.getFilme().getPkFilme();  }
 		
-		return avaliacaoGeral;
+		double mediaAvaliacao = new UtilDAO().obterMediaAvaliacoes(pkFilmeSelecionado);
+		avaliacaoGeral = (int) Math.ceil(mediaAvaliacao);
 	}
+	
+	public void buscarFilme()
+    {
+    	filmeLancamentoSelecionado = filmesLancamento.get(1);
+    }
 
 	public void setAvaliacaoGeral(Integer avaliacaoGeral) {
 		this.avaliacaoGeral = avaliacaoGeral;
 	}
 
-	public AvaliacaoFilme getAvaliacao() 
-	{
-		avaliacao = new AvaliacaoFilme(); 
-		avaliacao.setAvaliacao(5);
-		avaliacao.setEmail("");
-		avaliacao.setNome("");
-		avaliacao.setComentario("");
-		avaliacaoGeral = 0;
-		return avaliacao;
+	public Integer getAvaliacaoGeral() {
+		return avaliacaoGeral;
 	}
 
-	public void setAvaliacao(AvaliacaoFilme avaliacao) {
-		this.avaliacao = avaliacao;
-	}
-	
-	public void salvarAvaliacao()
-    {
-		Filme filme = null;
-		
-		if(filmeCartazSelecionado!=null) { filme = filmeCartazSelecionado.getFilme(); }
-		else if(filmeLancamentoSelecionado!=null) { filme = filmeLancamentoSelecionado.getFilme(); }
-		else if(filmePromocaoSelecionado!=null) { filme = filmePromocaoSelecionado.getFilme(); }
-		
-		avaliacao.setFilme(filme);
-		new AvaliacaoFilmeDAO().save(avaliacao);
-		avaliacao = new AvaliacaoFilme(); 
-		avaliacao.setAvaliacao(5);
-		avaliacao.setEmail("");
-		avaliacao.setNome("");
-		avaliacao.setComentario("");
-    }
-	
-
-	public void buscarFilme()
-    {
-    	filmeLancamentoSelecionado = filmesLancamento.get(1);
-    }
 }
