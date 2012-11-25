@@ -9,7 +9,7 @@
    <ui:composition template="template.xhtml">
 	    <ui:define name="conteudo">
 
-	       <h:form id="form">  
+	       <h:form id="form" styleClass="cor">  
   
   	        <p:panel header="Em cartaz" styleClass="panelPesquisa">
   
@@ -32,7 +32,6 @@
 			    </p:dataGrid>  
             </p:panel>
             
-            
             <p:panel header="Promoções" styleClass="panelPesquisa">
   
 			    <p:dataGrid var="filme" value="#{inicial.filmesPromocao}" columns="3"  
@@ -54,8 +53,7 @@
 			  
 			    </p:dataGrid>  
             </p:panel>
-            
-            
+                        
            <p:panel header="Lançamentos" styleClass="panelPesquisa">
   
 			    <p:dataGrid var="filme" value="#{inicial.filmesLancamento}" columns="3"  
