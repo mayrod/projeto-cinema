@@ -26,17 +26,17 @@
 }
 
 .fundoPipoca{
-    background: url("../imagensProjeto/saco.png") no-repeat center top transparent !important;
+    background: url("../imagensProjeto/logo.png") no-repeat center top transparent !important;
     padding: 62px;
     border: none;
     margin-bottom: 4px;
+    float: inherit; 
+    text-align: center;
 }
 
 .logo{
     background: url("../imagensProjeto/logo.png") no-repeat !important;
-    width: 183px !important;
-    height: 128px !important;
-    float: left !important;
+     padding: 62px;
     border: none !important;
 }
 
