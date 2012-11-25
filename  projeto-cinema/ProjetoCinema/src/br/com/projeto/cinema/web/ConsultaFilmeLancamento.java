@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import br.com.projeto.cinema.bean.AvaliacaoFilme;
 import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
+import br.com.projeto.cinema.dao.ElencoDAO;
 import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
 import br.com.projeto.cinema.utils.Constantes;
 
@@ -53,6 +54,7 @@ public class ConsultaFilmeLancamento {
     	if(pkFilme != 0)
     	{
     		filmeLancamentoSelecionado = new FilmeLancamentoDAO().obterFilmeLancamento(pkFilme);
+    		filmeLancamentoSelecionado.getFilme().setElenco(new ElencoDAO().obterElenco(filmeLancamentoSelecionado.getFilme().getPkFilme()));
     		avaliacoes = new AvaliacaoFilmeDAO().obterAvaliacoes(filmeLancamentoSelecionado.getFilme().getPkFilme());
     	}
     }
