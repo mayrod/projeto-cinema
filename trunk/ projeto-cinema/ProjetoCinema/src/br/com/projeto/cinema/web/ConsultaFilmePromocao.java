@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import br.com.projeto.cinema.bean.AvaliacaoFilme;
 import br.com.projeto.cinema.bean.FilmePromocao;
 import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
+import br.com.projeto.cinema.dao.ElencoDAO;
 import br.com.projeto.cinema.dao.FilmePromocaoDAO;
 
 @ManagedBean(name="fpromocao")
@@ -48,6 +49,7 @@ public class ConsultaFilmePromocao {
     	if(pkFilme != 0)
     	{
     		filmePromocaoSelecionado = new FilmePromocaoDAO().findById(pkFilme);
+    		filmePromocaoSelecionado.getFilme().setElenco(new ElencoDAO().obterElenco(filmePromocaoSelecionado.getFilme().getPkFilme()));
     		avaliacoes = new AvaliacaoFilmeDAO().obterAvaliacoes(filmePromocaoSelecionado.getFilme().getPkFilme());
     	}
     }

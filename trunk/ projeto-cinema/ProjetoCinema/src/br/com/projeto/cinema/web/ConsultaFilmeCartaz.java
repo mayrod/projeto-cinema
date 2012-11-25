@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import br.com.projeto.cinema.bean.AvaliacaoFilme;
 import br.com.projeto.cinema.bean.FilmeCartaz;
 import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
+import br.com.projeto.cinema.dao.ElencoDAO;
 import br.com.projeto.cinema.dao.FilmeCartazDAO;
 
 @ManagedBean(name="fcartaz")
@@ -48,6 +49,7 @@ public class ConsultaFilmeCartaz {
     	if(pkFilme != 0)
     	{
     		filmeCartazSelecionado = new FilmeCartazDAO().findById(pkFilme);
+    		filmeCartazSelecionado.getFilme().setElenco(new ElencoDAO().obterElenco(filmeCartazSelecionado.getFilme().getPkFilme()));
     		avaliacoes = new AvaliacaoFilmeDAO().obterAvaliacoes(filmeCartazSelecionado.getFilme().getPkFilme());
     	}
     }

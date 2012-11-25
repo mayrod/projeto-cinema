@@ -214,7 +214,6 @@ public class CadastroFilmeCartaz extends JInternalFrame
 			
 			registro = new FilmeCartaz();		
 			
-			registro.setPkFilmeCartaz(Long.parseLong(txCodigo.getText()));
 			registro.setDataInicio(dtInicio);
 			registro.setDataTermino(dtTermino);
 			registro.setFilme((Filme) cbFilme.getSelectedItem());
