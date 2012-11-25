@@ -1,7 +1,5 @@
 package br.com.projeto.cinema.dao.base;
 
-
-
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;

@@ -52,6 +52,14 @@
             <br/>   
 	        
             <h:outputText id="sinopse1" value="#{inicial.filmeCartazSelecionado.filme.sinopse}" styleClass="textoDadosDetalhe" /> 
+            
+            <br/> 
+            <p:separator style="width:100%;height:4px" />    
+            <br/> 
+            
+            <h:outputLabel for="ava1" value="Avaliação Geral" />  
+            <p:rating value="#{inicial.avaliacaoGeral}" stars="10"/>
+            
         </p:outputPanel>  
 	</p:dialog>  
    
