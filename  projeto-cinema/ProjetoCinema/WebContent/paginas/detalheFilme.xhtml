@@ -43,26 +43,12 @@
                 </h:panelGrid> 
             </div>  
             <br/>   
-            <p:separator style="width:100%;height:4px" />    
-            <h:outputText id="sinopse1" value="#{pesquisa.filmeSelecionado.sinopse}" styleClass="textoDadosDetalhe" /> 
-	        
-	        <br/>      
+            <br/>   
             <p:separator style="width:100%;height:4px" />    
             
-            <h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/consultaFilme.jsf" style="text-align:left;">  
-	            <h:outputText value="Avaliação: " styleClass="textoDadosDetalhe" />  
-	            <h:panelGrid columns="1" cellpadding="3">  
-		            <p:rating value="#{pesquisa.avaliacaoDada}" stars="10"/> 
-		            <h:panelGrid columns="5" cellpadding="3"> 
-		            	<h:outputText value="Nome: "/>
-		            	<p:inputText value="#{pesquisa.nome}"/>  
-		            	<h:outputText value="E-mail: " style="width:450px;"/>
-		            	<p:inputText value="#{pesquisa.email}"/>  
-		            	<p:commandButton action="#{pesquisa.salvarAvaliacao}" value="Enviar" ajax="false" /> 
-		            </h:panelGrid>
-		            <p:inputTextarea rows="6" cols="33" style="width:800px; height:70px" value="#{pesquisa.comentario}" /> 
-	            </h:panelGrid> 
-            </h:panelGrid> 
+            <br/>   
+            <br/>   
+            <h:outputText id="sinopse1" value="#{pesquisa.filmeSelecionado.sinopse}" styleClass="textoDadosDetalhe" /> 
         </p:outputPanel>  
 	</p:dialog>  
 </ui:fragment>

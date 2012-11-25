@@ -9,56 +9,56 @@
      <ui:composition template="../resources/template.xhtml">
 	    <ui:define name="conteudo">
 	      <h:form id="form">
-	        <p:panel header="Pesquisa" styleClass="panelPesquisa" >
-	        
-	            <h:outputText value="Filme:"/> 
-				<h:selectOneMenu id="filme" value="#{horario.pkFilme}" style="width:200px; text-align:center; margin-right: 20px;">  
-				    <f:selectItem itemLabel="-- Selecione o filme -- " itemValue="0" style="text-align:center;"/>    
-				    <f:selectItems value="#{horario.filmes}" var="h"  itemValue="#{h.pkFilme}" style="text-align:center;"/>  
-				</h:selectOneMenu>   
-				
-				<h:outputText value="Dia da semana:"/> 
-				<h:selectOneMenu id="dia" value="#{horario.diaSemana}" style="width:200px; text-align:center; margin-right: 20px;">   
-		            <f:selectItem itemLabel="-- Selecione o dia -- " itemValue="0" />  
-		            <f:selectItem itemLabel="Domingo" itemValue="1" />  
-		            <f:selectItem itemLabel="Segunda-feira" itemValue="2" />  
-		            <f:selectItem itemLabel="Terça-feira" itemValue="3" /> 
-		            <f:selectItem itemLabel="Quarta-feira" itemValue="4" />  
-		            <f:selectItem itemLabel="Quinta-feira" itemValue="5" />  
-		            <f:selectItem itemLabel="Sexta-feira" itemValue="6" />  
-		            <f:selectItem itemLabel="Sábado" itemValue="7" />   
-                 </h:selectOneMenu>  
-                 
-                <h:outputText value="Horário:"/> 
-				<h:selectOneMenu id="idHorario" value="#{horario.pkHorario}" style="width:200px; text-align:center; margin-right: 20px;">  
-				    <f:selectItem itemLabel="-- Selecione o horário -- " itemValue="0" style="text-align:center;"/>    
-				    <f:selectItems value="#{horario.horarios}"  style="text-align:center;"/>  
-				</h:selectOneMenu> 
-				
-                <p:commandButton id="form" action="#{horario.buscarSessao}" value="Buscar" ajax="false" /> 
-		    </p:panel>
-	        
-	       <br/>
-	        <p:carousel id="carouselPesquisaFilme" value="#{horario.sessoes}" var="sessaoSelecionada" headerText=""  circular="true" style="width:100%">  
-		       <p:panel header="#{sessaoSelecionada.filme.titulo}" style="text-align:center; width:390px;">  
-		       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{sessaoSelecionada.filme.codigo}.jpg" height="300"/>   
-		            <h:panelGrid columns="2" styleClass="tabelaHorario"  style="margin-left: 100px !important;"> 
-		            	Data:
-		                <h:outputText value="#{sessaoSelecionada.horario.extensoDiaSemana}" />  
-		                
-		                Horário: 
-		                <h:outputText value="#{sessaoSelecionada.horario.horario}" > 
-		                  <f:convertDateTime timeStyle="default" pattern=" HH:mm" timeZone="GMT-3"/> 
-		                </h:outputText>
-		                
-		                Preço:
-		                <h:outputText value="#{sessaoSelecionada.horario.preco}" /> 
-		                
-		         	</h:panelGrid>
-
-		        </p:panel>   
-		   </p:carousel>
-		   
+		      <div style="float: inherit; width: 100%; text-align: center;">
+		        <p:panel header="Pesquisa" styleClass="panelPesquisa">
+		            <h:outputText value="Filme:"/> 
+					<h:selectOneMenu id="filme" value="#{horario.pkFilme}" style="width:200px; text-align:center; margin-right: 20px;">  
+					    <f:selectItem itemLabel="-- Selecione o filme -- " itemValue="0" style="text-align:center;"/>    
+					    <f:selectItems value="#{horario.filmes}" var="h"  itemValue="#{h.pkFilme}" style="text-align:center;"/>  
+					</h:selectOneMenu>   
+					
+					<h:outputText value="Dia da semana:"/> 
+					<h:selectOneMenu id="dia" value="#{horario.diaSemana}" style="width:200px; text-align:center; margin-right: 20px;">   
+			            <f:selectItem itemLabel="-- Selecione o dia -- " itemValue="0" />  
+			            <f:selectItem itemLabel="Domingo" itemValue="1" />  
+			            <f:selectItem itemLabel="Segunda-feira" itemValue="2" />  
+			            <f:selectItem itemLabel="Terça-feira" itemValue="3" /> 
+			            <f:selectItem itemLabel="Quarta-feira" itemValue="4" />  
+			            <f:selectItem itemLabel="Quinta-feira" itemValue="5" />  
+			            <f:selectItem itemLabel="Sexta-feira" itemValue="6" />  
+			            <f:selectItem itemLabel="Sábado" itemValue="7" />   
+	                 </h:selectOneMenu>  
+	                 
+	                <h:outputText value="Horário:"/> 
+					<h:selectOneMenu id="idHorario" value="#{horario.pkHorario}" style="width:200px; text-align:center; margin-right: 20px;">  
+					    <f:selectItem itemLabel="-- Selecione o horário -- " itemValue="0" style="text-align:center;"/>    
+					    <f:selectItems value="#{horario.horarios}"  style="text-align:center;"/>  
+					</h:selectOneMenu> 
+					
+	                <p:commandButton id="form" action="#{horario.buscarSessao}" value="Buscar" ajax="false" /> 
+			    </p:panel>
+		        
+		       <br/>
+		        <p:carousel id="carouselPesquisaFilme" value="#{horario.sessoes}" var="sessaoSelecionada" headerText=""  circular="true" style="width:100%">  
+			       <p:panel header="#{sessaoSelecionada.filme.titulo}" style="text-align:center; width:390px;">  
+			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{sessaoSelecionada.filme.codigo}.jpg" height="300"/>   
+			            <h:panelGrid columns="2" styleClass="tabelaHorario"  style="margin-left: 100px !important;"> 
+			            	Data:
+			                <h:outputText value="#{sessaoSelecionada.horario.extensoDiaSemana}" />  
+			                
+			                Horário: 
+			                <h:outputText value="#{sessaoSelecionada.horario.horario}" > 
+			                  <f:convertDateTime timeStyle="default" pattern=" HH:mm" timeZone="GMT-3"/> 
+			                </h:outputText>
+			                
+			                Preço:
+			                <h:outputText value="#{sessaoSelecionada.horario.preco}" /> 
+			                
+			         	</h:panelGrid>
+	
+			        </p:panel>   
+			   </p:carousel>
+			 </div>
 		   </h:form>
 	   </ui:define>
   </ui:composition>
