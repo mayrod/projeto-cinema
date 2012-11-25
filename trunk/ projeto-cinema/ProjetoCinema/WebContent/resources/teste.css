@@ -26,8 +26,8 @@
 }
 
 .fundoPipoca{
-    background: url("../imagensProjeto/logo.png") no-repeat center top transparent !important;
-    padding: 62px;
+    background: url("../imagensProjeto/logoNovo.png") no-repeat center top transparent !important;
+    padding: 94px;
     border: none;
     margin-bottom: 4px;
     float: inherit; 
@@ -35,13 +35,13 @@
 }
 
 .logo{
-    background: url("../imagensProjeto/logo.png") no-repeat !important;
+    background: url("../imagensProjeto/logoNovo.png") no-repeat !important;
      padding: 62px;
     border: none !important;
 }
 
 .logoInicial{
-    background: url("/imagensProjeto/logo.png") no-repeat !important;
+    background: url("/imagensProjeto/logoNovo.png") no-repeat !important;
     width: 183px;
     height: 128px;
     float: left;
