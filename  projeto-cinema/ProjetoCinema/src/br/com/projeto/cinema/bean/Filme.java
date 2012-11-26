@@ -62,6 +62,9 @@ public class Filme implements Serializable{
 	@Column(name = "produtora")
 	private String produtora;
 	
+	@Column(name = "avaliacaoGeral")
+	private Integer avaliacaoGeral;
+	
 	@OneToOne @JoinColumn(name="fkCategoria")
 	private FilmeCategoria categoria;
 	
@@ -217,6 +220,14 @@ public class Filme implements Serializable{
 
 	public void setElenco(List<Elenco> elenco) {
 		this.elenco = elenco;
+	}
+	
+	public Integer getAvaliacaoGeral() {
+		return avaliacaoGeral;
+	}
+
+	public void setAvaliacaoGeral(Integer avaliacaoGeral) {
+		this.avaliacaoGeral = avaliacaoGeral;
 	}
 
 	@Override

@@ -85,4 +85,15 @@ public class FilmeDAO  extends GenericDao<Filme>
 		   
 		return obtemTodos(query, Filme.class);
 	}
+	
+	public void updateAvaliacao(Long fkFilme, Integer ava) throws Exception
+	{
+		Query query = new Query();
+		
+		query.add("UPDATE Filme");
+		query.add(" SET avaliacaogeral = ?", ava);
+		query.add(" WHERE fkFilme = ?", fkFilme);
+		   
+		obtemTodos(query, Filme.class);
+	}
 }

@@ -11,6 +11,7 @@ import br.com.projeto.cinema.bean.FilmeLancamento;
 import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
 import br.com.projeto.cinema.dao.ElencoDAO;
 import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
+import br.com.projeto.cinema.dao.base.UtilDAO;
 import br.com.projeto.cinema.utils.Constantes;
 
 @ManagedBean(name="cinicial")
@@ -108,7 +109,7 @@ public class ConsultaFilmeLancamento {
 		this.nome = nome;
 	}
 
-	public void salvarAvaliacao()
+	public void salvarAvaliacao() throws Exception
     {
 		if(email!=null && !email.equals("") && nome!=null && !nome.equals(""))
 		{
@@ -126,6 +127,7 @@ public class ConsultaFilmeLancamento {
 			ava.setComentario(comentario);
 			
 			ava = new AvaliacaoFilmeDAO().save(ava);
+			new UtilDAO().obterMediaAvaliacoes(filmeLancamentoSelecionado.getFilme());
 			
 			if(ava!=null)
 			{

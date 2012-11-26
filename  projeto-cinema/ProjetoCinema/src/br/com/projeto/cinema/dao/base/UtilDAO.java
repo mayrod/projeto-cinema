@@ -5,6 +5,8 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 
+import br.com.projeto.cinema.bean.Filme;
+import br.com.projeto.cinema.dao.FilmeDAO;
 import br.com.projeto.cinema.utils.Query;
 
 public class UtilDAO {
@@ -21,16 +23,24 @@ public class UtilDAO {
 	    }
 	
 	
-		public Double obterMediaAvaliacoes(Long pkFilme)
+		public Double obterMediaAvaliacoes(Filme filme) throws Exception
 		{
 		    Session session = (Session) getEntityManager().getDelegate();
 			Query query = new Query();
 			
 			query.add("SELECT AVG(avaliacao)");
 			query.add(" FROM AvaliacaoFilme");
-			query.add(" WHERE fkFilme = ?", pkFilme);
+			query.add(" WHERE fkFilme = ?", filme.getPkFilme());
 			
-			return (Double) session.createQuery(query.toString()).uniqueResult();
+			Double num = (Double) session.createQuery(query.toString()).uniqueResult();
+			
+			if(num!=null) 
+			{ 
+				filme.setAvaliacaoGeral((int) Math.ceil(num));
+				new FilmeDAO().update(filme);
+			}
+			
+			return num;
 		}
 
 }

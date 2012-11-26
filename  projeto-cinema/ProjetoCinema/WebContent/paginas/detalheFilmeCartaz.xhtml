@@ -6,10 +6,10 @@
 	xmlns:p="http://primefaces.org/ui">
 	
  <p:dialog header="Detalhes do filme" showEffect="fade" hideEffect="fade" modal="true" widgetVar="cartazDialog" height="550" width="1000">  
-        
         <p:outputPanel id="cartazDetalhe" style="margin: 20px;">  
            <div style="float: left;">
-             <p:graphicImage value="/imagensProjeto/filmes/filme_#{inicial.filmeCartazSelecionado.filme.codigo}.jpg" height="300"  />           </div>
+               <p:graphicImage value="/imagensProjeto/filmes/filme_#{inicial.filmeCartazSelecionado.filme.codigo}.jpg" height="300"  />
+           </div>
             
             <div class="divDadosDetalhe"  style="float: right;">
  				<h:panelGrid columns="2" cellpadding="3" onkeypress="/paginas/index.jsf" style="text-align:left;">  
@@ -56,8 +56,8 @@
             <p:separator style="width:100%;height:4px" />    
             <br/> 
             
-            <h:outputLabel for="ava1" value="Avaliação Geral" />  
-            <p:rating value="#{inicial.avaliacaoGeral}" stars="10"/>
+            <h:outputLabel value="Avaliação Geral" />  
+            <p:rating value="#{inicial.avaliacao}" stars="10"/>
             
         </p:outputPanel>  
 	</p:dialog>  

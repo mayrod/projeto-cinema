@@ -11,6 +11,7 @@ import br.com.projeto.cinema.bean.FilmeCartaz;
 import br.com.projeto.cinema.dao.AvaliacaoFilmeDAO;
 import br.com.projeto.cinema.dao.ElencoDAO;
 import br.com.projeto.cinema.dao.FilmeCartazDAO;
+import br.com.projeto.cinema.dao.base.UtilDAO;
 
 @ManagedBean(name="fcartaz")
 public class ConsultaFilmeCartaz {
@@ -103,7 +104,7 @@ public class ConsultaFilmeCartaz {
 		this.nome = nome;
 	}
 
-	public void salvarAvaliacao()
+	public void salvarAvaliacao() throws Exception
     {
 		if(email!=null && !email.equals("") && nome!=null && !nome.equals(""))
 		{
@@ -121,6 +122,7 @@ public class ConsultaFilmeCartaz {
 			ava.setComentario(comentario);
 			
 			ava = new AvaliacaoFilmeDAO().save(ava);
+			new UtilDAO().obterMediaAvaliacoes(filmeCartazSelecionado.getFilme());
 			
 			if(ava!=null)
 			{
