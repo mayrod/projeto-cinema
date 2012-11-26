@@ -25,12 +25,6 @@ public class MainCinema implements Servlet
 			double teste = new UtilDAO().obterMediaAvaliacoes(new Long(3));
 			System.out.println("valor: " + teste);
 			
-			double mediaAvaliacao = new UtilDAO().obterMediaAvaliacoes(new Long(3));
-			Integer avaliacaoGeral = (int) Math.ceil(mediaAvaliacao);
-			
-			Integer mediaAvaliacaoFilme = avaliacaoGeral;
-			System.out.println("valor novo: " + mediaAvaliacaoFilme);
-			
 		}
 		catch(Exception e)
 		{
