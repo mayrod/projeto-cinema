@@ -39,8 +39,8 @@
 			    </p:panel>
 		        
 		       <br/>
-		       <p:dataGrid id="carouselPesquisaFilme" value="#{horario.sessoes}" var="sessaoSelecionada" columns="3" rows="12" paginator="true"  
-        			paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}" rowsPerPageTemplate="9, 12, 15" style="width:100%" ajax="false">  
+		       
+		       <p:dataGrid var="sessaoSelecionada" value="#{horario.sessoes}" columns="3" rows="100"> 
 			       <p:panel header="#{sessaoSelecionada.filme.titulo}" style="text-align:center; width:390px;" >  
 			       		<p:graphicImage id="image" value="/imagensProjeto/filmes/filme_#{sessaoSelecionada.filme.codigo}.jpg" height="300"/>   
 			            <h:panelGrid columns="2" styleClass="tabelaHorario"  style="margin-left: 100px !important;"> 
