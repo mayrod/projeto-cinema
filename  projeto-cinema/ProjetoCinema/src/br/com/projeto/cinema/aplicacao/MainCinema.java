@@ -11,8 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.projeto.cinema.dao.base.UtilDAO;
-
 public class MainCinema implements Servlet
 {
 	 
@@ -22,8 +20,6 @@ public class MainCinema implements Servlet
 		try
 		{
 			System.out.println("SISTEMA CINEMA INICIALIZADO COM SUCESSO");
-			
-			
 		}
 		catch(Exception e)
 		{
