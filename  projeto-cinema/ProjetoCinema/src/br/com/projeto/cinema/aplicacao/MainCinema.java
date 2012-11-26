@@ -22,8 +22,7 @@ public class MainCinema implements Servlet
 		try
 		{
 			System.out.println("SISTEMA CINEMA INICIALIZADO COM SUCESSO");
-			double teste = new UtilDAO().obterMediaAvaliacoes(new Long(3));
-			System.out.println("valor: " + teste);
+			
 			
 		}
 		catch(Exception e)
