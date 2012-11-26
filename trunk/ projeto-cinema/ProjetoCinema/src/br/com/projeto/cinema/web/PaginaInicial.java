@@ -10,7 +10,6 @@ import br.com.projeto.cinema.bean.FilmePromocao;
 import br.com.projeto.cinema.dao.FilmeCartazDAO;
 import br.com.projeto.cinema.dao.FilmeLancamentoDAO;
 import br.com.projeto.cinema.dao.FilmePromocaoDAO;
-import br.com.projeto.cinema.dao.base.UtilDAO;
 import br.com.projeto.cinema.utils.Constantes;
 
 @ManagedBean(name="inicial")
@@ -22,7 +21,7 @@ public class PaginaInicial {
 	private FilmeCartaz filmeCartazSelecionado;
 	private FilmePromocao filmePromocaoSelecionado;
 	private FilmeLancamento filmeLancamentoSelecionado;
-	private Integer avaliacaoGeral;
+	private Integer avaliacao;
 	
 	public List<FilmeCartaz> getFilmesCartaz() throws Exception
 	{
@@ -60,10 +59,8 @@ public class PaginaInicial {
 		this.filmesPromocao = filmesPromocao;
 	}
 	
-	
 	public FilmeCartaz getFilmeCartazSelecionado() {
 		if(filmeCartazSelecionado != null){
-			obterMediaAvaliacaoFilme();
 		}
 		return filmeCartazSelecionado;
 	}
@@ -72,14 +69,11 @@ public class PaginaInicial {
 		this.filmeCartazSelecionado = filmeCartaz;
 	}
 
-
 	public FilmePromocao getFilmePromocaoSelecionado() {
 		if(filmePromocaoSelecionado != null){
-			obterMediaAvaliacaoFilme();
 		}
 		return filmePromocaoSelecionado;
 	}
-
 
 	public void setFilmePromocaoSelecionado(FilmePromocao filmePromocaoSelecionado) {
 		this.filmePromocaoSelecionado = filmePromocaoSelecionado;
@@ -90,35 +84,25 @@ public class PaginaInicial {
 		return filmeLancamentoSelecionado;
 	}
 
-
 	public void setFilmeLancamentoSelecionado(
 			FilmeLancamento filmeLancamentoSelecionado) {
 		this.filmeLancamentoSelecionado = filmeLancamentoSelecionado;
 	}
-	
-	private void obterMediaAvaliacaoFilme(){
 		
-		Long pkFilmeSelecionado = null;
-		
-		if(filmeCartazSelecionado!=null){ pkFilmeSelecionado = filmeCartazSelecionado.getFilme().getPkFilme(); }
-		else if(filmeLancamentoSelecionado!=null) { pkFilmeSelecionado = filmeLancamentoSelecionado.getFilme().getPkFilme(); }
-		else if(filmePromocaoSelecionado!=null) {  pkFilmeSelecionado = filmePromocaoSelecionado.getFilme().getPkFilme();  }
-		
-		double mediaAvaliacao = new UtilDAO().obterMediaAvaliacoes(pkFilmeSelecionado);
-		avaliacaoGeral = (int) Math.ceil(mediaAvaliacao);
-	}
-	
 	public void buscarFilme()
     {
     	filmeLancamentoSelecionado = filmesLancamento.get(1);
     }
 
-	public void setAvaliacaoGeral(Integer avaliacaoGeral) {
-		this.avaliacaoGeral = avaliacaoGeral;
+	public Integer getAvaliacao() 
+	{
+		if(filmeCartazSelecionado!=null) 			{ return filmeCartazSelecionado.getFilme().getAvaliacaoGeral(); 	}
+		else if(filmeLancamentoSelecionado!=null) 	{ return filmeLancamentoSelecionado.getFilme().getAvaliacaoGeral(); }
+		else if(filmePromocaoSelecionado!=null) 	{ return filmePromocaoSelecionado.getFilme().getAvaliacaoGeral(); 	}
+		return 0;
 	}
 
-	public Integer getAvaliacaoGeral() {
-		return avaliacaoGeral;
+	public void setAvaliacao(Integer avaliacao) {
+		this.avaliacao = avaliacao;
 	}
-
 }
